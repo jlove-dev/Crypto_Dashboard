@@ -6,10 +6,11 @@ from decimal import Decimal
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
+import dash_table
 import pandas
 import plotly.express as px
-from cryptofeed.callback import BookCallback, BookUpdateCallback
-from cryptofeed.defines import L2_BOOK, BOOK_DELTA, BID, ASK
+from cryptofeed.callback import BookCallback, BookUpdateCallback, TradeCallback
+from cryptofeed.defines import L2_BOOK, BOOK_DELTA, BID, ASK, TRADES
 from cryptofeed.exchanges import Coinbase
 from cryptofeed.feedhandler import FeedHandler
 from dash.dependencies import Input, Output
@@ -38,11 +39,13 @@ class OrderBook(object):
 
         # This holds the callbacks for when cryptofeed returns data
         self.L2 = {L2_BOOK: BookCallback(self.add_book),
-                   BOOK_DELTA: BookUpdateCallback(self.update_book)}
+                   BOOK_DELTA: BookUpdateCallback(self.update_book),
+                   TRADES: TradeCallback(self.add_trade)}
 
         self.mid_market = 0.0
         self.symbol = symbol + ' Price'
         self.depth = 0
+        self.trade_list = []
 
     # Function to check if the current book matches the most recent message
     def check_books(self, master):
@@ -101,6 +104,16 @@ class OrderBook(object):
         self.asks = new_df.loc[new_df['side'] == 'ask']
         self.mid_market = (float(self.asks.iloc[0][self.symbol]) + float(self.bids.iloc[-1][self.symbol])) / 2
 
+    def add_trade(self, feed, symbol, order_id, timestamp, side, amount, price, receipt_timestamp):
+        if len(self.trade_list) >= 10:
+            self.trade_list.pop(0)
+            self.trade_list.append(({'Currency Pair': symbol, 'Side': side, 'Amount': amount, 'Price': price}))
+        else:
+            self.trade_list.append(({'Currency Pair': symbol, 'Side': side, 'Amount': amount, 'Price': price}))
+
+    def get_trades(self):
+        return pandas.DataFrame(self.trade_list)
+
     # Return asks DF
     def get_asks(self):
         return self.asks
@@ -133,14 +146,18 @@ def get_ada_feed():
 def start_feed(btcBook, ethBook, adaBook):
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
-    handler.add_feed(Coinbase(max_depth=100, symbols=get_btc_feed(), channels=[L2_BOOK], callbacks=btcBook.L2))
-    handler.add_feed(Coinbase(max_depth=100, symbols=get_eth_feed(), channels=[L2_BOOK], callbacks=ethBook.L2))
-    handler.add_feed(Coinbase(max_depth=100, symbols=get_ada_feed(), channels=[L2_BOOK], callbacks=adaBook.L2))
+    handler.add_feed(Coinbase(max_depth=100, symbols=get_btc_feed(), channels=[L2_BOOK, TRADES], callbacks=btcBook.L2))
+    handler.add_feed(Coinbase(max_depth=100, symbols=get_eth_feed(), channels=[L2_BOOK, TRADES], callbacks=ethBook.L2))
+    handler.add_feed(Coinbase(max_depth=100, symbols=get_ada_feed(), channels=[L2_BOOK, TRADES], callbacks=adaBook.L2))
     handler.run(install_signal_handlers=False)
 
 
 # Function which holds the Dash web server and starts the web server
 def run_server():
+    base_trade = [({'Currency Pair': 'BTC-USD', 'Side': 'bid', 'Amount': '100', 'Price': '3000'})]
+
+    base_df = pandas.DataFrame(base_trade)
+
     external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
     app = dash.Dash(__name__, external_stylesheets=external_stylesheets, update_title=None)
@@ -164,6 +181,11 @@ def run_server():
                                          "value": "ETH-USD Price"
                                      },
                                      title="ETH-USD Depth Chart using cryptofeed and Dash")),
+            dash_table.DataTable(
+                id='trade_table',
+                columns=[{"name": i, "id": i} for i in base_df],
+                data=base_df.to_dict('records')
+            ),
             dcc.Interval(
                 id='interval-component',
                 interval=1 * 500,  # Updates every half a second
@@ -174,7 +196,8 @@ def run_server():
 
     # Callback to update the graph with any updates to the L2 Book
     @app.callback([Output('live-update-graph', 'figure'),
-                   Output('header', 'children')],
+                   Output('header', 'children'),
+                   Output('trade_table', "data")],
                   [Input('interval-component', 'n_intervals'),
                    Input('token-selector', 'value')])
     def update_graph(n, value):
@@ -203,7 +226,10 @@ def run_server():
             fig.add_vline(x=btcBookObject.mid_market,
                           annotation_text='Mid-Market Price: ' + "{:.2f}".format(btcBookObject.mid_market),
                           annotation_position='top')
-            return fig, 'BTC-USD Live Depth Chart'
+
+            new_df = pandas.DataFrame(btcBookObject.trade_list)
+
+            return fig, 'BTC-USD Live Depth Chart', new_df.to_dict('records')
 
         elif value == 'ETH-USD':
             fig = px.ecdf(ethBookObject.get_asks(), x='ETH-USD Price', y="size", ecdfnorm=None, color="side",
@@ -229,7 +255,10 @@ def run_server():
             fig.add_vline(x=ethBookObject.mid_market,
                           annotation_text='Mid-Market Price: ' + "{:.2f}".format(ethBookObject.mid_market),
                           annotation_position='top')
-            return fig, 'ETH-USD Live Depth Chart'
+
+            new_df = pandas.DataFrame(ethBookObject.trade_list)
+
+            return fig, 'ETH-USD Live Depth Chart', new_df.to_dict('records')
 
         elif value == 'ADA-USD':
             fig = px.ecdf(adaBookObject.get_asks(), x='ADA-USD Price', y="size", ecdfnorm=None, color="side",
@@ -255,7 +284,10 @@ def run_server():
             fig.add_vline(x=adaBookObject.mid_market,
                           annotation_text='Mid-Market Price: ' + "{:.2f}".format(adaBookObject.mid_market),
                           annotation_position='top')
-            return fig, 'ADA-USD Live Depth Chart'
+
+            new_df = pandas.DataFrame(adaBookObject.trade_list)
+
+            return fig, 'ADA-USD Live Depth Chart', new_df.to_dict('records')
 
         else:
             fig = px.ecdf(ethBookObject.get_asks(), x='ETH-USD Price', y="size", ecdfnorm=None, color="side",
@@ -281,114 +313,10 @@ def run_server():
             fig.add_vline(x=ethBookObject.mid_market,
                           annotation_text='Mid-Market Price: ' + "{:.2f}".format(ethBookObject.mid_market),
                           annotation_position='top')
-            return fig, 'Default ETH-USD Live Depth Chart'
 
-    # # Callback to update the graph with any updates to the L2 Book
-    # @app.callback(Output('live-update-graph', 'figure'),
-    #               [Input('interval-component', 'n_intervals'),
-    #                Input('token-selector', 'value')])
-    # def update_graph(n, value):
-    #     # Layout the graph
-    #     if value == 'BTC-USD':
-    #         fig = px.ecdf(btcBookObject.get_asks(), x='BTC-USD Price', y="size", ecdfnorm=None, color="side",
-    #                       labels={
-    #                           "size": "BTC",
-    #                           "side": "Side",
-    #                           "value": "BTC-USD Price"
-    #                       },
-    #                       title="BTC-USD Depth Chart using cryptofeed and Dash")
-    #         fig.data[0].line.color = 'rgb(255, 160, 122)'  # red
-    #         fig.data[0].line.width = 5
-    #
-    #         # Opposing side of the graph
-    #         fig2 = px.ecdf(btcBookObject.get_bids(), x='BTC-USD Price', y="size", ecdfmode='reversed', ecdfnorm=None,
-    #                        color="side")
-    #         fig2.data[0].line.color = 'rgb(34, 139, 34)'  # green
-    #         fig2.data[0].line.width = 5
-    #
-    #         # Merge the figures together
-    #         fig.add_trace(fig2.data[0])
-    #
-    #         # Display the mid-market price
-    #         fig.add_vline(x=btcBookObject.mid_market,
-    #                       annotation_text='Mid-Market Price: ' + "{:.2f}".format(btcBookObject.mid_market),
-    #                       annotation_position='top')
-    #
-    #     elif value == 'ETH-USD':
-    #         fig = px.ecdf(ethBookObject.get_asks(), x='ETH-USD Price', y="size", ecdfnorm=None, color="side",
-    #                       labels={
-    #                           "size": "ETH",
-    #                           "side": "Side",
-    #                           "value": "ETH-USD Price"
-    #                       },
-    #                       title="BTC-USD Depth Chart using cryptofeed and Dash")
-    #         fig.data[0].line.color = 'rgb(255, 160, 122)'  # red
-    #         fig.data[0].line.width = 5
-    #
-    #         # Opposing side of the graph
-    #         fig2 = px.ecdf(ethBookObject.get_bids(), x='ETH-USD Price', y="size", ecdfmode='reversed', ecdfnorm=None,
-    #                        color="side")
-    #         fig2.data[0].line.color = 'rgb(34, 139, 34)'  # green
-    #         fig2.data[0].line.width = 5
-    #
-    #         # Merge the figures together
-    #         fig.add_trace(fig2.data[0])
-    #
-    #         # Display the mid-market price
-    #         fig.add_vline(x=ethBookObject.mid_market,
-    #                       annotation_text='Mid-Market Price: ' + "{:.2f}".format(ethBookObject.mid_market),
-    #                       annotation_position='top')
-    #
-    #     elif value == 'ADA-USD':
-    #         fig = px.ecdf(adaBookObject.get_asks(), x='ADA-USD Price', y="size", ecdfnorm=None, color="side",
-    #                       labels={
-    #                           "size": "ADA",
-    #                           "side": "Side",
-    #                           "value": "ADA-USD Price"
-    #                       },
-    #                       title="BTC-USD Depth Chart using cryptofeed and Dash")
-    #         fig.data[0].line.color = 'rgb(255, 160, 122)'  # red
-    #         fig.data[0].line.width = 5
-    #
-    #         # Opposing side of the graph
-    #         fig2 = px.ecdf(adaBookObject.get_bids(), x='ADA-USD Price', y="size", ecdfmode='reversed', ecdfnorm=None,
-    #                        color="side")
-    #         fig2.data[0].line.color = 'rgb(34, 139, 34)'  # green
-    #         fig2.data[0].line.width = 5
-    #
-    #         # Merge the figures together
-    #         fig.add_trace(fig2.data[0])
-    #
-    #         # Display the mid-market price
-    #         fig.add_vline(x=adaBookObject.mid_market,
-    #                       annotation_text='Mid-Market Price: ' + "{:.2f}".format(adaBookObject.mid_market),
-    #                       annotation_position='top')
-    #
-    #     else:
-    #         fig = px.ecdf(btcBookObject.get_asks(), x='BTC-USD Price', y="size", ecdfnorm=None, color="side",
-    #                       labels={
-    #                           "size": "BTC",
-    #                           "side": "Side",
-    #                           "value": "BTC-USD Price"
-    #                       },
-    #                       title="BTC-USD Depth Chart using cryptofeed and Dash")
-    #         fig.data[0].line.color = 'rgb(255, 160, 122)'  # red
-    #         fig.data[0].line.width = 5
-    #
-    #         # Opposing side of the graph
-    #         fig2 = px.ecdf(btcBookObject.get_bids(), x='BTC-USD Price', y="size", ecdfmode='reversed', ecdfnorm=None,
-    #                        color="side")
-    #         fig2.data[0].line.color = 'rgb(34, 139, 34)'  # green
-    #         fig2.data[0].line.width = 5
-    #
-    #         # Merge the figures together
-    #         fig.add_trace(fig2.data[0])
-    #
-    #         # Display the mid-market price
-    #         fig.add_vline(x=btcBookObject.mid_market,
-    #                       annotation_text='Mid-Market Price: ' + "{:.2f}".format(btcBookObject.mid_market),
-    #                       annotation_position='top')
-    #     return fig
+            new_df = pandas.DataFrame(ethBookObject.trade_list)
+
+            return fig, 'Default ETH-USD Live Depth Chart', new_df.to_dict('records')
 
     # Run DASH server
     app.run_server()
