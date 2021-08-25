@@ -190,7 +190,6 @@ def run_server():
                    Input('token-selector', 'value')])
     def update_graph(n, value):
         # Layout the graph
-        # Layout btc
         if value == 'BTC-USD':
             fig = px.ecdf(btcBookObject.get_asks(), x='BTC-USD Price', y="size", ecdfnorm=None, color="side",
                           labels={
