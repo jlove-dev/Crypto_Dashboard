@@ -172,20 +172,9 @@ def run_server():
         ])
     )
 
-    # @app.callback(Output('header', 'children'),
-    #               Input('token-selector', 'value'))
-    # def update_header(value):
-    #     if value == 'BTC-USD':
-    #         return 'BTC-USD Live Depth Chart'
-    #     elif value == 'ETH-USD':
-    #         return 'ETH-USD Live Depth Chart'
-    #     elif value == 'ADA-USD':
-    #         return 'ADA-USD Live Depth Chart'
-    #     else:
-    #         return 'Default ETH-USD Live Depth Chart'
-
     # Callback to update the graph with any updates to the L2 Book
-    @app.callback(Output('live-update-graph', 'figure'),
+    @app.callback([Output('live-update-graph', 'figure'),
+                   Output('header', 'children')],
                   [Input('interval-component', 'n_intervals'),
                    Input('token-selector', 'value')])
     def update_graph(n, value):
@@ -214,7 +203,7 @@ def run_server():
             fig.add_vline(x=btcBookObject.mid_market,
                           annotation_text='Mid-Market Price: ' + "{:.2f}".format(btcBookObject.mid_market),
                           annotation_position='top')
-            return fig
+            return fig, 'BTC-USD Live Depth Chart'
 
         elif value == 'ETH-USD':
             fig = px.ecdf(ethBookObject.get_asks(), x='ETH-USD Price', y="size", ecdfnorm=None, color="side",
@@ -240,7 +229,7 @@ def run_server():
             fig.add_vline(x=ethBookObject.mid_market,
                           annotation_text='Mid-Market Price: ' + "{:.2f}".format(ethBookObject.mid_market),
                           annotation_position='top')
-            return fig
+            return fig, 'ETH-USD Live Depth Chart'
 
         elif value == 'ADA-USD':
             fig = px.ecdf(adaBookObject.get_asks(), x='ADA-USD Price', y="size", ecdfnorm=None, color="side",
@@ -266,7 +255,7 @@ def run_server():
             fig.add_vline(x=adaBookObject.mid_market,
                           annotation_text='Mid-Market Price: ' + "{:.2f}".format(adaBookObject.mid_market),
                           annotation_position='top')
-            return fig
+            return fig, 'ADA-USD Live Depth Chart'
 
         else:
             fig = px.ecdf(ethBookObject.get_asks(), x='ETH-USD Price', y="size", ecdfnorm=None, color="side",
@@ -292,7 +281,7 @@ def run_server():
             fig.add_vline(x=ethBookObject.mid_market,
                           annotation_text='Mid-Market Price: ' + "{:.2f}".format(ethBookObject.mid_market),
                           annotation_position='top')
-            return fig
+            return fig, 'Default ETH-USD Live Depth Chart'
 
     # # Callback to update the graph with any updates to the L2 Book
     # @app.callback(Output('live-update-graph', 'figure'),
