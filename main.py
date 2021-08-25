@@ -232,6 +232,7 @@ def run_server():
 
             return fig, 'BTC-USD Live Depth Chart', new_df.to_dict('records')
 
+        #ETH
         elif value == 'ETH-USD':
             fig = px.ecdf(ethBookObject.get_asks(), x='ETH-USD Price', y="size", ecdfnorm=None, color="side",
                           labels={
@@ -261,6 +262,7 @@ def run_server():
 
             return fig, 'ETH-USD Live Depth Chart', new_df.to_dict('records')
 
+        #ADA
         elif value == 'ADA-USD':
             fig = px.ecdf(adaBookObject.get_asks(), x='ADA-USD Price', y="size", ecdfnorm=None, color="side",
                           labels={
@@ -290,6 +292,7 @@ def run_server():
 
             return fig, 'ADA-USD Live Depth Chart', new_df.to_dict('records')
 
+        # Default ETH
         else:
             fig = px.ecdf(ethBookObject.get_asks(), x='ETH-USD Price', y="size", ecdfnorm=None, color="side",
                           labels={
