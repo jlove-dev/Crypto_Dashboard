@@ -1,0 +1,268 @@
+2021-08-21 21:38:53,855 : INFO : Config: use dict containing the following main keys: log
+2021-08-21 21:39:08,078 : INFO : BITFINEX.ws.53: info from exchange: {'event': 'info', 'version': 2, 'serverId': '665a8a7d-1e14-4d26-89e8-e9ebfc132d11', 'platform': {'status': 1}}
+2021-08-21 21:39:08,174 : INFO : BITFINEX.ws.52: info from exchange: {'event': 'info', 'version': 2, 'serverId': '52de3056-92c7-4a8f-a5e3-8d9220b26354', 'platform': {'status': 1}}
+2021-08-21 21:39:08,184 : INFO : BITFINEX.ws.53: conf from exchange: {'event': 'conf', 'status': 'OK', 'flags': 65536}
+2021-08-21 21:39:08,247 : INFO : BLOCKCHAIN: Subscribed to L2 data for BTC-USD
+2021-08-21 21:39:08,265 : INFO : BITFINEX.ws.52: conf from exchange: {'event': 'conf', 'status': 'OK', 'flags': 65536}
+2021-08-21 21:39:08,270 : INFO : BITMEX.ws.62: Info message from exchange: {'info': 'Welcome to the BitMEX Realtime API.', 'version': datetime.datetime(2021, 8, 20, 7, 34, 34, tzinfo=datetime.timezone.utc), 'timestamp': datetime.datetime(2021, 8, 22, 1, 39, 7, 635000, tzinfo=datetime.timezone.utc), 'docs': 'https://www.bitmex.com/app/wsAPI', 'limit': {'remaining': 38}}
+2021-08-21 21:39:08,271 : INFO : BLOCKCHAIN: Subscribed to L2 data for ETH-USD
+2021-08-21 21:39:08,273 : INFO : BITMEX.ws.60: Info message from exchange: {'info': 'Welcome to the BitMEX Realtime API.', 'version': datetime.datetime(2021, 8, 20, 7, 34, 34, tzinfo=datetime.timezone.utc), 'timestamp': datetime.datetime(2021, 8, 22, 1, 39, 7, 636000, tzinfo=datetime.timezone.utc), 'docs': 'https://www.bitmex.com/app/wsAPI', 'limit': {'remaining': 37}}
+2021-08-21 21:39:08,273 : INFO : BITMEX.ws.63: Info message from exchange: {'info': 'Welcome to the BitMEX Realtime API.', 'version': datetime.datetime(2021, 8, 20, 7, 34, 34, tzinfo=datetime.timezone.utc), 'timestamp': datetime.datetime(2021, 8, 22, 1, 39, 7, 638000, tzinfo=datetime.timezone.utc), 'docs': 'https://www.bitmex.com/app/wsAPI', 'limit': {'remaining': 35}}
+2021-08-21 21:39:08,274 : INFO : BITMEX.ws.61: Info message from exchange: {'info': 'Welcome to the BitMEX Realtime API.', 'version': datetime.datetime(2021, 8, 20, 7, 34, 34, tzinfo=datetime.timezone.utc), 'timestamp': datetime.datetime(2021, 8, 22, 1, 39, 7, 637000, tzinfo=datetime.timezone.utc), 'docs': 'https://www.bitmex.com/app/wsAPI', 'limit': {'remaining': 36}}
+2021-08-21 21:39:08,280 : INFO : BLOCKCHAIN: Subscribed to trades channel for BTC-USD
+2021-08-21 21:39:08,280 : INFO : BLOCKCHAIN: Subscribed to trades channel for ETH-USD
+2021-08-21 21:39:08,281 : INFO : HITBTC: Received result on HITBTC.ws.58: {'jsonrpc': '2.0', 'result': True, 'id': 'HITBTC.ws.58'}
+2021-08-21 21:39:08,316 : INFO : HITBTC: Received result on HITBTC.ws.57: {'jsonrpc': '2.0', 'result': True, 'id': 'HITBTC.ws.57'}
+2021-08-21 21:39:08,578 : INFO : KUCOIN.ws.38: closed connection 'WebSocketClientProtocol'
+2021-08-21 21:39:08,578 : ERROR : KUCOIN.ws.38: encountered an exception, reconnecting in 1.0 seconds
+Traceback (most recent call last):
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 68, in _create_connection
+    await self._handler(connection, self.handler)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 117, in _handler
+    await handler(message, connection, self.conn.last_message)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\kucoin.py", line 233, in message_handler
+    await self._process_l2_book(msg, symbol, timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\kucoin.py", line 193, in _process_l2_book
+    await self._snapshot(symbol)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\kucoin.py", line 157, in _snapshot
+    headers = generate_token(self.key_id, self.key_secret, self.key_passphrase, str_to_sign)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\auth\kucoin.py", line 19, in generate_token
+    signature = base64.b64encode(hmac.new(key_secret.encode('utf-8'), str_to_sign.encode('utf-8'), hashlib.sha256).digest())
+TypeError: 'AttrDict' object is not callable
+2021-08-21 21:39:08,751 : INFO : OKCOIN: Got 1 combinations of pairs and channels
+2021-08-21 21:39:08,751 : INFO : OKCOIN: Subscribe to 1 args from 'spot/depth_l2_tbt:BTC-USD' to 'spot/depth_l2_tbt:BTC-USD'
+2021-08-21 21:39:08,821 : INFO : OKEX: Got 1 combinations of pairs and channels
+2021-08-21 21:39:08,821 : INFO : OKEX: Subscribe to 1 args from {'channel': 'trades', 'instId': 'BTC-USDT'} to {'channel': 'trades', 'instId': 'BTC-USDT'}
+2021-08-21 21:39:08,882 : INFO : FTX: Subscribed to ticker channel for ADA-PERP
+2021-08-21 21:39:08,892 : INFO : FTX: Subscribed to ticker channel for ALGO-PERP
+2021-08-21 21:39:08,897 : INFO : FTX: Subscribed to ticker channel for ALT-PERP
+2021-08-21 21:39:08,905 : INFO : FTX: Subscribed to ticker channel for ATOM-PERP
+2021-08-21 21:39:08,909 : INFO : FTX: Subscribed to ticker channel for BCH-PERP
+2021-08-21 21:39:09,084 : INFO : BYBIT.ws.77: Subscribed to channels: ['instrument_info.100ms.BTCUSD']
+2021-08-21 21:39:09,086 : INFO : BYBIT.ws.79: Subscribed to channels: ['trade.BTCUSD']
+2021-08-21 21:39:09,098 : INFO : BYBIT.ws.76: Subscribed to channels: ['instrument_info.100ms.BTCUSDT']
+2021-08-21 21:39:09,109 : INFO : BYBIT.ws.78: Subscribed to channels: ['trade.BTCUSDT']
+2021-08-21 21:39:09,303 : INFO : BYBIT.ws.79: Subscribed to channels: ['orderBookL2_25.BTCUSD']
+2021-08-21 21:39:09,329 : INFO : BYBIT.ws.78: Subscribed to channels: ['orderBookL2_25.BTCUSDT']
+2021-08-21 21:39:10,510 : INFO : KUCOIN.ws.38: closed connection 'WebSocketClientProtocol'
+2021-08-21 21:39:10,510 : ERROR : KUCOIN.ws.38: encountered an exception, reconnecting in 1.0 seconds
+Traceback (most recent call last):
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 68, in _create_connection
+    await self._handler(connection, self.handler)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 117, in _handler
+    await handler(message, connection, self.conn.last_message)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\kucoin.py", line 233, in message_handler
+    await self._process_l2_book(msg, symbol, timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\kucoin.py", line 193, in _process_l2_book
+    await self._snapshot(symbol)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\kucoin.py", line 157, in _snapshot
+    headers = generate_token(self.key_id, self.key_secret, self.key_passphrase, str_to_sign)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\auth\kucoin.py", line 19, in generate_token
+    signature = base64.b64encode(hmac.new(key_secret.encode('utf-8'), str_to_sign.encode('utf-8'), hashlib.sha256).digest())
+TypeError: 'AttrDict' object is not callable
+2021-08-21 21:39:12,413 : INFO : KUCOIN.ws.38: closed connection 'WebSocketClientProtocol'
+2021-08-21 21:39:12,414 : ERROR : KUCOIN.ws.38: encountered an exception, reconnecting in 1.0 seconds
+Traceback (most recent call last):
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 68, in _create_connection
+    await self._handler(connection, self.handler)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 117, in _handler
+    await handler(message, connection, self.conn.last_message)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\kucoin.py", line 233, in message_handler
+    await self._process_l2_book(msg, symbol, timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\kucoin.py", line 193, in _process_l2_book
+    await self._snapshot(symbol)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\kucoin.py", line 157, in _snapshot
+    headers = generate_token(self.key_id, self.key_secret, self.key_passphrase, str_to_sign)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\auth\kucoin.py", line 19, in generate_token
+    signature = base64.b64encode(hmac.new(key_secret.encode('utf-8'), str_to_sign.encode('utf-8'), hashlib.sha256).digest())
+TypeError: 'AttrDict' object is not callable
+2021-08-21 21:39:16,008 : INFO : KUCOIN.ws.38: closed connection 'WebSocketClientProtocol'
+2021-08-21 21:39:16,009 : ERROR : KUCOIN.ws.38: encountered an exception, reconnecting in 1.0 seconds
+Traceback (most recent call last):
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 68, in _create_connection
+    await self._handler(connection, self.handler)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 117, in _handler
+    await handler(message, connection, self.conn.last_message)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\kucoin.py", line 233, in message_handler
+    await self._process_l2_book(msg, symbol, timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\kucoin.py", line 193, in _process_l2_book
+    await self._snapshot(symbol)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\kucoin.py", line 157, in _snapshot
+    headers = generate_token(self.key_id, self.key_secret, self.key_passphrase, str_to_sign)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\auth\kucoin.py", line 19, in generate_token
+    signature = base64.b64encode(hmac.new(key_secret.encode('utf-8'), str_to_sign.encode('utf-8'), hashlib.sha256).digest())
+TypeError: 'AttrDict' object is not callable
+2021-08-21 21:39:17,969 : INFO : KUCOIN.ws.38: closed connection 'WebSocketClientProtocol'
+2021-08-21 21:39:17,969 : ERROR : KUCOIN.ws.38: encountered an exception, reconnecting in 1.0 seconds
+Traceback (most recent call last):
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 68, in _create_connection
+    await self._handler(connection, self.handler)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 117, in _handler
+    await handler(message, connection, self.conn.last_message)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\kucoin.py", line 233, in message_handler
+    await self._process_l2_book(msg, symbol, timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\kucoin.py", line 193, in _process_l2_book
+    await self._snapshot(symbol)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\kucoin.py", line 157, in _snapshot
+    headers = generate_token(self.key_id, self.key_secret, self.key_passphrase, str_to_sign)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\auth\kucoin.py", line 19, in generate_token
+    signature = base64.b64encode(hmac.new(key_secret.encode('utf-8'), str_to_sign.encode('utf-8'), hashlib.sha256).digest())
+TypeError: 'AttrDict' object is not callable
+2021-08-22 19:07:09,199 : INFO : Config: use dict containing the following main keys: log
+2021-08-22 19:07:24,685 : INFO : BITFINEX.ws.53: info from exchange: {'event': 'info', 'version': 2, 'serverId': 'f2353b43-66a6-423b-9c5a-63321ba0a6f6', 'platform': {'status': 1}}
+2021-08-22 19:07:24,741 : INFO : BITFINEX.ws.52: info from exchange: {'event': 'info', 'version': 2, 'serverId': 'e5a559ed-1b63-436a-8267-77006e165523', 'platform': {'status': 1}}
+2021-08-22 19:07:24,856 : INFO : BITFINEX.ws.53: conf from exchange: {'event': 'conf', 'status': 'OK', 'flags': 65536}
+2021-08-22 19:07:24,863 : INFO : BITFINEX.ws.52: conf from exchange: {'event': 'conf', 'status': 'OK', 'flags': 65536}
+2021-08-22 19:07:24,875 : INFO : BITMEX.ws.61: Info message from exchange: {'info': 'Welcome to the BitMEX Realtime API.', 'version': datetime.datetime(2021, 8, 20, 7, 34, 34, tzinfo=datetime.timezone.utc), 'timestamp': datetime.datetime(2021, 8, 22, 23, 7, 24, 714000, tzinfo=datetime.timezone.utc), 'docs': 'https://www.bitmex.com/app/wsAPI', 'limit': {'remaining': 38}}
+2021-08-22 19:07:24,875 : INFO : BITMEX.ws.63: Info message from exchange: {'info': 'Welcome to the BitMEX Realtime API.', 'version': datetime.datetime(2021, 8, 20, 7, 34, 34, tzinfo=datetime.timezone.utc), 'timestamp': datetime.datetime(2021, 8, 22, 23, 7, 24, 714000, tzinfo=datetime.timezone.utc), 'docs': 'https://www.bitmex.com/app/wsAPI', 'limit': {'remaining': 39}}
+2021-08-22 19:07:24,910 : INFO : BITMEX.ws.60: Info message from exchange: {'info': 'Welcome to the BitMEX Realtime API.', 'version': datetime.datetime(2021, 8, 20, 7, 34, 34, tzinfo=datetime.timezone.utc), 'timestamp': datetime.datetime(2021, 8, 22, 23, 7, 24, 777000, tzinfo=datetime.timezone.utc), 'docs': 'https://www.bitmex.com/app/wsAPI', 'limit': {'remaining': 37}}
+2021-08-22 19:07:24,921 : INFO : BLOCKCHAIN: Subscribed to trades channel for BTC-USD
+2021-08-22 19:07:24,934 : INFO : BITMEX.ws.62: Info message from exchange: {'info': 'Welcome to the BitMEX Realtime API.', 'version': datetime.datetime(2021, 8, 20, 7, 34, 34, tzinfo=datetime.timezone.utc), 'timestamp': datetime.datetime(2021, 8, 22, 23, 7, 24, 800000, tzinfo=datetime.timezone.utc), 'docs': 'https://www.bitmex.com/app/wsAPI', 'limit': {'remaining': 36}}
+2021-08-22 19:07:24,935 : INFO : BLOCKCHAIN: Subscribed to trades channel for ETH-USD
+2021-08-22 19:07:24,935 : INFO : BLOCKCHAIN: Subscribed to L2 data for BTC-USD
+2021-08-22 19:07:24,941 : INFO : BLOCKCHAIN: Subscribed to L2 data for ETH-USD
+2021-08-22 19:07:24,946 : INFO : HITBTC: Received result on HITBTC.ws.58: {'jsonrpc': '2.0', 'result': True, 'id': 'HITBTC.ws.58'}
+2021-08-22 19:07:24,946 : INFO : HITBTC: Received result on HITBTC.ws.57: {'jsonrpc': '2.0', 'result': True, 'id': 'HITBTC.ws.57'}
+2021-08-22 19:07:25,181 : INFO : KUCOIN.ws.38: closed connection 'WebSocketClientProtocol'
+2021-08-22 19:07:25,181 : ERROR : KUCOIN.ws.38: encountered an exception, reconnecting in 1.0 seconds
+Traceback (most recent call last):
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 68, in _create_connection
+    await self._handler(connection, self.handler)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 117, in _handler
+    await handler(message, connection, self.conn.last_message)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\kucoin.py", line 233, in message_handler
+    await self._process_l2_book(msg, symbol, timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\kucoin.py", line 193, in _process_l2_book
+    await self._snapshot(symbol)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\kucoin.py", line 157, in _snapshot
+    headers = generate_token(self.key_id, self.key_secret, self.key_passphrase, str_to_sign)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\auth\kucoin.py", line 19, in generate_token
+    signature = base64.b64encode(hmac.new(key_secret.encode('utf-8'), str_to_sign.encode('utf-8'), hashlib.sha256).digest())
+TypeError: 'AttrDict' object is not callable
+2021-08-22 19:07:25,444 : INFO : OKEX: Got 1 combinations of pairs and channels
+2021-08-22 19:07:25,444 : INFO : OKEX: Subscribe to 1 args from {'channel': 'trades', 'instId': 'BTC-USDT'} to {'channel': 'trades', 'instId': 'BTC-USDT'}
+2021-08-22 19:07:25,446 : INFO : OKCOIN: Got 1 combinations of pairs and channels
+2021-08-22 19:07:25,446 : INFO : OKCOIN: Subscribe to 1 args from 'spot/depth_l2_tbt:BTC-USD' to 'spot/depth_l2_tbt:BTC-USD'
+2021-08-22 19:07:25,645 : INFO : FTX: Subscribed to ticker channel for ADA-PERP
+2021-08-22 19:07:25,645 : INFO : FTX: Subscribed to ticker channel for ALGO-PERP
+2021-08-22 19:07:25,662 : INFO : FTX: Subscribed to ticker channel for ALT-PERP
+2021-08-22 19:07:25,662 : INFO : FTX: Subscribed to ticker channel for ATOM-PERP
+2021-08-22 19:07:25,662 : INFO : FTX: Subscribed to ticker channel for BCH-PERP
+2021-08-22 19:07:25,838 : INFO : BYBIT.ws.78: Subscribed to channels: ['trade.BTCUSDT']
+2021-08-22 19:07:25,839 : INFO : BYBIT.ws.77: Subscribed to channels: ['instrument_info.100ms.BTCUSD']
+2021-08-22 19:07:25,848 : INFO : BYBIT.ws.79: Subscribed to channels: ['trade.BTCUSD']
+2021-08-22 19:07:25,934 : INFO : BYBIT.ws.76: Subscribed to channels: ['instrument_info.100ms.BTCUSDT']
+2021-08-22 19:07:26,056 : INFO : BYBIT.ws.78: Subscribed to channels: ['orderBookL2_25.BTCUSDT']
+2021-08-22 19:07:26,076 : INFO : BYBIT.ws.79: Subscribed to channels: ['orderBookL2_25.BTCUSD']
+2021-08-22 19:07:27,316 : INFO : KUCOIN.ws.38: closed connection 'WebSocketClientProtocol'
+2021-08-22 19:07:27,316 : ERROR : KUCOIN.ws.38: encountered an exception, reconnecting in 1.0 seconds
+Traceback (most recent call last):
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 68, in _create_connection
+    await self._handler(connection, self.handler)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 117, in _handler
+    await handler(message, connection, self.conn.last_message)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\kucoin.py", line 233, in message_handler
+    await self._process_l2_book(msg, symbol, timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\kucoin.py", line 193, in _process_l2_book
+    await self._snapshot(symbol)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\kucoin.py", line 157, in _snapshot
+    headers = generate_token(self.key_id, self.key_secret, self.key_passphrase, str_to_sign)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\auth\kucoin.py", line 19, in generate_token
+    signature = base64.b64encode(hmac.new(key_secret.encode('utf-8'), str_to_sign.encode('utf-8'), hashlib.sha256).digest())
+TypeError: 'AttrDict' object is not callable
+2021-08-22 19:07:29,295 : INFO : KUCOIN.ws.38: closed connection 'WebSocketClientProtocol'
+2021-08-22 19:07:29,295 : ERROR : KUCOIN.ws.38: encountered an exception, reconnecting in 1.0 seconds
+Traceback (most recent call last):
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 68, in _create_connection
+    await self._handler(connection, self.handler)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 117, in _handler
+    await handler(message, connection, self.conn.last_message)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\kucoin.py", line 233, in message_handler
+    await self._process_l2_book(msg, symbol, timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\kucoin.py", line 193, in _process_l2_book
+    await self._snapshot(symbol)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\kucoin.py", line 157, in _snapshot
+    headers = generate_token(self.key_id, self.key_secret, self.key_passphrase, str_to_sign)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\auth\kucoin.py", line 19, in generate_token
+    signature = base64.b64encode(hmac.new(key_secret.encode('utf-8'), str_to_sign.encode('utf-8'), hashlib.sha256).digest())
+TypeError: 'AttrDict' object is not callable
+2021-08-22 19:07:31,195 : INFO : KUCOIN.ws.38: closed connection 'WebSocketClientProtocol'
+2021-08-22 19:07:31,195 : ERROR : KUCOIN.ws.38: encountered an exception, reconnecting in 1.0 seconds
+Traceback (most recent call last):
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 68, in _create_connection
+    await self._handler(connection, self.handler)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 117, in _handler
+    await handler(message, connection, self.conn.last_message)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\kucoin.py", line 233, in message_handler
+    await self._process_l2_book(msg, symbol, timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\kucoin.py", line 193, in _process_l2_book
+    await self._snapshot(symbol)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\kucoin.py", line 157, in _snapshot
+    headers = generate_token(self.key_id, self.key_secret, self.key_passphrase, str_to_sign)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\auth\kucoin.py", line 19, in generate_token
+    signature = base64.b64encode(hmac.new(key_secret.encode('utf-8'), str_to_sign.encode('utf-8'), hashlib.sha256).digest())
+TypeError: 'AttrDict' object is not callable
+2021-08-22 19:07:33,123 : INFO : KUCOIN.ws.38: closed connection 'WebSocketClientProtocol'
+2021-08-22 19:07:33,123 : ERROR : KUCOIN.ws.38: encountered an exception, reconnecting in 1.0 seconds
+Traceback (most recent call last):
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 68, in _create_connection
+    await self._handler(connection, self.handler)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 117, in _handler
+    await handler(message, connection, self.conn.last_message)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\kucoin.py", line 233, in message_handler
+    await self._process_l2_book(msg, symbol, timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\kucoin.py", line 193, in _process_l2_book
+    await self._snapshot(symbol)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\kucoin.py", line 157, in _snapshot
+    headers = generate_token(self.key_id, self.key_secret, self.key_passphrase, str_to_sign)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\auth\kucoin.py", line 19, in generate_token
+    signature = base64.b64encode(hmac.new(key_secret.encode('utf-8'), str_to_sign.encode('utf-8'), hashlib.sha256).digest())
+TypeError: 'AttrDict' object is not callable
+2021-08-22 19:07:35,084 : INFO : KUCOIN.ws.38: closed connection 'WebSocketClientProtocol'
+2021-08-22 19:07:35,084 : ERROR : KUCOIN.ws.38: encountered an exception, reconnecting in 1.0 seconds
+Traceback (most recent call last):
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 68, in _create_connection
+    await self._handler(connection, self.handler)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 117, in _handler
+    await handler(message, connection, self.conn.last_message)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\kucoin.py", line 233, in message_handler
+    await self._process_l2_book(msg, symbol, timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\kucoin.py", line 193, in _process_l2_book
+    await self._snapshot(symbol)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\kucoin.py", line 157, in _snapshot
+    headers = generate_token(self.key_id, self.key_secret, self.key_passphrase, str_to_sign)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\auth\kucoin.py", line 19, in generate_token
+    signature = base64.b64encode(hmac.new(key_secret.encode('utf-8'), str_to_sign.encode('utf-8'), hashlib.sha256).digest())
+TypeError: 'AttrDict' object is not callable
+2021-08-22 19:07:37,019 : INFO : KUCOIN.ws.38: closed connection 'WebSocketClientProtocol'
+2021-08-22 19:07:37,020 : ERROR : KUCOIN.ws.38: encountered an exception, reconnecting in 1.0 seconds
+Traceback (most recent call last):
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 68, in _create_connection
+    await self._handler(connection, self.handler)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 117, in _handler
+    await handler(message, connection, self.conn.last_message)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\kucoin.py", line 233, in message_handler
+    await self._process_l2_book(msg, symbol, timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\kucoin.py", line 193, in _process_l2_book
+    await self._snapshot(symbol)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\kucoin.py", line 157, in _snapshot
+    headers = generate_token(self.key_id, self.key_secret, self.key_passphrase, str_to_sign)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\auth\kucoin.py", line 19, in generate_token
+    signature = base64.b64encode(hmac.new(key_secret.encode('utf-8'), str_to_sign.encode('utf-8'), hashlib.sha256).digest())
+TypeError: 'AttrDict' object is not callable
+2021-08-22 19:07:38,950 : INFO : KUCOIN.ws.38: closed connection 'WebSocketClientProtocol'
+2021-08-22 19:07:38,951 : ERROR : KUCOIN.ws.38: encountered an exception, reconnecting in 1.0 seconds
+Traceback (most recent call last):
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 68, in _create_connection
+    await self._handler(connection, self.handler)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 117, in _handler
+    await handler(message, connection, self.conn.last_message)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\kucoin.py", line 233, in message_handler
+    await self._process_l2_book(msg, symbol, timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\kucoin.py", line 193, in _process_l2_book
+    await self._snapshot(symbol)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\kucoin.py", line 157, in _snapshot
+    headers = generate_token(self.key_id, self.key_secret, self.key_passphrase, str_to_sign)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\auth\kucoin.py", line 19, in generate_token
+    signature = base64.b64encode(hmac.new(key_secret.encode('utf-8'), str_to_sign.encode('utf-8'), hashlib.sha256).digest())
+TypeError: 'AttrDict' object is not callable
