@@ -14,6 +14,8 @@ from cryptofeed.exchanges import Coinbase
 from cryptofeed.feedhandler import FeedHandler
 from dash.dependencies import Input, Output
 
+# Default lists (with a dictionary inside) to avoid errors on run
+
 bids = [({"side": "bid",
           "ETH-USD Price": Decimal('3000'),
           "size": "0.01"})]
@@ -23,49 +25,63 @@ asks = [({"side": "ask",
           "size": "0.01"})]
 
 
+# Inspiration for this class comes from the cryptofeed example at
+# https://github.com/bmoscon/cryptofeed/blob/master/examples/demo_book_delta.py
+# Credit to Bryant Moscon (http://www.bryantmoscon.com/)
+
 class OrderBook(object):
     def __init__(self, name):
         self.book = None
         self.name = name
         self.bids = pandas.DataFrame(data=bids)
         self.asks = pandas.DataFrame(data=asks)
+
+        # This holds the callbacks for when cryptofeed returns data
         self.L2 = {L2_BOOK: BookCallback(self.add_book),
                    BOOK_DELTA: BookUpdateCallback(self.update_book)}
+
         self.mid_market = 0.0
 
+    # Function to check if the current book matches the most recent message
     def check_books(self, master):
         for side in (BID, ASK):
             if len(master[side]) != len(self.book[side]):
-                return False
+                return False  # Does not match
 
             for price in master[side]:
                 if price not in self.book[side]:
-                    return False
+                    return False  # Does not match
 
             for price in self.book[side]:
                 if price not in master[side]:
-                    return False
+                    return False  # Does not match
 
-        return True
+        return True  # Matches
 
+    # Function which adds the initial book to the object
+    # Only the book parameter is used however according to cryptofeed documentation
+    # Best practice is to include the rest of the parameters
     async def add_book(self, feed, symbol, book, timestamp, receipt_timestamp):
-        if not self.book:
+        if not self.book:  # First entry
             self.book = deepcopy(book)
             print('Book set!')
-        else:
+        else:  # Checks if the message contains new data
             assert (self.check_books(book))
             print('Books match!')
 
+        # Flatten book into list
         self.flatten_book()
 
+    # Updates the L2 book
     async def update_book(self, feed, symbol, update, timestamp, receipt_timestamp):
         for side in (BID, ASK):
             for price, size in update[side]:
-                if size == 0:
+                if size == 0:  # Message indicates that the price level can be removed
                     del self.book[side][price]
-                else:
+                else:  # Adjust price level
                     self.book[side][price] = size
 
+        # Flatten book into list
         self.flatten_book()
 
     # Example taken from https://github.com/bmoscon/cryptofeed/blob/master/cryptofeed/backends/_util.py
@@ -74,6 +90,9 @@ class OrderBook(object):
         new_list = []
         for side in (BID, ASK):
             for price, data in self.book[side].items():
+
+                # This format allows for easy transference into a Pandas dataframe
+                # This was tested with 5000 entries and no noticeable performance issues were present
                 new_list.append({'side': side, 'ETH-USD Price': price, 'size': data})
 
         new_df = pandas.DataFrame(new_list)
@@ -81,16 +100,19 @@ class OrderBook(object):
         self.asks = new_df.loc[new_df['side'] == 'ask']
         self.mid_market = (float(self.asks.iloc[0]['ETH-USD Price']) + float(self.bids.iloc[-1]['ETH-USD Price'])) / 2
 
+    # Return asks DF
     def get_asks(self):
         return self.asks
 
+    # Return bids DF
     def get_bids(self):
         return self.bids
 
+# Object which acts as the carrier through the app and is passed between child threads
 
 btcOrderBook = OrderBook('btc')
 
-
+# Function which holds the cryptofeed worker and starts the child thread loop
 def main(book):
     handler = FeedHandler()
     handler.add_feed(
@@ -100,7 +122,7 @@ def main(book):
     asyncio.set_event_loop(loop)
     handler.run(install_signal_handlers=False)
 
-
+# Function which holds the Dash web server and starts the web server
 def run_server():
     external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
@@ -112,15 +134,17 @@ def run_server():
             dcc.Graph(id='live-update-graph'),
             dcc.Interval(
                 id='interval-component',
-                interval=1 * 500,  # in milliseconds
+                interval=1 * 500,  # Updates every half a second
                 n_intervals=0
             )
         ])
     )
 
+    # Callback to update the graph with any updates to the L2 Book
     @app.callback(Output('live-update-graph', 'figure'),
                   Input('interval-component', 'n_intervals'))
     def update_graph(n):
+        # Layout the graph
         fig = px.ecdf(btcOrderBook.get_asks(), x='ETH-USD Price', y="size", ecdfnorm=None, color="side",
                       labels={
                           "size": "ETH",
@@ -130,21 +154,34 @@ def run_server():
                       title="ETH-USD Depth Chart using cryptofeed and Dash")
         fig.data[0].line.color = 'rgb(255, 160, 122)'  # red
         fig.data[0].line.width = 5
+
+        # Opposing side of the graph
         fig2 = px.ecdf(btcOrderBook.get_bids(), x='ETH-USD Price', y="size", ecdfmode='reversed', ecdfnorm=None,
                        color="side")
         fig2.data[0].line.color = 'rgb(34, 139, 34)'  # green
         fig2.data[0].line.width = 5
+
+        # Merge the figures together
         fig.add_trace(fig2.data[0])
+
+        # Display the mid-market price
         fig.add_vline(x=btcOrderBook.mid_market,
                       annotation_text='Mid-Market Price: ' + "{:.2f}".format(btcOrderBook.mid_market),
                       annotation_position='top')
         return fig
 
+    # Run DASH server
     app.run_server()
 
 
 if __name__ == "__main__":
+
+    # Start threading for both the cryptofeed worker and web server
+    # Cryptofeed thread takes the global carrier object as a parameter which is passed in as a callback
+    # This object is then passed back and forth between cryptofeed and the webserver
     t1 = threading.Thread(target=main, args=[btcOrderBook])
     t1.start()
+
+    # Web server thread
     t2 = threading.Thread(target=run_server)
     t2.start()
