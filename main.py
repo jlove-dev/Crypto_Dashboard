@@ -41,6 +41,8 @@ class OrderBook(object):
                    BOOK_DELTA: BookUpdateCallback(self.update_book)}
 
         self.mid_market = 0.0
+        self.symbol = ''
+        self.depth = 0
 
     # Function to check if the current book matches the most recent message
     def check_books(self, master):
@@ -90,7 +92,6 @@ class OrderBook(object):
         new_list = []
         for side in (BID, ASK):
             for price, data in self.book[side].items():
-
                 # This format allows for easy transference into a Pandas dataframe
                 # This was tested with 5000 entries and no noticeable performance issues were present
                 new_list.append({'side': side, 'ETH-USD Price': price, 'size': data})
@@ -108,19 +109,43 @@ class OrderBook(object):
     def get_bids(self):
         return self.bids
 
+
 # Object which acts as the carrier through the app and is passed between child threads
 
-btcOrderBook = OrderBook('btc')
+orderBookObject = OrderBook('btc')
+handler = FeedHandler()
 
-# Function which holds the cryptofeed worker and starts the child thread loop
-def main(book):
-    handler = FeedHandler()
-    handler.add_feed(
-        Coinbase(max_depth=100, symbols=['ETH-USD'], channels=[L2_BOOK], callbacks=book.L2))
 
+def handle_feed_removals(feed):
+    handler.feeds.pop(feed)
+
+
+def handle_feed_additions(feed):
+    handle_feed_removals(feed)
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
+    handler.add_feed_running(feed, loop)
+
+
+def get_btc_feed():
+    return ['BTC-USD']
+
+
+def get_eth_feed():
+    return ['ETH-USD']
+
+
+def get_ada_feed():
+    return ['ADA-USD']
+
+
+def start_feed(book, feed):
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+    handler.add_feed(
+        Coinbase(max_depth=100, symbols=feed, channels=[L2_BOOK], callbacks=book.L2))
     handler.run(install_signal_handlers=False)
+
 
 # Function which holds the Dash web server and starts the web server
 def run_server():
@@ -129,8 +154,16 @@ def run_server():
     app = dash.Dash(__name__, external_stylesheets=external_stylesheets, update_title=None)
     app.layout = html.Div(
         html.Div([
-            html.H4('ETH-USD Live Depth Chart'),
+            html.H4('ETH-USD Live Depth Chart', id='header'),
             html.Div(id='live-update-text'),
+            dcc.Dropdown(
+                id='token-selector',
+                options=[
+                    {'label': 'BTC', 'value': 'BTC-USD'},
+                    {'label': 'ETH', 'value': 'ETH-USD'},
+                    {'label': 'ADA', 'value': 'ADA-USD'}
+                ]
+            ),
             dcc.Graph(id='live-update-graph'),
             dcc.Interval(
                 id='interval-component',
@@ -140,12 +173,24 @@ def run_server():
         ])
     )
 
+    @app.callback(Output('header', 'children'),
+                  Input('token-selector', 'value'))
+    def update_header(value):
+        if value == 'BTC-USD':
+            return 'BTC-USD Live Depth Chart'
+        elif value == 'ETH-USD':
+            return 'ETH-USD Live Depth Chart'
+        elif value == 'ADA-USD':
+            return 'ADA-USD Live Depth Chart'
+        else:
+            return 'Default ETH-USD Live Depth Chart'
+
     # Callback to update the graph with any updates to the L2 Book
     @app.callback(Output('live-update-graph', 'figure'),
                   Input('interval-component', 'n_intervals'))
     def update_graph(n):
         # Layout the graph
-        fig = px.ecdf(btcOrderBook.get_asks(), x='ETH-USD Price', y="size", ecdfnorm=None, color="side",
+        fig = px.ecdf(orderBookObject.get_asks(), x='ETH-USD Price', y="size", ecdfnorm=None, color="side",
                       labels={
                           "size": "ETH",
                           "side": "Side",
@@ -156,7 +201,7 @@ def run_server():
         fig.data[0].line.width = 5
 
         # Opposing side of the graph
-        fig2 = px.ecdf(btcOrderBook.get_bids(), x='ETH-USD Price', y="size", ecdfmode='reversed', ecdfnorm=None,
+        fig2 = px.ecdf(orderBookObject.get_bids(), x='ETH-USD Price', y="size", ecdfmode='reversed', ecdfnorm=None,
                        color="side")
         fig2.data[0].line.color = 'rgb(34, 139, 34)'  # green
         fig2.data[0].line.width = 5
@@ -165,8 +210,8 @@ def run_server():
         fig.add_trace(fig2.data[0])
 
         # Display the mid-market price
-        fig.add_vline(x=btcOrderBook.mid_market,
-                      annotation_text='Mid-Market Price: ' + "{:.2f}".format(btcOrderBook.mid_market),
+        fig.add_vline(x=orderBookObject.mid_market,
+                      annotation_text='Mid-Market Price: ' + "{:.2f}".format(orderBookObject.mid_market),
                       annotation_position='top')
         return fig
 
@@ -175,11 +220,10 @@ def run_server():
 
 
 if __name__ == "__main__":
-
     # Start threading for both the cryptofeed worker and web server
     # Cryptofeed thread takes the global carrier object as a parameter which is passed in as a callback
     # This object is then passed back and forth between cryptofeed and the webserver
-    t1 = threading.Thread(target=main, args=[btcOrderBook])
+    t1 = threading.Thread(target=start_feed, args=[orderBookObject, get_ada_feed()])
     t1.start()
 
     # Web server thread
