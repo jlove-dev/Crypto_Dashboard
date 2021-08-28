@@ -1,0 +1,7 @@
+dash_table==4.12.0
+plotly==5.2.1
+pandas==1.3.2
+dash_html_components==1.1.4
+dash==1.21.0
+dash_core_components==1.17.1
+cryptofeed==1.9.3
