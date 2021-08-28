@@ -38,10 +38,10 @@ I have a lot of visions for this project. Some of the todos include:
 
 |file|idea|status|
 |----|----|------|
-|main.py|Add another widget to display current price|incomplete|
-|main.py|Allow the user to change graph types|incomplete|
-|main.py|Reduce size of currency table|incomplete|
-|main.py|Rename to webserver|incomplete|
-|main.py|Display cumulative statistics for session|incomplete|
+|webserver.py|Add another widget to display current price|incomplete|
+|webserver.py|Allow the user to change graph types|incomplete|
+|webserver.py|Reduce size of currency table|incomplete|
+|webserver.py|Display cumulative statistics for session|incomplete|
 |cryptofeed_worker.py|Change class to not store L2 updates if the coin isn't selected - performance update|incomplete|
 |cryptofeed_worker.py|Potential long term change to remove cryptofeed dependency and make custom coinbase API requests|incomplete|
+|webserver.py|Rename main.py to webserver.py|complete|
