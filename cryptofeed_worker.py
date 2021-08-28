@@ -27,7 +27,7 @@ handler = FeedHandler()
 # Credit to Bryant Moscon (http://www.bryantmoscon.com/)
 
 class OrderBook(object):
-    def __init__(self, name, symbol):
+    def __init__(self, name, symbol, size, title, sub_title):
         self.book = None
         self.name = name
         self.bids = pandas.DataFrame(data=bids)
@@ -40,6 +40,9 @@ class OrderBook(object):
 
         self.mid_market = 0.0
         self.symbol = symbol + ' Price'
+        self.size = size
+        self.title = title
+        self.sub_title = sub_title
         self.depth = 0
         self.trade_list = []
 
@@ -117,6 +120,18 @@ class OrderBook(object):
     # Return bids DF
     def get_bids(self):
         return self.bids
+
+    def get_symbol(self):
+        return self.symbol
+
+    def get_size(self):
+        return self.size
+
+    def get_title(self):
+        return self.title
+
+    def get_subtitle(self):
+        return self.sub_title
 
 
 def get_btc_feed():
