@@ -41,12 +41,11 @@ def run_server():
     external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
     app = dash.Dash(__name__, external_stylesheets=external_stylesheets, update_title=None)
-    app.layout = html.Div(
+    app.layout = html.Div([
         html.Div([
             html.Div([html.H4('ETH-USD Live Depth Chart', id='header',
-                              style={'float': 'left'}), html.H4('Session stats', id='stats',
-                                                                style={'float': 'right', 'display': 'inline-block'})]),
-            # FIXME - left off here
+                              style={'float': 'left'})]),
+
             html.Div(id='live-update-text'),
             html.Div([dcc.Dropdown(
                 id='token-selector',
@@ -57,47 +56,107 @@ def run_server():
                 ],
                 style={'width': '50vw'}
             ),
+                dcc.Graph(id='live-update-graph',
+                          figure=px.ecdf(ethBookObject.get_asks(), x='ETH-USD Price', y="size", ecdfnorm=None,
+                                         color="side",
+                                         labels={
+                                             "size": "ETH",
+                                             "side": "Side",
+                                             "value": "ETH-USD Price"
+                                         },
+                                         title="ETH-USD Depth Chart using cryptofeed and Dash"),
+                          style={'width': '50vw', 'border': '2px black solid'}),
+                dash_table.DataTable(
+                    id='trade_table',
+                    columns=[{"name": i, "id": i} for i in base_df],
+                    data=base_df.to_dict('records'),
+                    style_cell={'textAlign': 'center'},
+                    style_table={'width': '50vw'}
+                ),
+                dcc.Interval(
+                    id='interval-component',
+                    interval=1 * 500,  # Updates every half a second
+                    n_intervals=0
+                ),
+                dcc.Interval(
+                    id='stats-interval',
+                    interval=1 * 50,
+                    n_intervals=0
+                )
+            ]),
+
+        ], style={'float': 'left'}),
+        html.Div([
+            html.H4('Session stats', id='stats',
+                    style={'float': 'right', 'position': 'relative'}),
+            html.Div([
                 html.Output(
                     id='statsBox',
                     children=['Time elapsed'],
-                    style={'width': '25vw', 'float': 'right'}
-                )]),
-            dcc.Graph(id='live-update-graph',
-                      figure=px.ecdf(ethBookObject.get_asks(), x='ETH-USD Price', y="size", ecdfnorm=None, color="side",
-                                     labels={
-                                         "size": "ETH",
-                                         "side": "Side",
-                                         "value": "ETH-USD Price"
-                                     },
-                                     title="ETH-USD Depth Chart using cryptofeed and Dash"),
-                      style={'width': '50vw', 'border': '2px black solid'}),
-            dash_table.DataTable(
-                id='trade_table',
-                columns=[{"name": i, "id": i} for i in base_df],
-                data=base_df.to_dict('records'),
-                style_cell={'textAlign': 'center'},
-                style_table={'width': '50vw'}
-            ),
-            dcc.Interval(
-                id='interval-component',
-                interval=1 * 500,  # Updates every half a second
-                n_intervals=0
-            ),
-            dcc.Interval(
-                id='stats-interval',
-                interval=1 * 50,
-                n_intervals=0
-            )
-        ])
-    )
+                    style={'width': '25vw', 'float': 'right', 'position': 'relative', 'right': '0'}
+                ),
+                html.Output(
+                    id='buysBox',
+                    children=['Number of buys:'],
+                    style={'width': '25vw', 'float': 'right', 'position': 'relative', 'right': '0'}
+                ),
+                html.Output(
+                    id='sellsBox',
+                    children=['Number of sells:'],
+                    style={'width': '25vw', 'float': 'right', 'position': 'relative', 'right': '0'}
+                ),
+                html.Output(
+                    id='buysValue',
+                    children=['Value of buys:'],
+                    style={'width': '25vw', 'float': 'right', 'position': 'relative', 'right': '0'}
+                ),
+                html.Output(
+                    id='sellsValue',
+                    children=['Value of sells:'],
+                    style={'width': '25vw', 'float': 'right', 'position': 'relative', 'right': '0'}
+                )
+            ],
+                style={'float': 'right',
+                       'display': 'inline-block',
+                       'width': '25vw',
+                       'right': '0',
+                       'vertical-align': 'baseline'})
+        ], style={'float': 'right', 'display': 'inline-block', 'width': '25vw', 'top': '0'})
+    ])
 
-    @app.callback(Output('statsBox', "children"),
+    @app.callback([Output('statsBox', "children"),
+                   Output('buysBox', "children"),
+                   Output('sellsBox', "children"),
+                   Output('buysValue', "children"),
+                   Output('sellsValue', "children")],
                   [Input('stats-interval', 'n_intervals'),
                    Input('token-selector', 'value')])
     def update_stats(n, value):
-        return timeKeeperObject.get_time_elapse()
+        if value == 'BTC-USD':
+            return timeKeeperObject.get_time_elapse(), \
+                   btcBookObject.get_num_buys(), \
+                   btcBookObject.get_num_sells(), \
+                   btcBookObject.get_value_buys(), \
+                   btcBookObject.get_value_sells()
 
-    #FIXME - should do faster callback interval with for time elapsed
+        elif value == 'ETH-USD':
+            return timeKeeperObject.get_time_elapse(), \
+                   ethBookObject.get_num_buys(), \
+                   ethBookObject.get_num_sells(), \
+                   ethBookObject.get_value_buys(), \
+                   ethBookObject.get_value_sells()
+        elif value == 'ADA-USD':
+            return timeKeeperObject.get_time_elapse(), \
+                   adaBookObject.get_num_buys(), \
+                   adaBookObject.get_num_sells(), \
+                   adaBookObject.get_value_buys(), \
+                   adaBookObject.get_value_sells()
+        else:
+            return timeKeeperObject.get_time_elapse(), \
+                   ethBookObject.get_num_buys(), \
+                   ethBookObject.get_num_sells(), \
+                   ethBookObject.get_value_buys(), \
+                   ethBookObject.get_value_sells()
 
     # Callback to update the graph with any updates to the L2 Book
     @app.callback([Output('live-update-graph', 'figure'),

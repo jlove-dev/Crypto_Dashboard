@@ -57,6 +57,8 @@ class OrderBook(object):
         # session stats
         self.num_buys = 0
         self.num_sells = 0
+        self.value_buys = 0.0
+        self.value_sells = 0.0
 
         # This holds the callbacks for when cryptofeed returns data
         self.L2 = {L2_BOOK: BookCallback(self.add_book),
@@ -121,6 +123,13 @@ class OrderBook(object):
         self.mid_market = (float(self.asks.iloc[0][self.symbol]) + float(self.bids.iloc[-1][self.symbol])) / 2
 
     def add_trade(self, feed, symbol, order_id, timestamp, side, amount, price, receipt_timestamp):
+        if side == 'buy':
+            self.num_buys += 1
+            self.value_buys += (float(price) * float(amount))
+        else:
+            self.num_sells += 1
+            self.value_sells += (float(price) * float(amount))
+
         if len(self.trade_list) >= 10:
             self.trade_list.pop(0)
             self.trade_list.append(({'Currency Pair': symbol, 'Side': side, 'Amount': amount, 'Price': price}))
@@ -150,6 +159,17 @@ class OrderBook(object):
     def get_subtitle(self):
         return self.sub_title
 
+    def get_num_buys(self):
+        return 'Number of buy trades: ' + str(self.num_buys)
+
+    def get_num_sells(self):
+        return 'Number of sell trades: ' + str(self.num_sells)
+
+    def get_value_sells(self):
+        return 'Value of sells: $' + '{:.2f}'.format(self.value_sells)
+
+    def get_value_buys(self):
+        return 'Value of buys: $' + '{:.2f}'.format(self.value_buys)
 
 def get_btc_feed():
     return ['BTC-USD']

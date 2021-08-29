@@ -6180,3 +6180,843 @@ Traceback (most recent call last):
   File "C:/Users/jlove/PycharmProjects/OrderBookTest/main.py", line 108, in add_trade
     if self.trade_list >= 10:
 TypeError: '>=' not supported between instances of 'list' and 'int'
+2021-08-29 16:38:08,400 : ERROR : COINBASE.ws.5: encountered an exception, reconnecting in 1.0 seconds
+Traceback (most recent call last):
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 68, in _create_connection
+    await self._handler(connection, self.handler)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 117, in _handler
+    await handler(message, connection, self.conn.last_message)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\coinbase.py", line 364, in message_handler
+    await self._book_update(msg, timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\coinbase.py", line 162, in _book_update
+    await self.callback(TRADES,
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\feed.py", line 249, in callback
+    await cb(**kwargs)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\callback.py", line 44, in __call__
+    await super().__call__(feed, symbol, order_id, timestamp, side, amount, price, receipt_timestamp, **kwargs)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\callback.py", line 24, in __call__
+    await loop.run_in_executor(None, self.callback, *args, **kwargs)
+  File "C:\Users\jlove\AppData\Local\Programs\Python\Python38\lib\concurrent\futures\thread.py", line 57, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "C:\Users\jlove\PycharmProjects\OrderBookTest\cryptofeed_worker.py", line 128, in add_trade
+    self.value_buys += (price * amount)
+TypeError: unsupported operand type(s) for +=: 'float' and 'decimal.Decimal'
+2021-08-29 16:38:08,421 : ERROR : COINBASE.ws.4: encountered an exception, reconnecting in 1.0 seconds
+Traceback (most recent call last):
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 68, in _create_connection
+    await self._handler(connection, self.handler)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 117, in _handler
+    await handler(message, connection, self.conn.last_message)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\coinbase.py", line 364, in message_handler
+    await self._book_update(msg, timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\coinbase.py", line 162, in _book_update
+    await self.callback(TRADES,
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\feed.py", line 249, in callback
+    await cb(**kwargs)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\callback.py", line 44, in __call__
+    await super().__call__(feed, symbol, order_id, timestamp, side, amount, price, receipt_timestamp, **kwargs)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\callback.py", line 24, in __call__
+    await loop.run_in_executor(None, self.callback, *args, **kwargs)
+  File "C:\Users\jlove\AppData\Local\Programs\Python\Python38\lib\concurrent\futures\thread.py", line 57, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "C:\Users\jlove\PycharmProjects\OrderBookTest\cryptofeed_worker.py", line 131, in add_trade
+    self.value_sells += (price * amount)
+TypeError: unsupported operand type(s) for +=: 'float' and 'decimal.Decimal'
+2021-08-29 16:38:08,531 : ERROR : COINBASE.ws.3: encountered an exception, reconnecting in 1.0 seconds
+Traceback (most recent call last):
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 68, in _create_connection
+    await self._handler(connection, self.handler)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 117, in _handler
+    await handler(message, connection, self.conn.last_message)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\coinbase.py", line 364, in message_handler
+    await self._book_update(msg, timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\coinbase.py", line 162, in _book_update
+    await self.callback(TRADES,
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\feed.py", line 249, in callback
+    await cb(**kwargs)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\callback.py", line 44, in __call__
+    await super().__call__(feed, symbol, order_id, timestamp, side, amount, price, receipt_timestamp, **kwargs)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\callback.py", line 24, in __call__
+    await loop.run_in_executor(None, self.callback, *args, **kwargs)
+  File "C:\Users\jlove\AppData\Local\Programs\Python\Python38\lib\concurrent\futures\thread.py", line 57, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "C:\Users\jlove\PycharmProjects\OrderBookTest\cryptofeed_worker.py", line 128, in add_trade
+    self.value_buys += (price * amount)
+TypeError: unsupported operand type(s) for +=: 'float' and 'decimal.Decimal'
+2021-08-29 16:38:09,728 : ERROR : COINBASE.ws.5: encountered an exception, reconnecting in 1.0 seconds
+Traceback (most recent call last):
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 68, in _create_connection
+    await self._handler(connection, self.handler)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 117, in _handler
+    await handler(message, connection, self.conn.last_message)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\coinbase.py", line 366, in message_handler
+    await self._pair_level2_snapshot(msg, timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\coinbase.py", line 187, in _pair_level2_snapshot
+    await self.book_callback(self._l2_book[pair], L2_BOOK, pair, True, None, timestamp, timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\feed.py", line 235, in book_callback
+    await self.callback(L2_BOOK, feed=self.id, symbol=symbol, book=book, timestamp=timestamp, receipt_timestamp=receipt_timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\feed.py", line 249, in callback
+    await cb(**kwargs)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\callback.py", line 57, in __call__
+    await super().__call__(feed, symbol, book, timestamp, receipt_timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\callback.py", line 21, in __call__
+    await self.callback(*args, **kwargs)
+  File "C:\Users\jlove\PycharmProjects\OrderBookTest\cryptofeed_worker.py", line 92, in add_book
+    assert (self.check_books(book))
+AssertionError
+2021-08-29 16:38:09,857 : ERROR : COINBASE.ws.4: encountered an exception, reconnecting in 1.0 seconds
+Traceback (most recent call last):
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 68, in _create_connection
+    await self._handler(connection, self.handler)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 117, in _handler
+    await handler(message, connection, self.conn.last_message)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\coinbase.py", line 366, in message_handler
+    await self._pair_level2_snapshot(msg, timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\coinbase.py", line 187, in _pair_level2_snapshot
+    await self.book_callback(self._l2_book[pair], L2_BOOK, pair, True, None, timestamp, timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\feed.py", line 235, in book_callback
+    await self.callback(L2_BOOK, feed=self.id, symbol=symbol, book=book, timestamp=timestamp, receipt_timestamp=receipt_timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\feed.py", line 249, in callback
+    await cb(**kwargs)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\callback.py", line 57, in __call__
+    await super().__call__(feed, symbol, book, timestamp, receipt_timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\callback.py", line 21, in __call__
+    await self.callback(*args, **kwargs)
+  File "C:\Users\jlove\PycharmProjects\OrderBookTest\cryptofeed_worker.py", line 92, in add_book
+    assert (self.check_books(book))
+AssertionError
+2021-08-29 16:38:10,097 : ERROR : COINBASE.ws.3: encountered an exception, reconnecting in 1.0 seconds
+Traceback (most recent call last):
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 68, in _create_connection
+    await self._handler(connection, self.handler)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 117, in _handler
+    await handler(message, connection, self.conn.last_message)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\coinbase.py", line 366, in message_handler
+    await self._pair_level2_snapshot(msg, timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\coinbase.py", line 187, in _pair_level2_snapshot
+    await self.book_callback(self._l2_book[pair], L2_BOOK, pair, True, None, timestamp, timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\feed.py", line 235, in book_callback
+    await self.callback(L2_BOOK, feed=self.id, symbol=symbol, book=book, timestamp=timestamp, receipt_timestamp=receipt_timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\feed.py", line 249, in callback
+    await cb(**kwargs)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\callback.py", line 57, in __call__
+    await super().__call__(feed, symbol, book, timestamp, receipt_timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\callback.py", line 21, in __call__
+    await self.callback(*args, **kwargs)
+  File "C:\Users\jlove\PycharmProjects\OrderBookTest\cryptofeed_worker.py", line 92, in add_book
+    assert (self.check_books(book))
+AssertionError
+2021-08-29 16:38:11,017 : ERROR : COINBASE.ws.5: encountered an exception, reconnecting in 1.0 seconds
+Traceback (most recent call last):
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 68, in _create_connection
+    await self._handler(connection, self.handler)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 117, in _handler
+    await handler(message, connection, self.conn.last_message)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\coinbase.py", line 366, in message_handler
+    await self._pair_level2_snapshot(msg, timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\coinbase.py", line 187, in _pair_level2_snapshot
+    await self.book_callback(self._l2_book[pair], L2_BOOK, pair, True, None, timestamp, timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\feed.py", line 235, in book_callback
+    await self.callback(L2_BOOK, feed=self.id, symbol=symbol, book=book, timestamp=timestamp, receipt_timestamp=receipt_timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\feed.py", line 249, in callback
+    await cb(**kwargs)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\callback.py", line 57, in __call__
+    await super().__call__(feed, symbol, book, timestamp, receipt_timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\callback.py", line 21, in __call__
+    await self.callback(*args, **kwargs)
+  File "C:\Users\jlove\PycharmProjects\OrderBookTest\cryptofeed_worker.py", line 92, in add_book
+    assert (self.check_books(book))
+AssertionError
+2021-08-29 16:38:11,166 : ERROR : COINBASE.ws.4: encountered an exception, reconnecting in 1.0 seconds
+Traceback (most recent call last):
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 68, in _create_connection
+    await self._handler(connection, self.handler)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 117, in _handler
+    await handler(message, connection, self.conn.last_message)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\coinbase.py", line 366, in message_handler
+    await self._pair_level2_snapshot(msg, timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\coinbase.py", line 187, in _pair_level2_snapshot
+    await self.book_callback(self._l2_book[pair], L2_BOOK, pair, True, None, timestamp, timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\feed.py", line 235, in book_callback
+    await self.callback(L2_BOOK, feed=self.id, symbol=symbol, book=book, timestamp=timestamp, receipt_timestamp=receipt_timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\feed.py", line 249, in callback
+    await cb(**kwargs)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\callback.py", line 57, in __call__
+    await super().__call__(feed, symbol, book, timestamp, receipt_timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\callback.py", line 21, in __call__
+    await self.callback(*args, **kwargs)
+  File "C:\Users\jlove\PycharmProjects\OrderBookTest\cryptofeed_worker.py", line 92, in add_book
+    assert (self.check_books(book))
+AssertionError
+2021-08-29 16:38:11,482 : ERROR : COINBASE.ws.3: encountered an exception, reconnecting in 1.0 seconds
+Traceback (most recent call last):
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 68, in _create_connection
+    await self._handler(connection, self.handler)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 117, in _handler
+    await handler(message, connection, self.conn.last_message)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\coinbase.py", line 366, in message_handler
+    await self._pair_level2_snapshot(msg, timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\coinbase.py", line 187, in _pair_level2_snapshot
+    await self.book_callback(self._l2_book[pair], L2_BOOK, pair, True, None, timestamp, timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\feed.py", line 235, in book_callback
+    await self.callback(L2_BOOK, feed=self.id, symbol=symbol, book=book, timestamp=timestamp, receipt_timestamp=receipt_timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\feed.py", line 249, in callback
+    await cb(**kwargs)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\callback.py", line 57, in __call__
+    await super().__call__(feed, symbol, book, timestamp, receipt_timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\callback.py", line 21, in __call__
+    await self.callback(*args, **kwargs)
+  File "C:\Users\jlove\PycharmProjects\OrderBookTest\cryptofeed_worker.py", line 92, in add_book
+    assert (self.check_books(book))
+AssertionError
+2021-08-29 16:38:12,179 : ERROR : COINBASE.ws.5: encountered an exception, reconnecting in 1.0 seconds
+Traceback (most recent call last):
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 68, in _create_connection
+    await self._handler(connection, self.handler)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 117, in _handler
+    await handler(message, connection, self.conn.last_message)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\coinbase.py", line 366, in message_handler
+    await self._pair_level2_snapshot(msg, timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\coinbase.py", line 187, in _pair_level2_snapshot
+    await self.book_callback(self._l2_book[pair], L2_BOOK, pair, True, None, timestamp, timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\feed.py", line 235, in book_callback
+    await self.callback(L2_BOOK, feed=self.id, symbol=symbol, book=book, timestamp=timestamp, receipt_timestamp=receipt_timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\feed.py", line 249, in callback
+    await cb(**kwargs)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\callback.py", line 57, in __call__
+    await super().__call__(feed, symbol, book, timestamp, receipt_timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\callback.py", line 21, in __call__
+    await self.callback(*args, **kwargs)
+  File "C:\Users\jlove\PycharmProjects\OrderBookTest\cryptofeed_worker.py", line 92, in add_book
+    assert (self.check_books(book))
+AssertionError
+2021-08-29 16:38:12,314 : ERROR : COINBASE.ws.4: encountered an exception, reconnecting in 1.0 seconds
+Traceback (most recent call last):
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 68, in _create_connection
+    await self._handler(connection, self.handler)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 117, in _handler
+    await handler(message, connection, self.conn.last_message)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\coinbase.py", line 366, in message_handler
+    await self._pair_level2_snapshot(msg, timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\coinbase.py", line 187, in _pair_level2_snapshot
+    await self.book_callback(self._l2_book[pair], L2_BOOK, pair, True, None, timestamp, timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\feed.py", line 235, in book_callback
+    await self.callback(L2_BOOK, feed=self.id, symbol=symbol, book=book, timestamp=timestamp, receipt_timestamp=receipt_timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\feed.py", line 249, in callback
+    await cb(**kwargs)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\callback.py", line 57, in __call__
+    await super().__call__(feed, symbol, book, timestamp, receipt_timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\callback.py", line 21, in __call__
+    await self.callback(*args, **kwargs)
+  File "C:\Users\jlove\PycharmProjects\OrderBookTest\cryptofeed_worker.py", line 92, in add_book
+    assert (self.check_books(book))
+AssertionError
+2021-08-29 16:38:12,745 : ERROR : COINBASE.ws.3: encountered an exception, reconnecting in 1.0 seconds
+Traceback (most recent call last):
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 68, in _create_connection
+    await self._handler(connection, self.handler)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 117, in _handler
+    await handler(message, connection, self.conn.last_message)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\coinbase.py", line 366, in message_handler
+    await self._pair_level2_snapshot(msg, timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\coinbase.py", line 187, in _pair_level2_snapshot
+    await self.book_callback(self._l2_book[pair], L2_BOOK, pair, True, None, timestamp, timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\feed.py", line 235, in book_callback
+    await self.callback(L2_BOOK, feed=self.id, symbol=symbol, book=book, timestamp=timestamp, receipt_timestamp=receipt_timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\feed.py", line 249, in callback
+    await cb(**kwargs)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\callback.py", line 57, in __call__
+    await super().__call__(feed, symbol, book, timestamp, receipt_timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\callback.py", line 21, in __call__
+    await self.callback(*args, **kwargs)
+  File "C:\Users\jlove\PycharmProjects\OrderBookTest\cryptofeed_worker.py", line 92, in add_book
+    assert (self.check_books(book))
+AssertionError
+2021-08-29 16:38:13,289 : ERROR : COINBASE.ws.5: encountered an exception, reconnecting in 1.0 seconds
+Traceback (most recent call last):
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 68, in _create_connection
+    await self._handler(connection, self.handler)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 117, in _handler
+    await handler(message, connection, self.conn.last_message)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\coinbase.py", line 366, in message_handler
+    await self._pair_level2_snapshot(msg, timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\coinbase.py", line 187, in _pair_level2_snapshot
+    await self.book_callback(self._l2_book[pair], L2_BOOK, pair, True, None, timestamp, timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\feed.py", line 235, in book_callback
+    await self.callback(L2_BOOK, feed=self.id, symbol=symbol, book=book, timestamp=timestamp, receipt_timestamp=receipt_timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\feed.py", line 249, in callback
+    await cb(**kwargs)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\callback.py", line 57, in __call__
+    await super().__call__(feed, symbol, book, timestamp, receipt_timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\callback.py", line 21, in __call__
+    await self.callback(*args, **kwargs)
+  File "C:\Users\jlove\PycharmProjects\OrderBookTest\cryptofeed_worker.py", line 92, in add_book
+    assert (self.check_books(book))
+AssertionError
+2021-08-29 16:38:13,519 : ERROR : COINBASE.ws.4: encountered an exception, reconnecting in 1.0 seconds
+Traceback (most recent call last):
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 68, in _create_connection
+    await self._handler(connection, self.handler)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 117, in _handler
+    await handler(message, connection, self.conn.last_message)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\coinbase.py", line 366, in message_handler
+    await self._pair_level2_snapshot(msg, timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\coinbase.py", line 187, in _pair_level2_snapshot
+    await self.book_callback(self._l2_book[pair], L2_BOOK, pair, True, None, timestamp, timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\feed.py", line 235, in book_callback
+    await self.callback(L2_BOOK, feed=self.id, symbol=symbol, book=book, timestamp=timestamp, receipt_timestamp=receipt_timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\feed.py", line 249, in callback
+    await cb(**kwargs)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\callback.py", line 57, in __call__
+    await super().__call__(feed, symbol, book, timestamp, receipt_timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\callback.py", line 21, in __call__
+    await self.callback(*args, **kwargs)
+  File "C:\Users\jlove\PycharmProjects\OrderBookTest\cryptofeed_worker.py", line 92, in add_book
+    assert (self.check_books(book))
+AssertionError
+2021-08-29 16:38:14,034 : ERROR : COINBASE.ws.3: encountered an exception, reconnecting in 1.0 seconds
+Traceback (most recent call last):
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 68, in _create_connection
+    await self._handler(connection, self.handler)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 117, in _handler
+    await handler(message, connection, self.conn.last_message)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\coinbase.py", line 366, in message_handler
+    await self._pair_level2_snapshot(msg, timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\coinbase.py", line 187, in _pair_level2_snapshot
+    await self.book_callback(self._l2_book[pair], L2_BOOK, pair, True, None, timestamp, timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\feed.py", line 235, in book_callback
+    await self.callback(L2_BOOK, feed=self.id, symbol=symbol, book=book, timestamp=timestamp, receipt_timestamp=receipt_timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\feed.py", line 249, in callback
+    await cb(**kwargs)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\callback.py", line 57, in __call__
+    await super().__call__(feed, symbol, book, timestamp, receipt_timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\callback.py", line 21, in __call__
+    await self.callback(*args, **kwargs)
+  File "C:\Users\jlove\PycharmProjects\OrderBookTest\cryptofeed_worker.py", line 92, in add_book
+    assert (self.check_books(book))
+AssertionError
+2021-08-29 16:38:14,435 : ERROR : COINBASE.ws.5: encountered an exception, reconnecting in 1.0 seconds
+Traceback (most recent call last):
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 68, in _create_connection
+    await self._handler(connection, self.handler)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 117, in _handler
+    await handler(message, connection, self.conn.last_message)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\coinbase.py", line 366, in message_handler
+    await self._pair_level2_snapshot(msg, timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\coinbase.py", line 187, in _pair_level2_snapshot
+    await self.book_callback(self._l2_book[pair], L2_BOOK, pair, True, None, timestamp, timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\feed.py", line 235, in book_callback
+    await self.callback(L2_BOOK, feed=self.id, symbol=symbol, book=book, timestamp=timestamp, receipt_timestamp=receipt_timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\feed.py", line 249, in callback
+    await cb(**kwargs)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\callback.py", line 57, in __call__
+    await super().__call__(feed, symbol, book, timestamp, receipt_timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\callback.py", line 21, in __call__
+    await self.callback(*args, **kwargs)
+  File "C:\Users\jlove\PycharmProjects\OrderBookTest\cryptofeed_worker.py", line 92, in add_book
+    assert (self.check_books(book))
+AssertionError
+2021-08-29 16:38:14,680 : ERROR : COINBASE.ws.4: encountered an exception, reconnecting in 1.0 seconds
+Traceback (most recent call last):
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 68, in _create_connection
+    await self._handler(connection, self.handler)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 117, in _handler
+    await handler(message, connection, self.conn.last_message)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\coinbase.py", line 366, in message_handler
+    await self._pair_level2_snapshot(msg, timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\coinbase.py", line 187, in _pair_level2_snapshot
+    await self.book_callback(self._l2_book[pair], L2_BOOK, pair, True, None, timestamp, timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\feed.py", line 235, in book_callback
+    await self.callback(L2_BOOK, feed=self.id, symbol=symbol, book=book, timestamp=timestamp, receipt_timestamp=receipt_timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\feed.py", line 249, in callback
+    await cb(**kwargs)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\callback.py", line 57, in __call__
+    await super().__call__(feed, symbol, book, timestamp, receipt_timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\callback.py", line 21, in __call__
+    await self.callback(*args, **kwargs)
+  File "C:\Users\jlove\PycharmProjects\OrderBookTest\cryptofeed_worker.py", line 92, in add_book
+    assert (self.check_books(book))
+AssertionError
+2021-08-29 16:38:15,269 : ERROR : COINBASE.ws.3: encountered an exception, reconnecting in 1.0 seconds
+Traceback (most recent call last):
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 68, in _create_connection
+    await self._handler(connection, self.handler)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 117, in _handler
+    await handler(message, connection, self.conn.last_message)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\coinbase.py", line 366, in message_handler
+    await self._pair_level2_snapshot(msg, timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\coinbase.py", line 187, in _pair_level2_snapshot
+    await self.book_callback(self._l2_book[pair], L2_BOOK, pair, True, None, timestamp, timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\feed.py", line 235, in book_callback
+    await self.callback(L2_BOOK, feed=self.id, symbol=symbol, book=book, timestamp=timestamp, receipt_timestamp=receipt_timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\feed.py", line 249, in callback
+    await cb(**kwargs)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\callback.py", line 57, in __call__
+    await super().__call__(feed, symbol, book, timestamp, receipt_timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\callback.py", line 21, in __call__
+    await self.callback(*args, **kwargs)
+  File "C:\Users\jlove\PycharmProjects\OrderBookTest\cryptofeed_worker.py", line 92, in add_book
+    assert (self.check_books(book))
+AssertionError
+2021-08-29 16:38:15,614 : ERROR : COINBASE.ws.5: encountered an exception, reconnecting in 1.0 seconds
+Traceback (most recent call last):
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 68, in _create_connection
+    await self._handler(connection, self.handler)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 117, in _handler
+    await handler(message, connection, self.conn.last_message)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\coinbase.py", line 366, in message_handler
+    await self._pair_level2_snapshot(msg, timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\coinbase.py", line 187, in _pair_level2_snapshot
+    await self.book_callback(self._l2_book[pair], L2_BOOK, pair, True, None, timestamp, timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\feed.py", line 235, in book_callback
+    await self.callback(L2_BOOK, feed=self.id, symbol=symbol, book=book, timestamp=timestamp, receipt_timestamp=receipt_timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\feed.py", line 249, in callback
+    await cb(**kwargs)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\callback.py", line 57, in __call__
+    await super().__call__(feed, symbol, book, timestamp, receipt_timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\callback.py", line 21, in __call__
+    await self.callback(*args, **kwargs)
+  File "C:\Users\jlove\PycharmProjects\OrderBookTest\cryptofeed_worker.py", line 92, in add_book
+    assert (self.check_books(book))
+AssertionError
+2021-08-29 16:38:15,864 : ERROR : COINBASE.ws.4: encountered an exception, reconnecting in 1.0 seconds
+Traceback (most recent call last):
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 68, in _create_connection
+    await self._handler(connection, self.handler)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 117, in _handler
+    await handler(message, connection, self.conn.last_message)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\coinbase.py", line 366, in message_handler
+    await self._pair_level2_snapshot(msg, timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\coinbase.py", line 187, in _pair_level2_snapshot
+    await self.book_callback(self._l2_book[pair], L2_BOOK, pair, True, None, timestamp, timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\feed.py", line 235, in book_callback
+    await self.callback(L2_BOOK, feed=self.id, symbol=symbol, book=book, timestamp=timestamp, receipt_timestamp=receipt_timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\feed.py", line 249, in callback
+    await cb(**kwargs)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\callback.py", line 57, in __call__
+    await super().__call__(feed, symbol, book, timestamp, receipt_timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\callback.py", line 21, in __call__
+    await self.callback(*args, **kwargs)
+  File "C:\Users\jlove\PycharmProjects\OrderBookTest\cryptofeed_worker.py", line 92, in add_book
+    assert (self.check_books(book))
+AssertionError
+2021-08-29 16:38:16,543 : ERROR : COINBASE.ws.3: encountered an exception, reconnecting in 1.0 seconds
+Traceback (most recent call last):
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 68, in _create_connection
+    await self._handler(connection, self.handler)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 117, in _handler
+    await handler(message, connection, self.conn.last_message)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\coinbase.py", line 366, in message_handler
+    await self._pair_level2_snapshot(msg, timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\coinbase.py", line 187, in _pair_level2_snapshot
+    await self.book_callback(self._l2_book[pair], L2_BOOK, pair, True, None, timestamp, timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\feed.py", line 235, in book_callback
+    await self.callback(L2_BOOK, feed=self.id, symbol=symbol, book=book, timestamp=timestamp, receipt_timestamp=receipt_timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\feed.py", line 249, in callback
+    await cb(**kwargs)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\callback.py", line 57, in __call__
+    await super().__call__(feed, symbol, book, timestamp, receipt_timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\callback.py", line 21, in __call__
+    await self.callback(*args, **kwargs)
+  File "C:\Users\jlove\PycharmProjects\OrderBookTest\cryptofeed_worker.py", line 92, in add_book
+    assert (self.check_books(book))
+AssertionError
+2021-08-29 16:38:16,744 : ERROR : COINBASE.ws.5: encountered an exception, reconnecting in 1.0 seconds
+Traceback (most recent call last):
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 68, in _create_connection
+    await self._handler(connection, self.handler)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 117, in _handler
+    await handler(message, connection, self.conn.last_message)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\coinbase.py", line 366, in message_handler
+    await self._pair_level2_snapshot(msg, timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\coinbase.py", line 187, in _pair_level2_snapshot
+    await self.book_callback(self._l2_book[pair], L2_BOOK, pair, True, None, timestamp, timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\feed.py", line 235, in book_callback
+    await self.callback(L2_BOOK, feed=self.id, symbol=symbol, book=book, timestamp=timestamp, receipt_timestamp=receipt_timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\feed.py", line 249, in callback
+    await cb(**kwargs)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\callback.py", line 57, in __call__
+    await super().__call__(feed, symbol, book, timestamp, receipt_timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\callback.py", line 21, in __call__
+    await self.callback(*args, **kwargs)
+  File "C:\Users\jlove\PycharmProjects\OrderBookTest\cryptofeed_worker.py", line 92, in add_book
+    assert (self.check_books(book))
+AssertionError
+2021-08-29 16:38:17,108 : ERROR : COINBASE.ws.4: encountered an exception, reconnecting in 1.0 seconds
+Traceback (most recent call last):
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 68, in _create_connection
+    await self._handler(connection, self.handler)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 117, in _handler
+    await handler(message, connection, self.conn.last_message)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\coinbase.py", line 366, in message_handler
+    await self._pair_level2_snapshot(msg, timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\coinbase.py", line 187, in _pair_level2_snapshot
+    await self.book_callback(self._l2_book[pair], L2_BOOK, pair, True, None, timestamp, timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\feed.py", line 235, in book_callback
+    await self.callback(L2_BOOK, feed=self.id, symbol=symbol, book=book, timestamp=timestamp, receipt_timestamp=receipt_timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\feed.py", line 249, in callback
+    await cb(**kwargs)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\callback.py", line 57, in __call__
+    await super().__call__(feed, symbol, book, timestamp, receipt_timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\callback.py", line 21, in __call__
+    await self.callback(*args, **kwargs)
+  File "C:\Users\jlove\PycharmProjects\OrderBookTest\cryptofeed_worker.py", line 92, in add_book
+    assert (self.check_books(book))
+AssertionError
+2021-08-29 16:38:17,758 : ERROR : COINBASE.ws.3: encountered an exception, reconnecting in 1.0 seconds
+Traceback (most recent call last):
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 68, in _create_connection
+    await self._handler(connection, self.handler)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 117, in _handler
+    await handler(message, connection, self.conn.last_message)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\coinbase.py", line 366, in message_handler
+    await self._pair_level2_snapshot(msg, timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\coinbase.py", line 187, in _pair_level2_snapshot
+    await self.book_callback(self._l2_book[pair], L2_BOOK, pair, True, None, timestamp, timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\feed.py", line 235, in book_callback
+    await self.callback(L2_BOOK, feed=self.id, symbol=symbol, book=book, timestamp=timestamp, receipt_timestamp=receipt_timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\feed.py", line 249, in callback
+    await cb(**kwargs)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\callback.py", line 57, in __call__
+    await super().__call__(feed, symbol, book, timestamp, receipt_timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\callback.py", line 21, in __call__
+    await self.callback(*args, **kwargs)
+  File "C:\Users\jlove\PycharmProjects\OrderBookTest\cryptofeed_worker.py", line 92, in add_book
+    assert (self.check_books(book))
+AssertionError
+2021-08-29 16:38:17,864 : ERROR : COINBASE.ws.5: encountered an exception, reconnecting in 1.0 seconds
+Traceback (most recent call last):
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 68, in _create_connection
+    await self._handler(connection, self.handler)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 117, in _handler
+    await handler(message, connection, self.conn.last_message)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\coinbase.py", line 366, in message_handler
+    await self._pair_level2_snapshot(msg, timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\coinbase.py", line 187, in _pair_level2_snapshot
+    await self.book_callback(self._l2_book[pair], L2_BOOK, pair, True, None, timestamp, timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\feed.py", line 235, in book_callback
+    await self.callback(L2_BOOK, feed=self.id, symbol=symbol, book=book, timestamp=timestamp, receipt_timestamp=receipt_timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\feed.py", line 249, in callback
+    await cb(**kwargs)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\callback.py", line 57, in __call__
+    await super().__call__(feed, symbol, book, timestamp, receipt_timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\callback.py", line 21, in __call__
+    await self.callback(*args, **kwargs)
+  File "C:\Users\jlove\PycharmProjects\OrderBookTest\cryptofeed_worker.py", line 92, in add_book
+    assert (self.check_books(book))
+AssertionError
+2021-08-29 16:38:18,268 : ERROR : COINBASE.ws.4: encountered an exception, reconnecting in 1.0 seconds
+Traceback (most recent call last):
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 68, in _create_connection
+    await self._handler(connection, self.handler)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 117, in _handler
+    await handler(message, connection, self.conn.last_message)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\coinbase.py", line 366, in message_handler
+    await self._pair_level2_snapshot(msg, timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\coinbase.py", line 187, in _pair_level2_snapshot
+    await self.book_callback(self._l2_book[pair], L2_BOOK, pair, True, None, timestamp, timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\feed.py", line 235, in book_callback
+    await self.callback(L2_BOOK, feed=self.id, symbol=symbol, book=book, timestamp=timestamp, receipt_timestamp=receipt_timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\feed.py", line 249, in callback
+    await cb(**kwargs)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\callback.py", line 57, in __call__
+    await super().__call__(feed, symbol, book, timestamp, receipt_timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\callback.py", line 21, in __call__
+    await self.callback(*args, **kwargs)
+  File "C:\Users\jlove\PycharmProjects\OrderBookTest\cryptofeed_worker.py", line 92, in add_book
+    assert (self.check_books(book))
+AssertionError
+2021-08-29 16:38:19,042 : ERROR : COINBASE.ws.3: encountered an exception, reconnecting in 1.0 seconds
+Traceback (most recent call last):
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 68, in _create_connection
+    await self._handler(connection, self.handler)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 117, in _handler
+    await handler(message, connection, self.conn.last_message)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\coinbase.py", line 366, in message_handler
+    await self._pair_level2_snapshot(msg, timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\coinbase.py", line 187, in _pair_level2_snapshot
+    await self.book_callback(self._l2_book[pair], L2_BOOK, pair, True, None, timestamp, timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\feed.py", line 235, in book_callback
+    await self.callback(L2_BOOK, feed=self.id, symbol=symbol, book=book, timestamp=timestamp, receipt_timestamp=receipt_timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\feed.py", line 249, in callback
+    await cb(**kwargs)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\callback.py", line 57, in __call__
+    await super().__call__(feed, symbol, book, timestamp, receipt_timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\callback.py", line 21, in __call__
+    await self.callback(*args, **kwargs)
+  File "C:\Users\jlove\PycharmProjects\OrderBookTest\cryptofeed_worker.py", line 92, in add_book
+    assert (self.check_books(book))
+AssertionError
+2021-08-29 16:38:19,051 : ERROR : COINBASE.ws.5: encountered an exception, reconnecting in 1.0 seconds
+Traceback (most recent call last):
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 68, in _create_connection
+    await self._handler(connection, self.handler)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 117, in _handler
+    await handler(message, connection, self.conn.last_message)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\coinbase.py", line 366, in message_handler
+    await self._pair_level2_snapshot(msg, timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\coinbase.py", line 187, in _pair_level2_snapshot
+    await self.book_callback(self._l2_book[pair], L2_BOOK, pair, True, None, timestamp, timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\feed.py", line 235, in book_callback
+    await self.callback(L2_BOOK, feed=self.id, symbol=symbol, book=book, timestamp=timestamp, receipt_timestamp=receipt_timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\feed.py", line 249, in callback
+    await cb(**kwargs)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\callback.py", line 57, in __call__
+    await super().__call__(feed, symbol, book, timestamp, receipt_timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\callback.py", line 21, in __call__
+    await self.callback(*args, **kwargs)
+  File "C:\Users\jlove\PycharmProjects\OrderBookTest\cryptofeed_worker.py", line 92, in add_book
+    assert (self.check_books(book))
+AssertionError
+2021-08-29 16:40:54,744 : ERROR : COINBASE.ws.5: encountered an exception, reconnecting in 1.0 seconds
+Traceback (most recent call last):
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 68, in _create_connection
+    await self._handler(connection, self.handler)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 117, in _handler
+    await handler(message, connection, self.conn.last_message)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\coinbase.py", line 364, in message_handler
+    await self._book_update(msg, timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\coinbase.py", line 162, in _book_update
+    await self.callback(TRADES,
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\feed.py", line 249, in callback
+    await cb(**kwargs)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\callback.py", line 44, in __call__
+    await super().__call__(feed, symbol, order_id, timestamp, side, amount, price, receipt_timestamp, **kwargs)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\callback.py", line 24, in __call__
+    await loop.run_in_executor(None, self.callback, *args, **kwargs)
+  File "C:\Users\jlove\AppData\Local\Programs\Python\Python38\lib\concurrent\futures\thread.py", line 57, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "C:\Users\jlove\PycharmProjects\OrderBookTest\cryptofeed_worker.py", line 128, in add_trade
+    self.value_buys += (price * amount)
+TypeError: unsupported operand type(s) for +=: 'float' and 'decimal.Decimal'
+2021-08-29 16:40:54,749 : ERROR : COINBASE.ws.4: encountered an exception, reconnecting in 1.0 seconds
+Traceback (most recent call last):
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 68, in _create_connection
+    await self._handler(connection, self.handler)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 117, in _handler
+    await handler(message, connection, self.conn.last_message)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\coinbase.py", line 364, in message_handler
+    await self._book_update(msg, timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\coinbase.py", line 162, in _book_update
+    await self.callback(TRADES,
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\feed.py", line 249, in callback
+    await cb(**kwargs)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\callback.py", line 44, in __call__
+    await super().__call__(feed, symbol, order_id, timestamp, side, amount, price, receipt_timestamp, **kwargs)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\callback.py", line 24, in __call__
+    await loop.run_in_executor(None, self.callback, *args, **kwargs)
+  File "C:\Users\jlove\AppData\Local\Programs\Python\Python38\lib\concurrent\futures\thread.py", line 57, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "C:\Users\jlove\PycharmProjects\OrderBookTest\cryptofeed_worker.py", line 131, in add_trade
+    self.value_sells += (price * amount)
+TypeError: unsupported operand type(s) for +=: 'float' and 'decimal.Decimal'
+2021-08-29 16:40:54,774 : ERROR : COINBASE.ws.3: encountered an exception, reconnecting in 1.0 seconds
+Traceback (most recent call last):
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 68, in _create_connection
+    await self._handler(connection, self.handler)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 117, in _handler
+    await handler(message, connection, self.conn.last_message)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\coinbase.py", line 364, in message_handler
+    await self._book_update(msg, timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\coinbase.py", line 162, in _book_update
+    await self.callback(TRADES,
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\feed.py", line 249, in callback
+    await cb(**kwargs)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\callback.py", line 44, in __call__
+    await super().__call__(feed, symbol, order_id, timestamp, side, amount, price, receipt_timestamp, **kwargs)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\callback.py", line 24, in __call__
+    await loop.run_in_executor(None, self.callback, *args, **kwargs)
+  File "C:\Users\jlove\AppData\Local\Programs\Python\Python38\lib\concurrent\futures\thread.py", line 57, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "C:\Users\jlove\PycharmProjects\OrderBookTest\cryptofeed_worker.py", line 128, in add_trade
+    self.value_buys += (price * amount)
+TypeError: unsupported operand type(s) for +=: 'float' and 'decimal.Decimal'
+2021-08-29 16:40:56,229 : ERROR : COINBASE.ws.5: encountered an exception, reconnecting in 1.0 seconds
+Traceback (most recent call last):
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 68, in _create_connection
+    await self._handler(connection, self.handler)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 117, in _handler
+    await handler(message, connection, self.conn.last_message)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\coinbase.py", line 364, in message_handler
+    await self._book_update(msg, timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\coinbase.py", line 162, in _book_update
+    await self.callback(TRADES,
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\feed.py", line 249, in callback
+    await cb(**kwargs)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\callback.py", line 44, in __call__
+    await super().__call__(feed, symbol, order_id, timestamp, side, amount, price, receipt_timestamp, **kwargs)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\callback.py", line 24, in __call__
+    await loop.run_in_executor(None, self.callback, *args, **kwargs)
+  File "C:\Users\jlove\AppData\Local\Programs\Python\Python38\lib\concurrent\futures\thread.py", line 57, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "C:\Users\jlove\PycharmProjects\OrderBookTest\cryptofeed_worker.py", line 128, in add_trade
+    self.value_buys += (price * amount)
+TypeError: unsupported operand type(s) for +=: 'float' and 'decimal.Decimal'
+2021-08-29 16:40:56,378 : ERROR : COINBASE.ws.4: encountered an exception, reconnecting in 1.0 seconds
+Traceback (most recent call last):
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 68, in _create_connection
+    await self._handler(connection, self.handler)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 117, in _handler
+    await handler(message, connection, self.conn.last_message)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\coinbase.py", line 364, in message_handler
+    await self._book_update(msg, timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\coinbase.py", line 162, in _book_update
+    await self.callback(TRADES,
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\feed.py", line 249, in callback
+    await cb(**kwargs)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\callback.py", line 44, in __call__
+    await super().__call__(feed, symbol, order_id, timestamp, side, amount, price, receipt_timestamp, **kwargs)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\callback.py", line 24, in __call__
+    await loop.run_in_executor(None, self.callback, *args, **kwargs)
+  File "C:\Users\jlove\AppData\Local\Programs\Python\Python38\lib\concurrent\futures\thread.py", line 57, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "C:\Users\jlove\PycharmProjects\OrderBookTest\cryptofeed_worker.py", line 128, in add_trade
+    self.value_buys += (price * amount)
+TypeError: unsupported operand type(s) for +=: 'float' and 'decimal.Decimal'
+2021-08-29 16:40:56,492 : ERROR : COINBASE.ws.3: encountered an exception, reconnecting in 1.0 seconds
+Traceback (most recent call last):
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 68, in _create_connection
+    await self._handler(connection, self.handler)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 117, in _handler
+    await handler(message, connection, self.conn.last_message)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\coinbase.py", line 364, in message_handler
+    await self._book_update(msg, timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\coinbase.py", line 162, in _book_update
+    await self.callback(TRADES,
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\feed.py", line 249, in callback
+    await cb(**kwargs)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\callback.py", line 44, in __call__
+    await super().__call__(feed, symbol, order_id, timestamp, side, amount, price, receipt_timestamp, **kwargs)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\callback.py", line 24, in __call__
+    await loop.run_in_executor(None, self.callback, *args, **kwargs)
+  File "C:\Users\jlove\AppData\Local\Programs\Python\Python38\lib\concurrent\futures\thread.py", line 57, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "C:\Users\jlove\PycharmProjects\OrderBookTest\cryptofeed_worker.py", line 128, in add_trade
+    self.value_buys += (price * amount)
+TypeError: unsupported operand type(s) for +=: 'float' and 'decimal.Decimal'
+2021-08-29 16:43:27,990 : ERROR : COINBASE.ws.5: encountered an exception, reconnecting in 1.0 seconds
+Traceback (most recent call last):
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 68, in _create_connection
+    await self._handler(connection, self.handler)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 117, in _handler
+    await handler(message, connection, self.conn.last_message)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\coinbase.py", line 364, in message_handler
+    await self._book_update(msg, timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\coinbase.py", line 162, in _book_update
+    await self.callback(TRADES,
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\feed.py", line 249, in callback
+    await cb(**kwargs)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\callback.py", line 44, in __call__
+    await super().__call__(feed, symbol, order_id, timestamp, side, amount, price, receipt_timestamp, **kwargs)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\callback.py", line 24, in __call__
+    await loop.run_in_executor(None, self.callback, *args, **kwargs)
+  File "C:\Users\jlove\AppData\Local\Programs\Python\Python38\lib\concurrent\futures\thread.py", line 57, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "C:\Users\jlove\PycharmProjects\OrderBookTest\cryptofeed_worker.py", line 131, in add_trade
+    self.value_sells += (price * amount)
+TypeError: unsupported operand type(s) for +=: 'float' and 'decimal.Decimal'
+2021-08-29 16:43:28,185 : ERROR : COINBASE.ws.4: encountered an exception, reconnecting in 1.0 seconds
+Traceback (most recent call last):
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 68, in _create_connection
+    await self._handler(connection, self.handler)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 117, in _handler
+    await handler(message, connection, self.conn.last_message)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\coinbase.py", line 364, in message_handler
+    await self._book_update(msg, timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\coinbase.py", line 162, in _book_update
+    await self.callback(TRADES,
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\feed.py", line 249, in callback
+    await cb(**kwargs)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\callback.py", line 44, in __call__
+    await super().__call__(feed, symbol, order_id, timestamp, side, amount, price, receipt_timestamp, **kwargs)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\callback.py", line 24, in __call__
+    await loop.run_in_executor(None, self.callback, *args, **kwargs)
+  File "C:\Users\jlove\AppData\Local\Programs\Python\Python38\lib\concurrent\futures\thread.py", line 57, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "C:\Users\jlove\PycharmProjects\OrderBookTest\cryptofeed_worker.py", line 131, in add_trade
+    self.value_sells += (price * amount)
+TypeError: unsupported operand type(s) for +=: 'float' and 'decimal.Decimal'
+2021-08-29 16:43:29,319 : ERROR : COINBASE.ws.5: encountered an exception, reconnecting in 1.0 seconds
+Traceback (most recent call last):
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 68, in _create_connection
+    await self._handler(connection, self.handler)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 117, in _handler
+    await handler(message, connection, self.conn.last_message)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\coinbase.py", line 366, in message_handler
+    await self._pair_level2_snapshot(msg, timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\coinbase.py", line 187, in _pair_level2_snapshot
+    await self.book_callback(self._l2_book[pair], L2_BOOK, pair, True, None, timestamp, timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\feed.py", line 235, in book_callback
+    await self.callback(L2_BOOK, feed=self.id, symbol=symbol, book=book, timestamp=timestamp, receipt_timestamp=receipt_timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\feed.py", line 249, in callback
+    await cb(**kwargs)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\callback.py", line 57, in __call__
+    await super().__call__(feed, symbol, book, timestamp, receipt_timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\callback.py", line 21, in __call__
+    await self.callback(*args, **kwargs)
+  File "C:\Users\jlove\PycharmProjects\OrderBookTest\cryptofeed_worker.py", line 92, in add_book
+    assert (self.check_books(book))
+AssertionError
+2021-08-29 16:43:29,388 : ERROR : COINBASE.ws.4: encountered an exception, reconnecting in 1.0 seconds
+Traceback (most recent call last):
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 68, in _create_connection
+    await self._handler(connection, self.handler)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 117, in _handler
+    await handler(message, connection, self.conn.last_message)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\coinbase.py", line 366, in message_handler
+    await self._pair_level2_snapshot(msg, timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\coinbase.py", line 187, in _pair_level2_snapshot
+    await self.book_callback(self._l2_book[pair], L2_BOOK, pair, True, None, timestamp, timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\feed.py", line 235, in book_callback
+    await self.callback(L2_BOOK, feed=self.id, symbol=symbol, book=book, timestamp=timestamp, receipt_timestamp=receipt_timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\feed.py", line 249, in callback
+    await cb(**kwargs)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\callback.py", line 57, in __call__
+    await super().__call__(feed, symbol, book, timestamp, receipt_timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\callback.py", line 21, in __call__
+    await self.callback(*args, **kwargs)
+  File "C:\Users\jlove\PycharmProjects\OrderBookTest\cryptofeed_worker.py", line 92, in add_book
+    assert (self.check_books(book))
+AssertionError
+2021-08-29 16:43:30,461 : ERROR : COINBASE.ws.5: encountered an exception, reconnecting in 1.0 seconds
+Traceback (most recent call last):
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 68, in _create_connection
+    await self._handler(connection, self.handler)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 117, in _handler
+    await handler(message, connection, self.conn.last_message)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\coinbase.py", line 366, in message_handler
+    await self._pair_level2_snapshot(msg, timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\coinbase.py", line 187, in _pair_level2_snapshot
+    await self.book_callback(self._l2_book[pair], L2_BOOK, pair, True, None, timestamp, timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\feed.py", line 235, in book_callback
+    await self.callback(L2_BOOK, feed=self.id, symbol=symbol, book=book, timestamp=timestamp, receipt_timestamp=receipt_timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\feed.py", line 249, in callback
+    await cb(**kwargs)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\callback.py", line 57, in __call__
+    await super().__call__(feed, symbol, book, timestamp, receipt_timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\callback.py", line 21, in __call__
+    await self.callback(*args, **kwargs)
+  File "C:\Users\jlove\PycharmProjects\OrderBookTest\cryptofeed_worker.py", line 92, in add_book
+    assert (self.check_books(book))
+AssertionError
+2021-08-29 16:43:30,648 : ERROR : COINBASE.ws.4: encountered an exception, reconnecting in 1.0 seconds
+Traceback (most recent call last):
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 68, in _create_connection
+    await self._handler(connection, self.handler)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\connection_handler.py", line 117, in _handler
+    await handler(message, connection, self.conn.last_message)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\coinbase.py", line 366, in message_handler
+    await self._pair_level2_snapshot(msg, timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\exchanges\coinbase.py", line 187, in _pair_level2_snapshot
+    await self.book_callback(self._l2_book[pair], L2_BOOK, pair, True, None, timestamp, timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\feed.py", line 235, in book_callback
+    await self.callback(L2_BOOK, feed=self.id, symbol=symbol, book=book, timestamp=timestamp, receipt_timestamp=receipt_timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\feed.py", line 249, in callback
+    await cb(**kwargs)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\callback.py", line 57, in __call__
+    await super().__call__(feed, symbol, book, timestamp, receipt_timestamp)
+  File "C:\Users\jlove\.virtualenvs\OrderBookTest\lib\site-packages\cryptofeed\callback.py", line 21, in __call__
+    await self.callback(*args, **kwargs)
+  File "C:\Users\jlove\PycharmProjects\OrderBookTest\cryptofeed_worker.py", line 92, in add_book
+    assert (self.check_books(book))
+AssertionError
