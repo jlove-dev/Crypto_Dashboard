@@ -7,7 +7,7 @@ import dash_table
 import pandas
 import plotly.express as px
 from dash.dependencies import Input, Output
-from cryptofeed_worker import OrderBook, start_feed
+from cryptofeed_worker import OrderBook, start_feed, TimeKeeper
 
 # Object which acts as the carrier through the app and is passed between child threads
 
@@ -28,6 +28,8 @@ adaBookObject = OrderBook('ada',
                           'ADA',
                           "ADA-USD Depth Chart using cryptofeed and Dash",
                           'ADA-USD Live Depth Chart')
+
+timeKeeperObject = TimeKeeper()
 
 
 # Function which holds the Dash web server and starts the web server
@@ -80,17 +82,27 @@ def run_server():
                 id='interval-component',
                 interval=1 * 500,  # Updates every half a second
                 n_intervals=0
+            ),
+            dcc.Interval(
+                id='stats-interval',
+                interval=1 * 50,
+                n_intervals=0
             )
         ])
     )
+
+    @app.callback(Output('statsBox', "children"),
+                  [Input('stats-interval', 'n_intervals'),
+                   Input('token-selector', 'value')])
+    def update_stats(n, value):
+        return timeKeeperObject.get_time_elapse()
 
     #FIXME - should do faster callback interval with for time elapsed
 
     # Callback to update the graph with any updates to the L2 Book
     @app.callback([Output('live-update-graph', 'figure'),
                    Output('header', 'children'),
-                   Output('trade_table', "data"),
-                   Output('statsBox', "children")],
+                   Output('trade_table', "data")],
                   [Input('interval-component', 'n_intervals'),
                    Input('token-selector', 'value')])
     def update_graph(n, value):
@@ -136,7 +148,7 @@ def build_graph(order_book):
 
     new_df = pandas.DataFrame(order_book.trade_list)
 
-    return fig, order_book.get_subtitle(), new_df.to_dict('records'), order_book.get_time_elapse()
+    return fig, order_book.get_subtitle(), new_df.to_dict('records')
 
 
 if __name__ == "__main__":
