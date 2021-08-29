@@ -41,9 +41,12 @@ def run_server():
     app = dash.Dash(__name__, external_stylesheets=external_stylesheets, update_title=None)
     app.layout = html.Div(
         html.Div([
-            html.H4('ETH-USD Live Depth Chart', id='header'),
+            html.Div([html.H4('ETH-USD Live Depth Chart', id='header',
+                              style={'float': 'left'}), html.H4('Session stats', id='stats',
+                                                                style={'float': 'right', 'display': 'inline-block'})]),
+            # FIXME - left off here
             html.Div(id='live-update-text'),
-            dcc.Dropdown(
+            html.Div([dcc.Dropdown(
                 id='token-selector',
                 options=[
                     {'label': 'BTC', 'value': 'BTC-USD'},
@@ -52,6 +55,11 @@ def run_server():
                 ],
                 style={'width': '50vw'}
             ),
+                html.Output(
+                    id='statsBox',
+                    children=['Time elapsed'],
+                    style={'width': '25vw', 'float': 'right'}
+                )]),
             dcc.Graph(id='live-update-graph',
                       figure=px.ecdf(ethBookObject.get_asks(), x='ETH-USD Price', y="size", ecdfnorm=None, color="side",
                                      labels={
@@ -60,7 +68,7 @@ def run_server():
                                          "value": "ETH-USD Price"
                                      },
                                      title="ETH-USD Depth Chart using cryptofeed and Dash"),
-                      style={'width': '50vw', 'border':'2px black solid'}),
+                      style={'width': '50vw', 'border': '2px black solid'}),
             dash_table.DataTable(
                 id='trade_table',
                 columns=[{"name": i, "id": i} for i in base_df],
@@ -76,10 +84,13 @@ def run_server():
         ])
     )
 
+    #FIXME - should do faster callback interval with for time elapsed
+
     # Callback to update the graph with any updates to the L2 Book
     @app.callback([Output('live-update-graph', 'figure'),
                    Output('header', 'children'),
-                   Output('trade_table', "data")],
+                   Output('trade_table', "data"),
+                   Output('statsBox', "children")],
                   [Input('interval-component', 'n_intervals'),
                    Input('token-selector', 'value')])
     def update_graph(n, value):
@@ -125,7 +136,7 @@ def build_graph(order_book):
 
     new_df = pandas.DataFrame(order_book.trade_list)
 
-    return fig, order_book.get_subtitle(), new_df.to_dict('records')
+    return fig, order_book.get_subtitle(), new_df.to_dict('records'), order_book.get_time_elapse()
 
 
 if __name__ == "__main__":

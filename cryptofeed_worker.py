@@ -1,5 +1,6 @@
 import asyncio
 from copy import deepcopy
+from datetime import datetime
 from decimal import Decimal
 
 import pandas
@@ -42,6 +43,11 @@ class OrderBook(object):
         self.mid_market = 0.0
         self.depth = 0
         self.trade_list = []
+
+        #session stats
+        self.num_buys = 0
+        self.num_sells = 0
+        self.time_start = datetime.utcnow().timestamp()
 
         # This holds the callbacks for when cryptofeed returns data
         self.L2 = {L2_BOOK: BookCallback(self.add_book),
@@ -134,6 +140,12 @@ class OrderBook(object):
 
     def get_subtitle(self):
         return self.sub_title
+
+    def get_time_elapse(self):
+        current_time = (datetime.utcnow().timestamp() - self.time_start)/100 # make ms into min
+        hours, seconds = divmod(current_time*60, 3600)
+        minutes, seconds = divmod(seconds, 60)
+        return "Time elapsed: " + "{:02.0f}:{:02.0f}:{:02.0f}".format(hours, minutes, seconds)
 
 
 def get_btc_feed():
