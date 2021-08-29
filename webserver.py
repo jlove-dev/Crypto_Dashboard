@@ -93,27 +93,47 @@ def run_server():
                 html.Output(
                     id='statsBox',
                     children=['Time elapsed'],
-                    style={'width': '25vw', 'float': 'right', 'position': 'relative', 'right': '0'}
+                    style={'width': '25vw',
+                           'float': 'right',
+                           'position': 'relative',
+                           'right': '0',
+                           'font-size': 'larger'}
                 ),
                 html.Output(
                     id='buysBox',
                     children=['Number of buys:'],
-                    style={'width': '25vw', 'float': 'right', 'position': 'relative', 'right': '0'}
+                    style={'width': '25vw',
+                           'float': 'right',
+                           'position': 'relative',
+                           'right': '0',
+                           'font-size': 'larger'}
                 ),
                 html.Output(
                     id='sellsBox',
                     children=['Number of sells:'],
-                    style={'width': '25vw', 'float': 'right', 'position': 'relative', 'right': '0'}
+                    style={'width': '25vw',
+                           'float': 'right',
+                           'position': 'relative',
+                           'right': '0',
+                           'font-size': 'larger'}
                 ),
                 html.Output(
                     id='buysValue',
                     children=['Value of buys:'],
-                    style={'width': '25vw', 'float': 'right', 'position': 'relative', 'right': '0'}
+                    style={'width': '25vw',
+                           'float': 'right',
+                           'position': 'relative',
+                           'right': '0',
+                           'font-size': 'larger'}
                 ),
                 html.Output(
                     id='sellsValue',
                     children=['Value of sells:'],
-                    style={'width': '25vw', 'float': 'right', 'position': 'relative', 'right': '0'}
+                    style={'width': '25vw',
+                           'float': 'right',
+                           'position': 'relative',
+                           'right': '0',
+                           'font-size': 'larger'}
                 )
             ],
                 style={'float': 'right',

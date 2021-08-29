@@ -186,7 +186,7 @@ def get_ada_feed():
 def start_feed(btc_book, eth_book, ada_book):
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
-    handler.add_feed(Coinbase(max_depth=100, symbols=get_btc_feed(), channels=[L2_BOOK, TRADES], callbacks=btc_book.L2))
-    handler.add_feed(Coinbase(max_depth=100, symbols=get_eth_feed(), channels=[L2_BOOK, TRADES], callbacks=eth_book.L2))
-    handler.add_feed(Coinbase(max_depth=100, symbols=get_ada_feed(), channels=[L2_BOOK, TRADES], callbacks=ada_book.L2))
+    handler.add_feed(Coinbase(max_depth=200, symbols=get_btc_feed(), channels=[L2_BOOK, TRADES], callbacks=btc_book.L2))
+    handler.add_feed(Coinbase(max_depth=200, symbols=get_eth_feed(), channels=[L2_BOOK, TRADES], callbacks=eth_book.L2))
+    handler.add_feed(Coinbase(max_depth=200, symbols=get_ada_feed(), channels=[L2_BOOK, TRADES], callbacks=ada_book.L2))
     handler.run(install_signal_handlers=False)
