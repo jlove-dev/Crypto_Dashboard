@@ -28,23 +28,25 @@ handler = FeedHandler()
 
 class OrderBook(object):
     def __init__(self, name, symbol, size, title, sub_title):
-        self.book = None
+        # Passed in params
         self.name = name
+        self.symbol = symbol + ' Price'
+        self.size = size
+        self.title = title
+        self.sub_title = sub_title
+
+        # Local object data attributes - not passed in
+        self.book = None
         self.bids = pandas.DataFrame(data=bids)
         self.asks = pandas.DataFrame(data=asks)
+        self.mid_market = 0.0
+        self.depth = 0
+        self.trade_list = []
 
         # This holds the callbacks for when cryptofeed returns data
         self.L2 = {L2_BOOK: BookCallback(self.add_book),
                    BOOK_DELTA: BookUpdateCallback(self.update_book),
                    TRADES: TradeCallback(self.add_trade)}
-
-        self.mid_market = 0.0
-        self.symbol = symbol + ' Price'
-        self.size = size
-        self.title = title
-        self.sub_title = sub_title
-        self.depth = 0
-        self.trade_list = []
 
     # Function to check if the current book matches the most recent message
     def check_books(self, master):

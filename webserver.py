@@ -49,7 +49,8 @@ def run_server():
                     {'label': 'BTC', 'value': 'BTC-USD'},
                     {'label': 'ETH', 'value': 'ETH-USD'},
                     {'label': 'ADA', 'value': 'ADA-USD'}
-                ]
+                ],
+                style={'width': '50vw'}
             ),
             dcc.Graph(id='live-update-graph',
                       figure=px.ecdf(ethBookObject.get_asks(), x='ETH-USD Price', y="size", ecdfnorm=None, color="side",
@@ -58,11 +59,14 @@ def run_server():
                                          "side": "Side",
                                          "value": "ETH-USD Price"
                                      },
-                                     title="ETH-USD Depth Chart using cryptofeed and Dash")),
+                                     title="ETH-USD Depth Chart using cryptofeed and Dash"),
+                      style={'width': '50vw', 'border':'2px black solid'}),
             dash_table.DataTable(
                 id='trade_table',
                 columns=[{"name": i, "id": i} for i in base_df],
-                data=base_df.to_dict('records')
+                data=base_df.to_dict('records'),
+                style_cell={'textAlign': 'center'},
+                style_table={'width': '50vw'}
             ),
             dcc.Interval(
                 id='interval-component',
