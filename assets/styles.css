@@ -1,0 +1,68 @@
+h3 {
+    font-size: 24px;
+    font-family: Andale Mono, monospace;
+}
+
+output {
+    width: 25vw;
+    float: right;
+    right: 0;
+    font-size: larger;
+}
+
+.split{
+    height: 100vh;
+    width: 50vw;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+
+.left {
+  left: 0;
+    padding-left: 10px;
+}
+
+.right {
+  right: 0;
+    padding-right: 10px;
+}
+
+#token-selector {
+    width: 25vw;
+    display: inline-block;
+}
+
+#graph-selector {
+    width: 25vw;
+    display: inline-block;
+}
+
+#header {
+    float: left;
+    width: 50vw;
+}
+
+.stats {
+    float: right;
+    width: 50vw;
+    right: 0;
+    position: relative;
+    text-align: right;
+}
+
+#live-update-graph {
+    width: 50vw;
+}
+
+.stats_area {
+    float: right;
+    display: inline-block;
+    width: 25vw;
+    right: 0;
+    vertical-align: baseline;
+    position: relative;
+    text-align: right;
+}

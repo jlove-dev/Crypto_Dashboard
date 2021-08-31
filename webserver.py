@@ -8,6 +8,11 @@ import pandas
 import plotly.express as px
 from dash.dependencies import Input, Output
 from cryptofeed_worker import OrderBook, start_feed, TimeKeeper
+import logging
+
+# Stop DASH from printing every POST result which is often due to interval callbacks
+log = logging.getLogger('werkzeug')
+log.setLevel(logging.ERROR)
 
 # Object which acts as the carrier through the app and is passed between child threads
 
@@ -38,41 +43,57 @@ def run_server():
 
     base_df = pandas.DataFrame(base_trade)
 
-    external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
-
-    app = dash.Dash(__name__, external_stylesheets=external_stylesheets, update_title=None)
+    app = dash.Dash(__name__, update_title=None)
     app.layout = html.Div([
-        html.Div([
-            html.Div([html.H4('ETH-USD Live Depth Chart', id='header',
-                              style={'float': 'left'})]),
+        html.Div(
+            className='split left',
+            children=[
+                html.Div([html.H3('ETH-USD Live Depth Chart',
+                                  id='header')]),
+                html.Div(
+                    id='dropdowns',
+                    children=
+                    [
+                        dcc.Dropdown(
+                            id='token-selector',
+                            options=[
+                                {'label': 'BTC', 'value': 'BTC-USD'},
+                                {'label': 'ETH', 'value': 'ETH-USD'},
+                                {'label': 'ADA', 'value': 'ADA-USD'}
+                            ]
+                        ),
+                        dcc.Dropdown(
+                            id='graph-selector',
+                            options=[
+                                {'label': 'Depth chart', 'value': 'depth'},
+                                {'label': 'Wall chart', 'value': 'wall'}
+                            ]
+                        )
+                    ]
 
-            html.Div(id='live-update-text'),
-            html.Div([dcc.Dropdown(
-                id='token-selector',
-                options=[
-                    {'label': 'BTC', 'value': 'BTC-USD'},
-                    {'label': 'ETH', 'value': 'ETH-USD'},
-                    {'label': 'ADA', 'value': 'ADA-USD'}
-                ],
-                style={'width': '50vw'}
-            ),
-                dcc.Graph(id='live-update-graph',
-                          figure=px.ecdf(ethBookObject.get_asks(), x='ETH-USD Price', y="size", ecdfnorm=None,
-                                         color="side",
-                                         labels={
-                                             "size": "ETH",
-                                             "side": "Side",
-                                             "value": "ETH-USD Price"
-                                         },
-                                         title="ETH-USD Depth Chart using cryptofeed and Dash"),
-                          style={'width': '50vw', 'border': '2px black solid'}),
-                dash_table.DataTable(
-                    id='trade_table',
-                    columns=[{"name": i, "id": i} for i in base_df],
-                    data=base_df.to_dict('records'),
-                    style_cell={'textAlign': 'center'},
-                    style_table={'width': '50vw'}
                 ),
+                html.Div([
+                    dcc.Graph(id='live-update-graph',
+                              figure=px.ecdf(ethBookObject.get_asks(), x='ETH-USD Price', y="size", ecdfnorm=None,
+                                             color="side",
+                                             labels={
+                                                 "size": "ETH",
+                                                 "side": "Side",
+                                                 "value": "ETH-USD Price"
+                                             },
+                                             title="ETH-USD Depth Chart using cryptofeed and Dash"))
+                ]),
+
+                html.Div([
+                    dash_table.DataTable(
+                        id='trade_table',
+                        columns=[{"name": i, "id": i} for i in base_df],
+                        data=base_df.to_dict('records'),
+                        style_cell={'textAlign': 'center'},
+                        style_table={'width': '50vw'}
+                    )
+                ]),
+
                 dcc.Interval(
                     id='interval-component',
                     interval=1 * 500,  # Updates every half a second
@@ -84,64 +105,39 @@ def run_server():
                     n_intervals=0
                 )
             ]),
-
-        ], style={'float': 'left'}),
-        html.Div([
-            html.H4('Session stats', id='stats',
-                    style={'float': 'right', 'position': 'relative'}),
-            html.Div([
-                html.Output(
-                    id='statsBox',
-                    children=['Time elapsed'],
-                    style={'width': '25vw',
-                           'float': 'right',
-                           'position': 'relative',
-                           'right': '0',
-                           'font-size': 'larger'}
-                ),
-                html.Output(
-                    id='buysBox',
-                    children=['Number of buys:'],
-                    style={'width': '25vw',
-                           'float': 'right',
-                           'position': 'relative',
-                           'right': '0',
-                           'font-size': 'larger'}
-                ),
-                html.Output(
-                    id='sellsBox',
-                    children=['Number of sells:'],
-                    style={'width': '25vw',
-                           'float': 'right',
-                           'position': 'relative',
-                           'right': '0',
-                           'font-size': 'larger'}
-                ),
-                html.Output(
-                    id='buysValue',
-                    children=['Value of buys:'],
-                    style={'width': '25vw',
-                           'float': 'right',
-                           'position': 'relative',
-                           'right': '0',
-                           'font-size': 'larger'}
-                ),
-                html.Output(
-                    id='sellsValue',
-                    children=['Value of sells:'],
-                    style={'width': '25vw',
-                           'float': 'right',
-                           'position': 'relative',
-                           'right': '0',
-                           'font-size': 'larger'}
-                )
-            ],
-                style={'float': 'right',
-                       'display': 'inline-block',
-                       'width': '25vw',
-                       'right': '0',
-                       'vertical-align': 'baseline'})
-        ], style={'float': 'right', 'display': 'inline-block', 'width': '25vw', 'top': '0'})
+        html.Div(
+            className='split right',
+            children=[
+                html.Div(
+                    className='stats',
+                    children=[
+                        html.H3('Session Stats')
+                    ]),
+                html.Div(
+                    className='stats_area',
+                    children=[
+                        html.Output(
+                            id='statsBox',
+                            children=['Time elapsed']
+                        ),
+                        html.Output(
+                            id='buysBox',
+                            children=['Number of buys:']
+                        ),
+                        html.Output(
+                            id='sellsBox',
+                            children=['Number of sells:']
+                        ),
+                        html.Output(
+                            id='buysValue',
+                            children=['Value of buys:']
+                        ),
+                        html.Output(
+                            id='sellsValue',
+                            children=['Value of sells:']
+                        )
+                    ])
+            ])
     ])
 
     @app.callback([Output('statsBox', "children"),
@@ -234,6 +230,7 @@ if __name__ == "__main__":
     # Start threading for both the cryptofeed worker and web server
     # Cryptofeed thread takes the global carrier object as a parameter which is passed in as a callback
     # This object is then passed back and forth between cryptofeed and the webserver
+
     t1 = threading.Thread(target=start_feed, args=[btcBookObject, ethBookObject, adaBookObject])
     t1.start()
 

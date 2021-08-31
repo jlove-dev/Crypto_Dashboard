@@ -1,6 +1,6 @@
 # Crypto_Dashboard
 
-This project is a WIP as a way to display useful information about cryptocurrencies. It's currently being actively developed as a proof of concept, and a way visualize more useful data about various cryptocurrencies.
+This project is a WIP as a way to display useful information about cryptocurrencies. It's currently being actively developed as a proof of concept, and a way to visualize more useful data about various cryptocurrencies.
 
 It currently uses cryptofeed (https://github.com/bmoscon/cryptofeed) and Dash by Plotly (https://plotly.com/dash/) to display live Coinbase data.
 

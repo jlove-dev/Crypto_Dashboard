@@ -88,12 +88,12 @@ class OrderBook(object):
         if not self.book:  # First entry
             self.book = deepcopy(book)
             print('Book set!')
+
+            # Flatten book into list
+            self.flatten_book()
         else:  # Checks if the message contains new data
             assert (self.check_books(book))
             print('Books match!')
-
-        # Flatten book into list
-        self.flatten_book()
 
     # Updates the L2 book
     async def update_book(self, feed, symbol, update, timestamp, receipt_timestamp):
@@ -103,7 +103,6 @@ class OrderBook(object):
                     del self.book[side][price]
                 else:  # Adjust price level
                     self.book[side][price] = size
-
         # Flatten book into list
         self.flatten_book()
 
@@ -170,6 +169,7 @@ class OrderBook(object):
 
     def get_value_buys(self):
         return 'Value of buys: $' + '{:.2f}'.format(self.value_buys)
+
 
 def get_btc_feed():
     return ['BTC-USD']
