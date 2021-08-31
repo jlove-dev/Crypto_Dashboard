@@ -41,7 +41,8 @@ class OrderBook(object):
     def __init__(self, name, symbol, size, title, sub_title):
         # Passed in params
         self.name = name
-        self.symbol = symbol + ' Price'
+        self.symbol = symbol
+        self.symbol_string = symbol + ' Price'
         self.size = size
         self.title = title
         self.sub_title = sub_title
@@ -114,12 +115,12 @@ class OrderBook(object):
             for price, data in self.book[side].items():
                 # This format allows for easy transference into a Pandas dataframe
                 # This was tested with 5000 entries and no noticeable performance issues were present
-                new_list.append({'side': side, self.symbol: price, 'size': data})
+                new_list.append({'side': side, self.symbol_string: price, 'size': data})
 
         new_df = pandas.DataFrame(new_list)
         self.bids = new_df.loc[new_df['side'] == 'bid']
         self.asks = new_df.loc[new_df['side'] == 'ask']
-        self.mid_market = (float(self.asks.iloc[0][self.symbol]) + float(self.bids.iloc[-1][self.symbol])) / 2
+        self.mid_market = (float(self.asks.iloc[0][self.symbol_string]) + float(self.bids.iloc[-1][self.symbol_string])) / 2
 
     def add_trade(self, feed, symbol, order_id, timestamp, side, amount, price, receipt_timestamp):
         if side == 'buy':
@@ -148,6 +149,9 @@ class OrderBook(object):
 
     def get_symbol(self):
         return self.symbol
+
+    def get_symbol_string(self):
+        return self.symbol_string
 
     def get_size(self):
         return self.size

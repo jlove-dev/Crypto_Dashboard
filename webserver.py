@@ -8,7 +8,9 @@ import pandas
 import plotly.express as px
 from dash.dependencies import Input, Output
 from cryptofeed_worker import OrderBook, start_feed, TimeKeeper
+from CB_candle_worker import CandleWorker
 import logging
+import plotly.graph_objects as go
 
 # Stop DASH from printing every POST result which is often due to interval callbacks
 log = logging.getLogger('werkzeug')
@@ -66,7 +68,8 @@ def run_server():
                             id='graph-selector',
                             options=[
                                 {'label': 'Depth chart', 'value': 'depth'},
-                                {'label': 'Wall chart', 'value': 'wall'}
+                                {'label': 'Wall chart', 'value': 'wall'},
+                                {'label': 'Daily Candlestick', 'value': 'candle'}
                             ]
                         )
                     ]
@@ -203,7 +206,7 @@ def build_graph(order_book, g_value):
 
         frames = [order_book.get_asks(), order_book.get_bids()]
         result = pandas.concat(frames)
-        fig = px.line(result, x=order_book.get_symbol(), y='size', color='side',
+        fig = px.line(result, x=order_book.get_symbol_string(), y='size', color='side',
                       color_discrete_map={
                           'bid': 'rgb(34, 139, 34)',
                           'ask': 'rgb(255, 160, 122)'
@@ -215,12 +218,27 @@ def build_graph(order_book, g_value):
         new_df = pandas.DataFrame(order_book.trade_list)
         return fig, order_book.get_subtitle(), new_df.to_dict('records')
 
+    elif g_value == 'candle':
+
+        m_candle = CandleWorker(order_book.get_symbol())
+
+        df = m_candle.get_data()
+
+        fig = go.Figure(data=[go.Candlestick(x=df['time'],
+                                             open=df['open'],
+                                             high=df['high'],
+                                             low=df['low'],
+                                             close=df['close'])])
+        new_df = pandas.DataFrame(order_book.trade_list)
+
+        return fig, order_book.get_subtitle(), new_df.to_dict('records')
+
     else:
-        fig = px.ecdf(order_book.get_asks(), x=order_book.get_symbol(), y="size", ecdfnorm=None, color="side",
+        fig = px.ecdf(order_book.get_asks(), x=order_book.get_symbol_string(), y="size", ecdfnorm=None, color="side",
                       labels={
                           "size": order_book.get_size(),
                           "side": "Side",
-                          "value": order_book.get_symbol()
+                          "value": order_book.get_symbol_string()
                       },
                       title=order_book.get_title(),
                       color_discrete_map={
@@ -230,7 +248,7 @@ def build_graph(order_book, g_value):
         fig.data[0].line.width = 5
 
         # Opposing side of the graph
-        fig2 = px.ecdf(order_book.get_bids(), x=order_book.get_symbol(), y="size", ecdfmode='reversed', ecdfnorm=None,
+        fig2 = px.ecdf(order_book.get_bids(), x=order_book.get_symbol_string(), y="size", ecdfmode='reversed', ecdfnorm=None,
                        color="side",
                        color_discrete_map={
                            'bid': 'rgb(34, 139, 34)'
@@ -263,3 +281,4 @@ if __name__ == "__main__":
     # Web server thread
     t2 = threading.Thread(target=run_server)
     t2.start()
+
