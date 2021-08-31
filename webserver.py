@@ -179,51 +179,62 @@ def run_server():
                    Output('header', 'children'),
                    Output('trade_table', "data")],
                   [Input('interval-component', 'n_intervals'),
-                   Input('token-selector', 'value')])
-    def update_graph(n, value):
+                   Input('token-selector', 'value'),
+                   Input('graph-selector', 'value')])
+    def update_graph(n, value, g_value):
         # Layout the graph
         # BTC
         if value == 'BTC-USD':
-            return build_graph(btcBookObject)
+            return build_graph(btcBookObject, g_value)
         elif value == 'ETH-USD':
-            return build_graph(ethBookObject)
+            return build_graph(ethBookObject, g_value)
         elif value == 'ADA-USD':
-            return build_graph(adaBookObject)
+            return build_graph(adaBookObject, g_value)
         else:
-            return build_graph(ethBookObject)
+            return build_graph(ethBookObject, g_value)
 
     # Run DASH server
     app.run_server()
 
 
-def build_graph(order_book):
-    fig = px.ecdf(order_book.get_asks(), x=order_book.get_symbol(), y="size", ecdfnorm=None, color="side",
-                  labels={
-                      "size": order_book.get_size(),
-                      "side": "Side",
-                      "value": order_book.get_symbol()
-                  },
-                  title=order_book.get_title())
-    fig.data[0].line.color = 'rgb(255, 160, 122)'  # red
-    fig.data[0].line.width = 5
+def build_graph(order_book, g_value):
 
-    # Opposing side of the graph
-    fig2 = px.ecdf(order_book.get_bids(), x=order_book.get_symbol(), y="size", ecdfmode='reversed', ecdfnorm=None,
-                   color="side")
-    fig2.data[0].line.color = 'rgb(34, 139, 34)'  # green
-    fig2.data[0].line.width = 5
+    if g_value == 'wall':
 
-    # Merge the figures together
-    fig.add_trace(fig2.data[0])
+        frames = [order_book.get_asks(), order_book.get_bids()]
+        result = pandas.concat(frames)
+        fig = px.line(result, x=order_book.get_symbol(), y='size', color='side')
+        new_df = pandas.DataFrame(order_book.trade_list)
+        return fig, order_book.get_subtitle(), new_df.to_dict('records')
 
-    # Display the mid-market price
-    fig.add_vline(x=order_book.mid_market,
-                  annotation_text='Mid-Market Price: ' + "{:.2f}".format(order_book.mid_market),
-                  annotation_position='top')
+    else:
+        fig = px.ecdf(order_book.get_asks(), x=order_book.get_symbol(), y="size", ecdfnorm=None, color="side",
+                      labels={
+                          "size": order_book.get_size(),
+                          "side": "Side",
+                          "value": order_book.get_symbol()
+                      },
+                      title=order_book.get_title())
+        fig.data[0].line.color = 'rgb(255, 160, 122)'  # red
+        fig.data[0].line.width = 5
 
-    new_df = pandas.DataFrame(order_book.trade_list)
+        # Opposing side of the graph
+        fig2 = px.ecdf(order_book.get_bids(), x=order_book.get_symbol(), y="size", ecdfmode='reversed', ecdfnorm=None,
+                       color="side")
+        fig2.data[0].line.color = 'rgb(34, 139, 34)'  # green
+        fig2.data[0].line.width = 5
 
-    return fig, order_book.get_subtitle(), new_df.to_dict('records')
+        # Merge the figures together
+        fig.add_trace(fig2.data[0])
+
+        # Display the mid-market price
+        fig.add_vline(x=order_book.mid_market,
+                      annotation_text='Mid-Market Price: ' + "{:.2f}".format(order_book.mid_market),
+                      annotation_position='top')
+
+        new_df = pandas.DataFrame(order_book.trade_list)
+
+        return fig, order_book.get_subtitle(), new_df.to_dict('records')
 
 
 if __name__ == "__main__":
