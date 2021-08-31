@@ -203,7 +203,15 @@ def build_graph(order_book, g_value):
 
         frames = [order_book.get_asks(), order_book.get_bids()]
         result = pandas.concat(frames)
-        fig = px.line(result, x=order_book.get_symbol(), y='size', color='side')
+        fig = px.line(result, x=order_book.get_symbol(), y='size', color='side',
+                      color_discrete_map={
+                          'bid': 'rgb(34, 139, 34)',
+                          'ask': 'rgb(255, 160, 122)'
+                      })
+        # Display the mid-market price
+        fig.add_vline(x=order_book.mid_market,
+                      annotation_text='Mid-Market Price: ' + "{:.2f}".format(order_book.mid_market),
+                      annotation_position='top')
         new_df = pandas.DataFrame(order_book.trade_list)
         return fig, order_book.get_subtitle(), new_df.to_dict('records')
 
@@ -214,14 +222,21 @@ def build_graph(order_book, g_value):
                           "side": "Side",
                           "value": order_book.get_symbol()
                       },
-                      title=order_book.get_title())
-        fig.data[0].line.color = 'rgb(255, 160, 122)'  # red
+                      title=order_book.get_title(),
+                      color_discrete_map={
+                          'ask': 'rgb(255, 160, 122)'
+                      })
+        # fig.data[0].line.color = 'rgb(255, 160, 122)'  # red
         fig.data[0].line.width = 5
 
         # Opposing side of the graph
         fig2 = px.ecdf(order_book.get_bids(), x=order_book.get_symbol(), y="size", ecdfmode='reversed', ecdfnorm=None,
-                       color="side")
-        fig2.data[0].line.color = 'rgb(34, 139, 34)'  # green
+                       color="side",
+                       color_discrete_map={
+                           'bid': 'rgb(34, 139, 34)'
+                       }
+                       )
+        # fig2.data[0].line.color = 'rgb(34, 139, 34)'  # green
         fig2.data[0].line.width = 5
 
         # Merge the figures together
