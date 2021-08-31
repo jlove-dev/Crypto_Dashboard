@@ -101,7 +101,7 @@ def run_server():
                 ),
                 dcc.Interval(
                     id='stats-interval',
-                    interval=1 * 50,
+                    interval=1 * 1000,
                     n_intervals=0
                 )
             ]),
