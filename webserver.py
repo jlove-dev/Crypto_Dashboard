@@ -1,4 +1,5 @@
 import threading
+import time
 
 import dash
 import dash_core_components as dcc
@@ -220,11 +221,11 @@ def build_graph(order_book, g_value):
 
     elif g_value == 'candle':
 
-        m_candle = CandleWorker(order_book.get_symbol())
+        candle = order_book.get_candle_worker()
 
-        df = m_candle.get_data()
+        df = candle.get_data(60)
 
-        fig = go.Figure(data=[go.Candlestick(x=df['time'],
+        fig = go.Figure(data=[go.Candlestick(x=df['date'],
                                              open=df['open'],
                                              high=df['high'],
                                              low=df['low'],
@@ -282,3 +283,5 @@ if __name__ == "__main__":
     t2 = threading.Thread(target=run_server)
     t2.start()
 
+    # candle = CandleWorker('BTC-USD')
+    # print(candle.get_data(60))

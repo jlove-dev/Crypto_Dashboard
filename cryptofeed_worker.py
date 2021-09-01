@@ -7,6 +7,7 @@ import pandas
 from cryptofeed import FeedHandler
 from cryptofeed.callback import BookCallback, TradeCallback, BookUpdateCallback
 from cryptofeed.defines import L2_BOOK, BOOK_DELTA, TRADES, BID, ASK
+from CB_candle_worker import CandleWorker
 
 # Default lists (with a dictionary inside) to avoid errors on run
 from cryptofeed.exchanges import Coinbase
@@ -65,6 +66,9 @@ class OrderBook(object):
         self.L2 = {L2_BOOK: BookCallback(self.add_book),
                    BOOK_DELTA: BookUpdateCallback(self.update_book),
                    TRADES: TradeCallback(self.add_trade)}
+
+        # Specific candleworker
+        self.candle_worker = CandleWorker(self.symbol)
 
     # Function to check if the current book matches the most recent message
     def check_books(self, master):
@@ -174,6 +178,8 @@ class OrderBook(object):
     def get_value_buys(self):
         return 'Value of buys: $' + '{:.2f}'.format(self.value_buys)
 
+    def get_candle_worker(self):
+        return self.candle_worker
 
 def get_btc_feed():
     return ['BTC-USD']
