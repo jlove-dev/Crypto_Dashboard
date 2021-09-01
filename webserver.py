@@ -85,7 +85,24 @@ def run_server():
                                                  "side": "Side",
                                                  "value": "ETH-USD Price"
                                              },
-                                             title="ETH-USD Depth Chart using cryptofeed and Dash"))
+                                             title="ETH-USD Depth Chart using cryptofeed and Dash"),
+                              ),
+                    html.Div(id='gran-slider',
+                             children=[dcc.Slider(id='get-slider-value',
+                                                  min=0,
+                                                  max=5,
+                                                  step=None,
+                                                  marks={
+                                                      0: '1 Minute',
+                                                      1: '5 Minute',
+                                                      2: '15 Minute',
+                                                      3: '1 Hour',
+                                                      4: '6 Hour',
+                                                      5: '24 Hour'
+                                                  },
+                                                  vertical=True,
+                                                  value=0
+                                                  )], style={'display': 'none'})
                 ]),
 
                 html.Div([
@@ -139,10 +156,22 @@ def run_server():
                         html.Output(
                             id='sellsValue',
                             children=['Value of sells:']
+                        ),
+                        html.Output(
+                            id='slider_value',
+                            children=['value']
                         )
                     ])
             ])
     ])
+
+    @app.callback(Output('gran-slider', 'style'),
+                  Input('graph-selector', 'value'))
+    def update_slider(value):
+        if value == 'candle':
+            return {'display': 'inline-block'}
+        else:
+            return {'display': 'none'}
 
     @app.callback([Output('statsBox', "children"),
                    Output('buysBox', "children"),
@@ -178,31 +207,31 @@ def run_server():
                    ethBookObject.get_value_buys(), \
                    ethBookObject.get_value_sells()
 
-    # Callback to update the graph with any updates to the L2 Book
+    # Callback to update the graph with any updates to the L2 Book or candles
     @app.callback([Output('live-update-graph', 'figure'),
                    Output('header', 'children'),
                    Output('trade_table', "data")],
                   [Input('interval-component', 'n_intervals'),
                    Input('token-selector', 'value'),
-                   Input('graph-selector', 'value')])
-    def update_graph(n, value, g_value):
+                   Input('graph-selector', 'value'),
+                   Input('get-slider-value', 'value')])
+    def update_graph(n, value, g_value, s_value):
         # Layout the graph
         # BTC
         if value == 'BTC-USD':
-            return build_graph(btcBookObject, g_value)
+            return build_graph(btcBookObject, g_value, s_value)
         elif value == 'ETH-USD':
-            return build_graph(ethBookObject, g_value)
+            return build_graph(ethBookObject, g_value, s_value)
         elif value == 'ADA-USD':
-            return build_graph(adaBookObject, g_value)
+            return build_graph(adaBookObject, g_value, s_value)
         else:
-            return build_graph(ethBookObject, g_value)
+            return build_graph(ethBookObject, g_value, s_value)
 
     # Run DASH server
     app.run_server()
 
 
-def build_graph(order_book, g_value):
-
+def build_graph(order_book, g_value, s_value):
     if g_value == 'wall':
 
         frames = [order_book.get_asks(), order_book.get_bids()]
@@ -221,9 +250,23 @@ def build_graph(order_book, g_value):
 
     elif g_value == 'candle':
 
+        allowed_nums = {
+            0: 60,
+            1: 300,
+            2: 900,
+            3: 3600,
+            4: 21600,
+            5: 86400
+        }
+
+        gran = 0
+
+        if int(s_value) in allowed_nums.keys():
+            gran = allowed_nums.get(int(s_value))
+
         candle = order_book.get_candle_worker()
 
-        df = candle.get_data(60)
+        df = candle.get_data(gran)
 
         fig = go.Figure(data=[go.Candlestick(x=df['date'],
                                              open=df['open'],
@@ -249,7 +292,8 @@ def build_graph(order_book, g_value):
         fig.data[0].line.width = 5
 
         # Opposing side of the graph
-        fig2 = px.ecdf(order_book.get_bids(), x=order_book.get_symbol_string(), y="size", ecdfmode='reversed', ecdfnorm=None,
+        fig2 = px.ecdf(order_book.get_bids(), x=order_book.get_symbol_string(), y="size", ecdfmode='reversed',
+                       ecdfnorm=None,
                        color="side",
                        color_discrete_map={
                            'bid': 'rgb(34, 139, 34)'
@@ -272,16 +316,14 @@ def build_graph(order_book, g_value):
 
 
 if __name__ == "__main__":
+    # Web server thread
+    t2 = threading.Thread(target=run_server)
+    t2.start()
+    time.sleep(1)
+
     # Start threading for both the cryptofeed worker and web server
     # Cryptofeed thread takes the global carrier object as a parameter which is passed in as a callback
     # This object is then passed back and forth between cryptofeed and the webserver
 
     t1 = threading.Thread(target=start_feed, args=[btcBookObject, ethBookObject, adaBookObject])
     t1.start()
-
-    # Web server thread
-    t2 = threading.Thread(target=run_server)
-    t2.start()
-
-    # candle = CandleWorker('BTC-USD')
-    # print(candle.get_data(60))

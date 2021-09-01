@@ -38,16 +38,20 @@ class CandleWorker:
         self.name = name
         self.time_since_last = 0
         self.df = pd.DataFrame(data=default_time)
+        self.current_gran = 0
 
     def get_data(self, gran):
 
         if self.time_since_last != 0:
+            if gran != self.current_gran:
+                return self.build_df(gran)
             if datetime.datetime.today().timestamp() - self.time_since_last < gran:
                 return self.df
             else:
                 return self.build_df(gran)
 
         else:
+            self.current_gran = 0
             return self.build_df(gran)
 
     def build_df(self, gran):

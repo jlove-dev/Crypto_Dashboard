@@ -54,7 +54,8 @@ output {
 }
 
 #live-update-graph {
-    width: 50vw;
+    width: 45vw;
+    display: inline-block;
 }
 
 .stats_area {
