@@ -37,7 +37,7 @@ adaBookObject = OrderBook('ada',
 maticBookObject = OrderBook('matic',
                             'MATIC-USD',
                             'MATIC',
-                            'MATCH-USD Live Chart')
+                            'MATIC-USD Live Chart')
 
 batBookObject = OrderBook('bat',
                           'BAT-USD',
@@ -184,10 +184,6 @@ def run_server():
                         html.Output(
                             id='sellsValue',
                             children=['Value of sells:']
-                        ),
-                        html.Output(
-                            id='slider_value',
-                            children=['value']
                         )
                     ])
             ])
@@ -210,65 +206,30 @@ def run_server():
                    Input('token-selector', 'value')])
     def update_stats(n, value):
         if value == 'BTC-USD':
-            return timeKeeperObject.get_time_elapse(), \
-                   btcBookObject.get_num_buys(), \
-                   btcBookObject.get_num_sells(), \
-                   btcBookObject.get_value_buys(), \
-                   btcBookObject.get_value_sells()
+            return get_book_stats_data(btcBookObject)
 
         elif value == 'ETH-USD':
-            return timeKeeperObject.get_time_elapse(), \
-                   ethBookObject.get_num_buys(), \
-                   ethBookObject.get_num_sells(), \
-                   ethBookObject.get_value_buys(), \
-                   ethBookObject.get_value_sells()
+            return get_book_stats_data(ethBookObject)
+
         elif value == 'ADA-USD':
-            return timeKeeperObject.get_time_elapse(), \
-                   adaBookObject.get_num_buys(), \
-                   adaBookObject.get_num_sells(), \
-                   adaBookObject.get_value_buys(), \
-                   adaBookObject.get_value_sells()
+            return get_book_stats_data(adaBookObject)
 
         elif value == 'MATIC-USD':
-            return timeKeeperObject.get_time_elapse(), \
-                   maticBookObject.get_num_buys(), \
-                   maticBookObject.get_num_sells(), \
-                   maticBookObject.get_value_buys(), \
-                   maticBookObject.get_value_sells()
+            return get_book_stats_data(maticBookObject)
 
         elif value == 'BAT-USD':
-            return timeKeeperObject.get_time_elapse(), \
-                   batBookObject.get_num_buys(), \
-                   batBookObject.get_num_sells(), \
-                   batBookObject.get_value_buys(), \
-                   batBookObject.get_value_sells()
+            return get_book_stats_data(batBookObject)
 
         elif value == 'DOT-USD':
-            return timeKeeperObject.get_time_elapse(), \
-                   dotBookObject.get_num_buys(), \
-                   dotBookObject.get_num_sells(), \
-                   dotBookObject.get_value_buys(), \
-                   dotBookObject.get_value_sells()
+            return get_book_stats_data(dotBookObject)
 
         elif value == 'ALGO-USD':
-            return timeKeeperObject.get_time_elapse(), \
-                   algoBookObject.get_num_buys(), \
-                   algoBookObject.get_num_sells(), \
-                   algoBookObject.get_value_buys(), \
-                   algoBookObject.get_value_sells()
+            return get_book_stats_data(algoBookObject)
 
         elif value == 'UNI-USD':
-            return timeKeeperObject.get_time_elapse(), \
-                   uniBookObject.get_num_buys(), \
-                   uniBookObject.get_num_sells(), \
-                   uniBookObject.get_value_buys(), \
-                   uniBookObject.get_value_sells()
+            return get_book_stats_data(uniBookObject)
         else:
-            return timeKeeperObject.get_time_elapse(), \
-                   ethBookObject.get_num_buys(), \
-                   ethBookObject.get_num_sells(), \
-                   ethBookObject.get_value_buys(), \
-                   ethBookObject.get_value_sells()
+            return get_book_stats_data(ethBookObject)
 
     # Callback to update the graph with any updates to the L2 Book or candles
     @app.callback([Output('live-update-graph', 'figure'),
@@ -388,6 +349,14 @@ def build_graph(order_book, g_value, s_value):
         new_df = pandas.DataFrame(order_book.trade_list)
 
         return fig, order_book.get_subtitle(), new_df.to_dict('records')
+
+
+def get_book_stats_data(orderbook):
+    return timeKeeperObject.get_time_elapse(), \
+           orderbook.get_num_buys(), \
+           orderbook.get_num_sells(), \
+           orderbook.get_value_buys(), \
+           orderbook.get_value_sells()
 
 
 if __name__ == "__main__":

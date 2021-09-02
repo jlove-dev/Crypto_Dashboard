@@ -96,7 +96,7 @@ class OrderBook(object):
             # Flatten book into list
             self.flatten_book()
         else:  # Checks if the message contains new data
-            assert (self.check_books(book))
+            assert(self.check_books(book))
             print('Books match!')
 
     # Updates the L2 book
