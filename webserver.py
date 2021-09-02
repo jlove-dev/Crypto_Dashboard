@@ -22,20 +22,42 @@ log.setLevel(logging.ERROR)
 btcBookObject = OrderBook('btc',
                           'BTC-USD',
                           'BTC',
-                          "BTC-USD Depth Chart using cryptofeed and Dash",
-                          'BTC-USD Live Depth Chart')
+                          'BTC-USD Live Chart')
 
 ethBookObject = OrderBook('eth',
                           'ETH-USD',
                           'ETH',
-                          "ETH-USD Depth Chart using cryptofeed and Dash",
-                          'ETH-USD Live Depth Chart')
+                          'ETH-USD Live Chart')
 
 adaBookObject = OrderBook('ada',
                           'ADA-USD',
                           'ADA',
-                          "ADA-USD Depth Chart using cryptofeed and Dash",
-                          'ADA-USD Live Depth Chart')
+                          'ADA-USD Live Chart')
+
+maticBookObject = OrderBook('matic',
+                            'MATIC-USD',
+                            'MATIC',
+                            'MATCH-USD Live Chart')
+
+batBookObject = OrderBook('bat',
+                          'BAT-USD',
+                          'BAT',
+                          'BAT-USD Live Chart')
+
+dotBookObject = OrderBook('dot',
+                          'DOT-USD',
+                          'DOT',
+                          'DOT-USD Live Chart')
+
+algoBookObject = OrderBook('algo',
+                           'ALGO-USD',
+                           'ALGO',
+                           'ALGO-USD Live Chart')
+
+uniBookObject = OrderBook('uni',
+                          'UNI-USD',
+                          'UNI',
+                          'UNI-USD Live Chart')
 
 timeKeeperObject = TimeKeeper()
 
@@ -62,7 +84,12 @@ def run_server():
                             options=[
                                 {'label': 'BTC', 'value': 'BTC-USD'},
                                 {'label': 'ETH', 'value': 'ETH-USD'},
-                                {'label': 'ADA', 'value': 'ADA-USD'}
+                                {'label': 'ADA', 'value': 'ADA-USD'},
+                                {'label': 'MATIC', 'value': 'MATIC-USD'},
+                                {'label': 'BAT', 'value': 'BAT-USD'},
+                                {'label': 'DOT', 'value': 'DOT-USD'},
+                                {'label': 'ALGO', 'value': 'ALGO-USD'},
+                                {'label': 'UNI', 'value': 'UNI-USD'},
                             ]
                         ),
                         dcc.Dropdown(
@@ -78,7 +105,8 @@ def run_server():
                 ),
                 html.Div([
                     dcc.Graph(id='live-update-graph',
-                              figure=px.ecdf(ethBookObject.get_asks(), x='ETH-USD Price', y="size", ecdfnorm=None,
+                              figure=px.ecdf(ethBookObject.get_asks(), x='ETH-USD Price', y="size",
+                                             ecdfnorm=None,
                                              color="side",
                                              labels={
                                                  "size": "ETH",
@@ -200,6 +228,41 @@ def run_server():
                    adaBookObject.get_num_sells(), \
                    adaBookObject.get_value_buys(), \
                    adaBookObject.get_value_sells()
+
+        elif value == 'MATIC-USD':
+            return timeKeeperObject.get_time_elapse(), \
+                   maticBookObject.get_num_buys(), \
+                   maticBookObject.get_num_sells(), \
+                   maticBookObject.get_value_buys(), \
+                   maticBookObject.get_value_sells()
+
+        elif value == 'BAT-USD':
+            return timeKeeperObject.get_time_elapse(), \
+                   batBookObject.get_num_buys(), \
+                   batBookObject.get_num_sells(), \
+                   batBookObject.get_value_buys(), \
+                   batBookObject.get_value_sells()
+
+        elif value == 'DOT-USD':
+            return timeKeeperObject.get_time_elapse(), \
+                   dotBookObject.get_num_buys(), \
+                   dotBookObject.get_num_sells(), \
+                   dotBookObject.get_value_buys(), \
+                   dotBookObject.get_value_sells()
+
+        elif value == 'ALGO-USD':
+            return timeKeeperObject.get_time_elapse(), \
+                   algoBookObject.get_num_buys(), \
+                   algoBookObject.get_num_sells(), \
+                   algoBookObject.get_value_buys(), \
+                   algoBookObject.get_value_sells()
+
+        elif value == 'UNI-USD':
+            return timeKeeperObject.get_time_elapse(), \
+                   uniBookObject.get_num_buys(), \
+                   uniBookObject.get_num_sells(), \
+                   uniBookObject.get_value_buys(), \
+                   uniBookObject.get_value_sells()
         else:
             return timeKeeperObject.get_time_elapse(), \
                    ethBookObject.get_num_buys(), \
@@ -224,6 +287,16 @@ def run_server():
             return build_graph(ethBookObject, g_value, s_value)
         elif value == 'ADA-USD':
             return build_graph(adaBookObject, g_value, s_value)
+        elif value == 'MATIC-USD':
+            return build_graph(maticBookObject, g_value, s_value)
+        elif value == 'BAT-USD':
+            return build_graph(batBookObject, g_value, s_value)
+        elif value == 'DOT-USD':
+            return build_graph(dotBookObject, g_value, s_value)
+        elif value == 'ALGO-USD':
+            return build_graph(algoBookObject, g_value, s_value)
+        elif value == 'UNI-USD':
+            return build_graph(uniBookObject, g_value, s_value)
         else:
             return build_graph(ethBookObject, g_value, s_value)
 
@@ -273,6 +346,9 @@ def build_graph(order_book, g_value, s_value):
                                              high=df['high'],
                                              low=df['low'],
                                              close=df['close'])])
+
+        fig.update_layout(xaxis_rangeslider_visible=False)
+
         new_df = pandas.DataFrame(order_book.trade_list)
 
         return fig, order_book.get_subtitle(), new_df.to_dict('records')
@@ -284,7 +360,6 @@ def build_graph(order_book, g_value, s_value):
                           "side": "Side",
                           "value": order_book.get_symbol_string()
                       },
-                      title=order_book.get_title(),
                       color_discrete_map={
                           'ask': 'rgb(255, 160, 122)'
                       })
@@ -325,5 +400,12 @@ if __name__ == "__main__":
     # Cryptofeed thread takes the global carrier object as a parameter which is passed in as a callback
     # This object is then passed back and forth between cryptofeed and the webserver
 
-    t1 = threading.Thread(target=start_feed, args=[btcBookObject, ethBookObject, adaBookObject])
+    t1 = threading.Thread(target=start_feed, args=[btcBookObject,
+                                                   ethBookObject,
+                                                   adaBookObject,
+                                                   maticBookObject,
+                                                   batBookObject,
+                                                   dotBookObject,
+                                                   algoBookObject,
+                                                   uniBookObject])
     t1.start()

@@ -39,13 +39,12 @@ class TimeKeeper:
 # Credit to Bryant Moscon (http://www.bryantmoscon.com/)
 
 class OrderBook(object):
-    def __init__(self, name, symbol, size, title, sub_title):
+    def __init__(self, name, symbol, size, sub_title):
         # Passed in params
         self.name = name
         self.symbol = symbol
         self.symbol_string = symbol + ' Price'
         self.size = size
-        self.title = title
         self.sub_title = sub_title
 
         # Local object data attributes - not passed in
@@ -160,9 +159,6 @@ class OrderBook(object):
     def get_size(self):
         return self.size
 
-    def get_title(self):
-        return self.title
-
     def get_subtitle(self):
         return self.sub_title
 
@@ -192,11 +188,31 @@ def get_eth_feed():
 def get_ada_feed():
     return ['ADA-USD']
 
+def get_matic_feed():
+    return ['MATIC-USD']
 
-def start_feed(btc_book, eth_book, ada_book):
+def get_bat_feed():
+    return ['BAT-USD']
+
+def get_dot_feed():
+    return ['DOT-USD']
+
+def get_algo_feed():
+    return ['ALGO-USD']
+
+def get_uni_feed():
+    return ['UNI-USD']
+
+
+def start_feed(btc_book, eth_book, ada_book, matic_book, bat_book, dot_book, algo_book, uni_book):
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
     handler.add_feed(Coinbase(max_depth=200, symbols=get_btc_feed(), channels=[L2_BOOK, TRADES], callbacks=btc_book.L2))
     handler.add_feed(Coinbase(max_depth=200, symbols=get_eth_feed(), channels=[L2_BOOK, TRADES], callbacks=eth_book.L2))
     handler.add_feed(Coinbase(max_depth=200, symbols=get_ada_feed(), channels=[L2_BOOK, TRADES], callbacks=ada_book.L2))
+    handler.add_feed(Coinbase(max_depth=200, symbols=get_matic_feed(), channels=[L2_BOOK, TRADES], callbacks=matic_book.L2))
+    handler.add_feed(Coinbase(max_depth=200, symbols=get_bat_feed(), channels=[L2_BOOK, TRADES], callbacks=bat_book.L2))
+    handler.add_feed(Coinbase(max_depth=200, symbols=get_dot_feed(), channels=[L2_BOOK, TRADES], callbacks=dot_book.L2))
+    handler.add_feed(Coinbase(max_depth=200, symbols=get_algo_feed(), channels=[L2_BOOK, TRADES], callbacks=algo_book.L2))
+    handler.add_feed(Coinbase(max_depth=200, symbols=get_uni_feed(), channels=[L2_BOOK, TRADES], callbacks=uni_book.L2))
     handler.run(install_signal_handlers=False)
