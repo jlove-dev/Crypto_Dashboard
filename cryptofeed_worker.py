@@ -206,8 +206,23 @@ def get_algo_feed():
 def get_uni_feed():
     return ['UNI-USD']
 
+def get_sol_feed():
+    return ['SOL-USD']
 
-def start_feed(btc_book, eth_book, ada_book, matic_book, bat_book, dot_book, algo_book, uni_book):
+def get_chz_feed():
+    return ['CHZ-USD']
+
+def get_mana_feed():
+    return ['MANA-USD']
+
+def get_fet_feed():
+    return ['FET-USD']
+
+def get_etc_feed():
+    return ['ETC-USD']
+
+def start_feed(btc_book, eth_book, ada_book, matic_book, bat_book, dot_book, algo_book, uni_book,
+               sol_book, chz_book, mana_book, fet_book, etc_book):
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
     handler.add_feed(Coinbase(max_depth=200, symbols=get_btc_feed(), channels=[L2_BOOK, TRADES], callbacks=btc_book.L2))
@@ -218,4 +233,9 @@ def start_feed(btc_book, eth_book, ada_book, matic_book, bat_book, dot_book, alg
     handler.add_feed(Coinbase(max_depth=200, symbols=get_dot_feed(), channels=[L2_BOOK, TRADES], callbacks=dot_book.L2))
     handler.add_feed(Coinbase(max_depth=200, symbols=get_algo_feed(), channels=[L2_BOOK, TRADES], callbacks=algo_book.L2))
     handler.add_feed(Coinbase(max_depth=200, symbols=get_uni_feed(), channels=[L2_BOOK, TRADES], callbacks=uni_book.L2))
+    handler.add_feed(Coinbase(max_depth=200, symbols=get_sol_feed(), channels=[L2_BOOK, TRADES], callbacks=sol_book.L2))
+    handler.add_feed(Coinbase(max_depth=200, symbols=get_chz_feed(), channels=[L2_BOOK, TRADES], callbacks=chz_book.L2))
+    handler.add_feed(Coinbase(max_depth=200, symbols=get_mana_feed(), channels=[L2_BOOK, TRADES], callbacks=mana_book.L2))
+    handler.add_feed(Coinbase(max_depth=200, symbols=get_fet_feed(), channels=[L2_BOOK, TRADES], callbacks=fet_book.L2))
+    handler.add_feed(Coinbase(max_depth=200, symbols=get_etc_feed(), channels=[L2_BOOK, TRADES], callbacks=etc_book.L2))
     handler.run(install_signal_handlers=False)

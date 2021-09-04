@@ -44,6 +44,31 @@ class MasterObject:
                                        'UNI',
                                        'UNI-USD Live Chart')
 
+        self.solBookObject = OrderBook('sol',
+                                       'SOL-USD',
+                                       'SOL',
+                                       'SOL-USD Live Chart')
+
+        self.chzBookObject = OrderBook('chz',
+                                       'CHZ-USD',
+                                       'CHZ',
+                                       'CHZ-USD Live Chart')
+
+        self.manaBookObject = OrderBook('mana',
+                                        'MANA-USD',
+                                        'MANA',
+                                        'MANA-USD Live Chart')
+
+        self.fetBookObject = OrderBook('fet',
+                                       'FET-USD',
+                                       'FET',
+                                       'FET-USD Live Chart')
+
+        self.etcBookObject = OrderBook('etc',
+                                       'ETC-USD',
+                                       'ETC',
+                                       'ETC-USD Live Chart')
+
         self.dict_of_books = {
             "btc": self.btcBookObject,
             "eth": self.ethBookObject,
@@ -52,7 +77,12 @@ class MasterObject:
             "bat": self.batBookObject,
             "dot": self.dotBookObject,
             "algo": self.algoBookObject,
-            "uni": self.uniBookObject
+            "uni": self.uniBookObject,
+            "sol": self.solBookObject,
+            "chz": self.chzBookObject,
+            "mana": self.manaBookObject,
+            "fet": self.fetBookObject,
+            "etc": self.etcBookObject
         }
 
     def get_books(self, book):

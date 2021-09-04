@@ -53,6 +53,11 @@ def run_server():
                                 {'label': 'DOT', 'value': 'DOT-USD'},
                                 {'label': 'ALGO', 'value': 'ALGO-USD'},
                                 {'label': 'UNI', 'value': 'UNI-USD'},
+                                {'label': 'SOL', 'value': 'SOL-USD'},
+                                {'label': 'CHZ', 'value': 'CHZ-USD'},
+                                {'label': 'MANA', 'value': 'MANA-USD'},
+                                {'label': 'FET', 'value': 'FET-USD'},
+                                {'label': 'ETC', 'value': 'ETC-USD'}
                             ]
                         ),
                         dcc.Dropdown(
@@ -191,6 +196,22 @@ def run_server():
 
         elif value == 'UNI-USD':
             return get_book_stats_data(master.get_books("uni"))
+
+        elif value == 'SOL-USD':
+            return get_book_stats_data(master.get_books("sol"))
+
+        elif value == 'CHZ-USD':
+            return get_book_stats_data(master.get_books("chz"))
+
+        elif value == 'MANA-USD':
+            return get_book_stats_data(master.get_books("mana"))
+
+        elif value == 'FET-USD':
+            return get_book_stats_data(master.get_books("fet"))
+
+        elif value == 'ETC-USD':
+            return get_book_stats_data(master.get_books("etc"))
+
         else:
             return get_book_stats_data(master.get_books("eth"))
 
@@ -221,6 +242,16 @@ def run_server():
             return build_graph(master.get_books("algo"), g_value, s_value)
         elif value == 'UNI-USD':
             return build_graph(master.get_books("uni"), g_value, s_value)
+        elif value == 'SOL-USD':
+            return build_graph(master.get_books("sol"), g_value, s_value)
+        elif value == 'CHZ-USD':
+            return build_graph(master.get_books("chz"), g_value, s_value)
+        elif value == 'MANA-USD':
+            return build_graph(master.get_books("mana"), g_value, s_value)
+        elif value == 'FET-USD':
+            return build_graph(master.get_books("fet"), g_value, s_value)
+        elif value == 'ETC-USD':
+            return build_graph(master.get_books("etc"), g_value, s_value)
         else:
             return build_graph(master.get_books("eth"), g_value, s_value)
 
@@ -321,23 +352,27 @@ def get_book_stats_data(orderbook):
            orderbook.get_value_buys(), \
            orderbook.get_value_sells()
 
-
 if __name__ == "__main__":
     # Web server thread
     t2 = threading.Thread(target=run_server)
     t2.start()
-    time.sleep(1)
+    time.sleep(2)
 
     # Start threading for both the cryptofeed worker and web server
     # Cryptofeed thread takes the global carrier object as a parameter which is passed in as a callback
     # This object is then passed back and forth between cryptofeed and the webserver
 
     t1 = threading.Thread(target=start_feed, args=[master.get_books("btc"),
-                                                   master.get_books("eth"),
-                                                   master.get_books("ada"),
-                                                   master.get_books("matic"),
-                                                   master.get_books("bat"),
-                                                   master.get_books("dot"),
-                                                   master.get_books("algo"),
-                                                   master.get_books("uni")])
+                                                   master.get_books('eth'),
+                                                   master.get_books('ada'),
+                                                   master.get_books('matic'),
+                                                   master.get_books('bat'),
+                                                   master.get_books('dot'),
+                                                   master.get_books('algo'),
+                                                   master.get_books('uni'),
+                                                   master.get_books('sol'),
+                                                   master.get_books('chz'),
+                                                   master.get_books('mana'),
+                                                   master.get_books('fet'),
+                                                   master.get_books('etc')])
     t1.start()

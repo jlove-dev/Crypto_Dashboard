@@ -20,6 +20,7 @@ default_time = [({
     "date": "2021-08-31 17:18:00"
 })]
 
+
 def connect(url, params):
     try:
         response = requests.get(url, params)
