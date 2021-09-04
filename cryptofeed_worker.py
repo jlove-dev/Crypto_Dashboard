@@ -139,6 +139,9 @@ class OrderBook(object):
         else:
             self.trade_list.append(({'Currency Pair': symbol, 'Side': side, 'Amount': amount, 'Price': price}))
 
+    def get_name(self):
+        return self.name
+
     def get_trades(self):
         return pandas.DataFrame(self.trade_list)
 

@@ -9,6 +9,7 @@ import pandas
 import plotly.express as px
 from dash.dependencies import Input, Output
 from cryptofeed_worker import OrderBook, start_feed, TimeKeeper
+from coins import MasterObject
 from CB_candle_worker import CandleWorker
 import logging
 import plotly.graph_objects as go
@@ -19,45 +20,7 @@ log.setLevel(logging.ERROR)
 
 # Object which acts as the carrier through the app and is passed between child threads
 
-btcBookObject = OrderBook('btc',
-                          'BTC-USD',
-                          'BTC',
-                          'BTC-USD Live Chart')
-
-ethBookObject = OrderBook('eth',
-                          'ETH-USD',
-                          'ETH',
-                          'ETH-USD Live Chart')
-
-adaBookObject = OrderBook('ada',
-                          'ADA-USD',
-                          'ADA',
-                          'ADA-USD Live Chart')
-
-maticBookObject = OrderBook('matic',
-                            'MATIC-USD',
-                            'MATIC',
-                            'MATIC-USD Live Chart')
-
-batBookObject = OrderBook('bat',
-                          'BAT-USD',
-                          'BAT',
-                          'BAT-USD Live Chart')
-
-dotBookObject = OrderBook('dot',
-                          'DOT-USD',
-                          'DOT',
-                          'DOT-USD Live Chart')
-
-algoBookObject = OrderBook('algo',
-                           'ALGO-USD',
-                           'ALGO',
-                           'ALGO-USD Live Chart')
-
-uniBookObject = OrderBook('uni',
-                          'UNI-USD',
-                          'UNI',
-                          'UNI-USD Live Chart')
+master = MasterObject()
 
 timeKeeperObject = TimeKeeper()
 
@@ -105,7 +68,7 @@ def run_server():
                 ),
                 html.Div([
                     dcc.Graph(id='live-update-graph',
-                              figure=px.ecdf(ethBookObject.get_asks(), x='ETH-USD Price', y="size",
+                              figure=px.ecdf(master.get_books("eth").get_asks(), x='ETH-USD Price', y="size",
                                              ecdfnorm=None,
                                              color="side",
                                              labels={
@@ -206,30 +169,30 @@ def run_server():
                    Input('token-selector', 'value')])
     def update_stats(n, value):
         if value == 'BTC-USD':
-            return get_book_stats_data(btcBookObject)
+            return get_book_stats_data(master.get_books("btc"))
 
         elif value == 'ETH-USD':
-            return get_book_stats_data(ethBookObject)
+            return get_book_stats_data(master.get_books("eth"))
 
         elif value == 'ADA-USD':
-            return get_book_stats_data(adaBookObject)
+            return get_book_stats_data(master.get_books("ada"))
 
         elif value == 'MATIC-USD':
-            return get_book_stats_data(maticBookObject)
+            return get_book_stats_data(master.get_books("matic"))
 
         elif value == 'BAT-USD':
-            return get_book_stats_data(batBookObject)
+            return get_book_stats_data(master.get_books("bat"))
 
         elif value == 'DOT-USD':
-            return get_book_stats_data(dotBookObject)
+            return get_book_stats_data(master.get_books("dot"))
 
         elif value == 'ALGO-USD':
-            return get_book_stats_data(algoBookObject)
+            return get_book_stats_data(master.get_books("algo"))
 
         elif value == 'UNI-USD':
-            return get_book_stats_data(uniBookObject)
+            return get_book_stats_data(master.get_books("uni"))
         else:
-            return get_book_stats_data(ethBookObject)
+            return get_book_stats_data(master.get_books("eth"))
 
     # Callback to update the graph with any updates to the L2 Book or candles
     @app.callback([Output('live-update-graph', 'figure'),
@@ -243,23 +206,23 @@ def run_server():
         # Layout the graph
         # BTC
         if value == 'BTC-USD':
-            return build_graph(btcBookObject, g_value, s_value)
+            return build_graph(master.get_books("btc"), g_value, s_value)
         elif value == 'ETH-USD':
-            return build_graph(ethBookObject, g_value, s_value)
+            return build_graph(master.get_books("eth"), g_value, s_value)
         elif value == 'ADA-USD':
-            return build_graph(adaBookObject, g_value, s_value)
+            return build_graph(master.get_books("ada"), g_value, s_value)
         elif value == 'MATIC-USD':
-            return build_graph(maticBookObject, g_value, s_value)
+            return build_graph(master.get_books("matic"), g_value, s_value)
         elif value == 'BAT-USD':
-            return build_graph(batBookObject, g_value, s_value)
+            return build_graph(master.get_books("bat"), g_value, s_value)
         elif value == 'DOT-USD':
-            return build_graph(dotBookObject, g_value, s_value)
+            return build_graph(master.get_books("dot"), g_value, s_value)
         elif value == 'ALGO-USD':
-            return build_graph(algoBookObject, g_value, s_value)
+            return build_graph(master.get_books("algo"), g_value, s_value)
         elif value == 'UNI-USD':
-            return build_graph(uniBookObject, g_value, s_value)
+            return build_graph(master.get_books("uni"), g_value, s_value)
         else:
-            return build_graph(ethBookObject, g_value, s_value)
+            return build_graph(master.get_books("eth"), g_value, s_value)
 
     # Run DASH server
     app.run_server()
@@ -369,12 +332,12 @@ if __name__ == "__main__":
     # Cryptofeed thread takes the global carrier object as a parameter which is passed in as a callback
     # This object is then passed back and forth between cryptofeed and the webserver
 
-    t1 = threading.Thread(target=start_feed, args=[btcBookObject,
-                                                   ethBookObject,
-                                                   adaBookObject,
-                                                   maticBookObject,
-                                                   batBookObject,
-                                                   dotBookObject,
-                                                   algoBookObject,
-                                                   uniBookObject])
+    t1 = threading.Thread(target=start_feed, args=[master.get_books("btc"),
+                                                   master.get_books("eth"),
+                                                   master.get_books("ada"),
+                                                   master.get_books("matic"),
+                                                   master.get_books("bat"),
+                                                   master.get_books("dot"),
+                                                   master.get_books("algo"),
+                                                   master.get_books("uni")])
     t1.start()
