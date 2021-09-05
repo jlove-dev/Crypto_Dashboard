@@ -18,26 +18,71 @@ output {
     top: 0;
     overflow-x: hidden;
     padding-top: 20px;
+    background-color: #262626;
 }
 
 .left {
   left: 0;
-    padding-left: 10px;
 }
 
 .right {
   right: 0;
-    padding-right: 10px;
 }
 
 #token-selector {
-    width: 25vw;
+    width: 12.5vw;
     display: inline-block;
+    float: left;
+    color: white;
+    border-color: #d16baf;
+}
+
+.VirtualizedSelectOption {
+    background-color: #262626;
+    color: white;
+    border-color: #d16baf;
+}
+
+.VirtualizedSelectFocusedOption {
+    background-color: #d16baf;
+    font-size: 18px;
+    color: white;
+}
+
+.Select-control {
+    background-color: #525252; !important;
+    border-color: #d16baf;
+}
+
+.Select-input {
+    background-color: #525252;
+    border-color: #d16baf;
+}
+
+.Select-placeholder {
+    background-color: #525252;
+    border-color: #d16baf;
+}
+
+.Select-menu-outer {
+    background-color: #525252;
+}
+
+.Select-value {
+    background-color: #525252;
+    border-color: #d16baf;
+}
+
+.Select-arrow-zone {
+    background-color: #525252;
+    border-color: #d16baf;
 }
 
 #graph-selector {
-    width: 25vw;
+    width: 12.5vw;
     display: inline-block;
+    float: right;
+    padding-right: 5%;
 }
 
 #header {

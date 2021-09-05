@@ -4,6 +4,7 @@ import time
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
+import dash_bootstrap_components as dbc
 import dash_table
 import pandas
 import plotly.express as px
@@ -31,7 +32,7 @@ def run_server():
 
     base_df = pandas.DataFrame(base_trade)
 
-    app = dash.Dash(__name__, update_title=None)
+    app = dash.Dash(__name__, update_title=None, external_stylesheets=[dbc.themes.SLATE])
     app.layout = html.Div([
         html.Div(
             className='split left',
@@ -44,6 +45,7 @@ def run_server():
                     [
                         dcc.Dropdown(
                             id='token-selector',
+                            placeholder='Token',
                             options=[
                                 {'label': 'BTC', 'value': 'BTC-USD'},
                                 {'label': 'ETH', 'value': 'ETH-USD'},
@@ -57,11 +59,13 @@ def run_server():
                                 {'label': 'CHZ', 'value': 'CHZ-USD'},
                                 {'label': 'MANA', 'value': 'MANA-USD'},
                                 {'label': 'FET', 'value': 'FET-USD'},
-                                {'label': 'ETC', 'value': 'ETC-USD'}
+                                {'label': 'ETC', 'value': 'ETC-USD'},
+                                {'label': 'POLY', 'value': 'POLY-USD'}
                             ]
                         ),
                         dcc.Dropdown(
                             id='graph-selector',
+                            placeholder='Chart Type',
                             options=[
                                 {'label': 'Depth chart', 'value': 'depth'},
                                 {'label': 'Wall chart', 'value': 'wall'},
@@ -82,6 +86,7 @@ def run_server():
                                                  "value": "ETH-USD Price"
                                              },
                                              title="ETH-USD Depth Chart using cryptofeed and Dash"),
+                              style={'width': '95%'}
                               ),
                     html.Div(id='gran-slider',
                              children=[dcc.Slider(id='get-slider-value',
@@ -106,8 +111,8 @@ def run_server():
                         id='trade_table',
                         columns=[{"name": i, "id": i} for i in base_df],
                         data=base_df.to_dict('records'),
-                        style_cell={'textAlign': 'center'},
-                        style_table={'width': '50vw'}
+                        style_cell={'textAlign': 'center', 'background-color': '#525252', 'text-color': 'white', 'fontWeight': 'bold'},
+                        style_table={'width': '95%'}
                     )
                 ]),
 
@@ -212,6 +217,9 @@ def run_server():
         elif value == 'ETC-USD':
             return get_book_stats_data(master.get_books("etc"))
 
+        elif value == 'POLY-USD':
+            return get_book_stats_data(master.get_books("poly"))
+
         else:
             return get_book_stats_data(master.get_books("eth"))
 
@@ -252,6 +260,8 @@ def run_server():
             return build_graph(master.get_books("fet"), g_value, s_value)
         elif value == 'ETC-USD':
             return build_graph(master.get_books("etc"), g_value, s_value)
+        elif value == 'POLY-USD':
+            return build_graph(master.get_books("poly"), g_value, s_value)
         else:
             return build_graph(master.get_books("eth"), g_value, s_value)
 
@@ -273,6 +283,13 @@ def build_graph(order_book, g_value, s_value):
         fig.add_vline(x=order_book.mid_market,
                       annotation_text='Mid-Market Price: ' + "{:.2f}".format(order_book.mid_market),
                       annotation_position='top')
+
+        fig.update_layout(
+            plot_bgcolor='#262626',
+            paper_bgcolor='#262626',
+            font_color='white'
+        )
+
         new_df = pandas.DataFrame(order_book.trade_list)
         return fig, order_book.get_subtitle(), new_df.to_dict('records')
 
@@ -303,6 +320,12 @@ def build_graph(order_book, g_value, s_value):
                                              close=df['close'])])
 
         fig.update_layout(xaxis_rangeslider_visible=False)
+
+        fig.update_layout(
+            plot_bgcolor='#262626',
+            paper_bgcolor='#262626',
+            font_color='white'
+        )
 
         new_df = pandas.DataFrame(order_book.trade_list)
 
@@ -340,6 +363,12 @@ def build_graph(order_book, g_value, s_value):
                       annotation_text='Mid-Market Price: ' + "{:.2f}".format(order_book.mid_market),
                       annotation_position='top')
 
+        fig.update_layout(
+            plot_bgcolor='#262626',
+            paper_bgcolor='#262626',
+            font_color='white'
+        )
+
         new_df = pandas.DataFrame(order_book.trade_list)
 
         return fig, order_book.get_subtitle(), new_df.to_dict('records')
@@ -351,6 +380,7 @@ def get_book_stats_data(orderbook):
            orderbook.get_num_sells(), \
            orderbook.get_value_buys(), \
            orderbook.get_value_sells()
+
 
 if __name__ == "__main__":
     # Web server thread
@@ -374,5 +404,8 @@ if __name__ == "__main__":
                                                    master.get_books('chz'),
                                                    master.get_books('mana'),
                                                    master.get_books('fet'),
-                                                   master.get_books('etc')])
+                                                   master.get_books('etc'),
+                                                   master.get_books('poly')])
     t1.start()
+
+    # run_server()
