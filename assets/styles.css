@@ -23,24 +23,23 @@ output {
 
 .left {
   left: 0;
+    padding-left: 1%;
 }
 
 .right {
   right: 0;
+    padding-right: 1%;
 }
 
 #token-selector {
     width: 12.5vw;
     display: inline-block;
     float: left;
-    color: white;
-    border-color: #d16baf;
 }
 
 .VirtualizedSelectOption {
     background-color: #262626;
     color: white;
-    border-color: #d16baf;
 }
 
 .VirtualizedSelectFocusedOption {
@@ -50,31 +49,37 @@ output {
 }
 
 .Select-control {
-    background-color: #525252; !important;
+    background-color: #262626; !important;
     border-color: #d16baf;
+    color: white;
 }
 
 .Select-input {
-    background-color: #525252;
+    background-color: #262626;
     border-color: #d16baf;
 }
 
 .Select-placeholder {
-    background-color: #525252;
+    background-color: #262626;
     border-color: #d16baf;
 }
 
 .Select-menu-outer {
-    background-color: #525252;
+    background-color: #262626;
 }
 
 .Select-value {
-    background-color: #525252;
+    background-color: #262626;
     border-color: #d16baf;
+    color: white;
+}
+
+.Select-value-label{
+    color: white;
 }
 
 .Select-arrow-zone {
-    background-color: #525252;
+    background-color: #262626;
     border-color: #d16baf;
 }
 

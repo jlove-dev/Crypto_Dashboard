@@ -407,5 +407,7 @@ if __name__ == "__main__":
                                                    master.get_books('etc'),
                                                    master.get_books('poly')])
     t1.start()
+    t2.join()
+    t1.join()
 
     # run_server()
