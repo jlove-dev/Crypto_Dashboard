@@ -47,19 +47,19 @@ def run_server():
                             id='token-selector',
                             placeholder='Token',
                             options=[
-                                {'label': 'BTC', 'value': 'BTC-USD'},
-                                {'label': 'ETH', 'value': 'ETH-USD'},
-                                {'label': 'ADA', 'value': 'ADA-USD'},
-                                {'label': 'MATIC', 'value': 'MATIC-USD'},
-                                {'label': 'BAT', 'value': 'BAT-USD'},
-                                {'label': 'DOT', 'value': 'DOT-USD'},
-                                {'label': 'ALGO', 'value': 'ALGO-USD'},
-                                {'label': 'UNI', 'value': 'UNI-USD'},
-                                {'label': 'SOL', 'value': 'SOL-USD'},
-                                {'label': 'CHZ', 'value': 'CHZ-USD'},
-                                {'label': 'MANA', 'value': 'MANA-USD'},
-                                {'label': 'ETC', 'value': 'ETC-USD'},
-                                {'label': 'XTZ', 'value': 'XTZ-USD'}
+                                {'label': 'BTC', 'value': 'btc'},
+                                {'label': 'ETH', 'value': 'eth'},
+                                {'label': 'ADA', 'value': 'ada'},
+                                {'label': 'MATIC', 'value': 'matic'},
+                                {'label': 'BAT', 'value': 'bat'},
+                                {'label': 'DOT', 'value': 'dot'},
+                                {'label': 'ALGO', 'value': 'algo'},
+                                {'label': 'UNI', 'value': 'uni'},
+                                {'label': 'SOL', 'value': 'sol'},
+                                {'label': 'CHZ', 'value': 'chz'},
+                                {'label': 'MANA', 'value': 'mana'},
+                                {'label': 'ETC', 'value': 'etc'},
+                                {'label': 'XTZ', 'value': 'xtz'}
                             ]
                         ),
                         dcc.Dropdown(
@@ -177,45 +177,8 @@ def run_server():
                   [Input('stats-interval', 'n_intervals'),
                    Input('token-selector', 'value')])
     def update_stats(n, value):
-        if value == 'BTC-USD':
-            return get_book_stats_data(master.get_books("btc"))
-
-        elif value == 'ETH-USD':
-            return get_book_stats_data(master.get_books("eth"))
-
-        elif value == 'ADA-USD':
-            return get_book_stats_data(master.get_books("ada"))
-
-        elif value == 'MATIC-USD':
-            return get_book_stats_data(master.get_books("matic"))
-
-        elif value == 'BAT-USD':
-            return get_book_stats_data(master.get_books("bat"))
-
-        elif value == 'DOT-USD':
-            return get_book_stats_data(master.get_books("dot"))
-
-        elif value == 'ALGO-USD':
-            return get_book_stats_data(master.get_books("algo"))
-
-        elif value == 'UNI-USD':
-            return get_book_stats_data(master.get_books("uni"))
-
-        elif value == 'SOL-USD':
-            return get_book_stats_data(master.get_books("sol"))
-
-        elif value == 'CHZ-USD':
-            return get_book_stats_data(master.get_books("chz"))
-
-        elif value == 'MANA-USD':
-            return get_book_stats_data(master.get_books("mana"))
-
-        elif value == 'ETC-USD':
-            return get_book_stats_data(master.get_books("etc"))
-
-        elif value == 'XTZ-USD':
-            return get_book_stats_data(master.get_books("xtz"))
-
+        if value is not None:
+            return get_book_stats_data(master.get_books(value))
         else:
             return get_book_stats_data(master.get_books("eth"))
 
@@ -230,32 +193,8 @@ def run_server():
     def update_graph(n, value, g_value, s_value):
         # Layout the graph
         # BTC
-        if value == 'BTC-USD':
-            return build_graph(master.get_books("btc"), g_value, s_value)
-        elif value == 'ETH-USD':
-            return build_graph(master.get_books("eth"), g_value, s_value)
-        elif value == 'ADA-USD':
-            return build_graph(master.get_books("ada"), g_value, s_value)
-        elif value == 'MATIC-USD':
-            return build_graph(master.get_books("matic"), g_value, s_value)
-        elif value == 'BAT-USD':
-            return build_graph(master.get_books("bat"), g_value, s_value)
-        elif value == 'DOT-USD':
-            return build_graph(master.get_books("dot"), g_value, s_value)
-        elif value == 'ALGO-USD':
-            return build_graph(master.get_books("algo"), g_value, s_value)
-        elif value == 'UNI-USD':
-            return build_graph(master.get_books("uni"), g_value, s_value)
-        elif value == 'SOL-USD':
-            return build_graph(master.get_books("sol"), g_value, s_value)
-        elif value == 'CHZ-USD':
-            return build_graph(master.get_books("chz"), g_value, s_value)
-        elif value == 'MANA-USD':
-            return build_graph(master.get_books("mana"), g_value, s_value)
-        elif value == 'ETC-USD':
-            return build_graph(master.get_books("etc"), g_value, s_value)
-        elif value == 'XTZ-USD':
-            return build_graph(master.get_books("xtz"), g_value, s_value)
+        if value is not None:
+            return build_graph(master.get_books(value), g_value, s_value)
         else:
             return build_graph(master.get_books("eth"), g_value, s_value)
 
