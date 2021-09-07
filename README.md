@@ -39,9 +39,9 @@ I have a lot of visions for this project. Some of the todos include:
 |file|idea|status|
 |----|----|------|
 |webserver.py|Add another widget to display current price|incomplete|
-|webserver.py|Allow the user to change graph types|incomplete|
-|webserver.py|Reduce size of currency table|incomplete|
-|webserver.py|Display cumulative statistics for session|incomplete|
+|webserver.py|Allow the user to change graph types|complete|
+|webserver.py|Reduce size of currency table|complete|
+|webserver.py|Display cumulative statistics for session|complete|
 |cryptofeed_worker.py|Change class to not store L2 updates if the coin isn't selected - performance update|incomplete|
 |cryptofeed_worker.py|Potential long term change to remove cryptofeed dependency and make custom coinbase API requests|incomplete|
 |webserver.py|Rename main.py to webserver.py|complete|
