@@ -88,7 +88,7 @@ class OrderBook(object):
     # Function which adds the initial book to the object
     # Only the book parameter is used however according to cryptofeed documentation
     # Best practice is to include the rest of the parameters
-    def add_book(self, feed, symbol, book, timestamp, receipt_timestamp):
+    async def add_book(self, feed, symbol, book, timestamp, receipt_timestamp):
         if not self.book:  # First entry
             self.book = deepcopy(book)
             print('Book set!')
@@ -226,38 +226,32 @@ def get_mana_feed():
     return ['MANA-USD']
 
 
-def get_fet_feed():
-    return ['FET-USD']
+def get_xtz_feed():
+    return ['XTZ-USD']
 
 
 def get_etc_feed():
     return ['ETC-USD']
 
 
-def get_poly_feed():
-    return ['POLY-USD']
-
-
 def start_feed(btc_book, eth_book, ada_book, matic_book, bat_book, dot_book, algo_book, uni_book,
-               sol_book, chz_book, mana_book, fet_book, etc_book, poly_book):
+               sol_book, chz_book, mana_book, etc_book, xtz_book):
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
-    handler.add_feed(Coinbase(max_depth=200, symbols=get_btc_feed(), channels=[L2_BOOK, TRADES], callbacks=btc_book.L2))
-    handler.add_feed(Coinbase(max_depth=200, symbols=get_eth_feed(), channels=[L2_BOOK, TRADES], callbacks=eth_book.L2))
-    handler.add_feed(Coinbase(max_depth=200, symbols=get_ada_feed(), channels=[L2_BOOK, TRADES], callbacks=ada_book.L2))
+    handler.add_feed(Coinbase(max_depth=500, symbols=get_btc_feed(), channels=[L2_BOOK, TRADES], callbacks=btc_book.L2))
+    handler.add_feed(Coinbase(max_depth=500, symbols=get_eth_feed(), channels=[L2_BOOK, TRADES], callbacks=eth_book.L2))
+    handler.add_feed(Coinbase(max_depth=500, symbols=get_ada_feed(), channels=[L2_BOOK, TRADES], callbacks=ada_book.L2))
     handler.add_feed(
-        Coinbase(max_depth=200, symbols=get_matic_feed(), channels=[L2_BOOK, TRADES], callbacks=matic_book.L2))
-    handler.add_feed(Coinbase(max_depth=200, symbols=get_bat_feed(), channels=[L2_BOOK, TRADES], callbacks=bat_book.L2))
-    handler.add_feed(Coinbase(max_depth=200, symbols=get_dot_feed(), channels=[L2_BOOK, TRADES], callbacks=dot_book.L2))
+        Coinbase(max_depth=500, symbols=get_matic_feed(), channels=[L2_BOOK, TRADES], callbacks=matic_book.L2))
+    handler.add_feed(Coinbase(max_depth=500, symbols=get_bat_feed(), channels=[L2_BOOK, TRADES], callbacks=bat_book.L2))
+    handler.add_feed(Coinbase(max_depth=500, symbols=get_dot_feed(), channels=[L2_BOOK, TRADES], callbacks=dot_book.L2))
     handler.add_feed(
-        Coinbase(max_depth=200, symbols=get_algo_feed(), channels=[L2_BOOK, TRADES], callbacks=algo_book.L2))
-    handler.add_feed(Coinbase(max_depth=200, symbols=get_uni_feed(), channels=[L2_BOOK, TRADES], callbacks=uni_book.L2))
-    handler.add_feed(Coinbase(max_depth=200, symbols=get_sol_feed(), channels=[L2_BOOK, TRADES], callbacks=sol_book.L2))
-    handler.add_feed(Coinbase(max_depth=200, symbols=get_chz_feed(), channels=[L2_BOOK, TRADES], callbacks=chz_book.L2))
+        Coinbase(max_depth=500, symbols=get_algo_feed(), channels=[L2_BOOK, TRADES], callbacks=algo_book.L2))
+    handler.add_feed(Coinbase(max_depth=500, symbols=get_uni_feed(), channels=[L2_BOOK, TRADES], callbacks=uni_book.L2))
+    handler.add_feed(Coinbase(max_depth=500, symbols=get_sol_feed(), channels=[L2_BOOK, TRADES], callbacks=sol_book.L2))
+    handler.add_feed(Coinbase(max_depth=500, symbols=get_chz_feed(), channels=[L2_BOOK, TRADES], callbacks=chz_book.L2))
     handler.add_feed(
-        Coinbase(max_depth=200, symbols=get_mana_feed(), channels=[L2_BOOK, TRADES], callbacks=mana_book.L2))
-    handler.add_feed(Coinbase(max_depth=400, symbols=get_fet_feed(), channels=[L2_BOOK, TRADES], callbacks=fet_book.L2))
-    handler.add_feed(Coinbase(max_depth=200, symbols=get_etc_feed(), channels=[L2_BOOK, TRADES], callbacks=etc_book.L2))
-    handler.add_feed(
-        Coinbase(max_depth=200, symbols=get_poly_feed(), channels=[L2_BOOK, TRADES], callbacks=poly_book.L2))
+        Coinbase(max_depth=500, symbols=get_mana_feed(), channels=[L2_BOOK, TRADES], callbacks=mana_book.L2))
+    handler.add_feed(Coinbase(max_depth=500, symbols=get_xtz_feed(), channels=[L2_BOOK, TRADES], callbacks=xtz_book.L2))
+    handler.add_feed(Coinbase(max_depth=500, symbols=get_etc_feed(), channels=[L2_BOOK, TRADES], callbacks=etc_book.L2))
     handler.run(install_signal_handlers=False)

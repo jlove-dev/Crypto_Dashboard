@@ -59,20 +59,15 @@ class MasterObject:
                                         'MANA',
                                         'MANA-USD Live Chart')
 
-        self.fetBookObject = OrderBook('fet',
-                                       'FET-USD',
-                                       'FET',
-                                       'FET-USD Live Chart')
-
         self.etcBookObject = OrderBook('etc',
                                        'ETC-USD',
                                        'ETC',
                                        'ETC-USD Live Chart')
 
-        self.polyBookObject = OrderBook('poly',
-                                        'POLY-USD',
-                                        'POLY',
-                                        'POLY-USD Live Chart')
+        self.tezosBookObject = OrderBook('xtz',
+                                         'XTZ-USD',
+                                         'XTZ',
+                                         'XTZ-USD Live Chart')
 
         self.dict_of_books = {
             "btc": self.btcBookObject,
@@ -86,9 +81,8 @@ class MasterObject:
             "sol": self.solBookObject,
             "chz": self.chzBookObject,
             "mana": self.manaBookObject,
-            "fet": self.fetBookObject,
             "etc": self.etcBookObject,
-            "poly": self.polyBookObject
+            "xtz": self.tezosBookObject
         }
 
     def get_books(self, book):

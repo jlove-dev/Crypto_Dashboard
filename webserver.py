@@ -58,9 +58,8 @@ def run_server():
                                 {'label': 'SOL', 'value': 'SOL-USD'},
                                 {'label': 'CHZ', 'value': 'CHZ-USD'},
                                 {'label': 'MANA', 'value': 'MANA-USD'},
-                                {'label': 'FET', 'value': 'FET-USD'},
                                 {'label': 'ETC', 'value': 'ETC-USD'},
-                                {'label': 'POLY', 'value': 'POLY-USD'}
+                                {'label': 'XTZ', 'value': 'XTZ-USD'}
                             ]
                         ),
                         dcc.Dropdown(
@@ -86,7 +85,7 @@ def run_server():
                                                  "value": "ETH-USD Price"
                                              },
                                              title="ETH-USD Depth Chart using cryptofeed and Dash"),
-                              style={'width': '95%'}
+                              style={'width': '90%'}
                               ),
                     html.Div(id='gran-slider',
                              children=[dcc.Slider(id='get-slider-value',
@@ -94,9 +93,9 @@ def run_server():
                                                   max=5,
                                                   step=None,
                                                   marks={
-                                                      0: '1 Minute',
-                                                      1: '5 Minute',
-                                                      2: '15 Minute',
+                                                      0: '1 Min',
+                                                      1: '5 Min',
+                                                      2: '15 Min',
                                                       3: '1 Hour',
                                                       4: '6 Hour',
                                                       5: '24 Hour'
@@ -211,14 +210,11 @@ def run_server():
         elif value == 'MANA-USD':
             return get_book_stats_data(master.get_books("mana"))
 
-        elif value == 'FET-USD':
-            return get_book_stats_data(master.get_books("fet"))
-
         elif value == 'ETC-USD':
             return get_book_stats_data(master.get_books("etc"))
 
-        elif value == 'POLY-USD':
-            return get_book_stats_data(master.get_books("poly"))
+        elif value == 'XTZ-USD':
+            return get_book_stats_data(master.get_books("xtz"))
 
         else:
             return get_book_stats_data(master.get_books("eth"))
@@ -256,12 +252,10 @@ def run_server():
             return build_graph(master.get_books("chz"), g_value, s_value)
         elif value == 'MANA-USD':
             return build_graph(master.get_books("mana"), g_value, s_value)
-        elif value == 'FET-USD':
-            return build_graph(master.get_books("fet"), g_value, s_value)
         elif value == 'ETC-USD':
             return build_graph(master.get_books("etc"), g_value, s_value)
-        elif value == 'POLY-USD':
-            return build_graph(master.get_books("poly"), g_value, s_value)
+        elif value == 'XTZ-USD':
+            return build_graph(master.get_books("xtz"), g_value, s_value)
         else:
             return build_graph(master.get_books("eth"), g_value, s_value)
 
@@ -324,7 +318,8 @@ def build_graph(order_book, g_value, s_value):
         fig.update_layout(
             plot_bgcolor='#262626',
             paper_bgcolor='#262626',
-            font_color='white'
+            font_color='white',
+            autosize=True
         )
 
         new_df = pandas.DataFrame(order_book.trade_list)
@@ -403,9 +398,8 @@ if __name__ == "__main__":
                                                    master.get_books('sol'),
                                                    master.get_books('chz'),
                                                    master.get_books('mana'),
-                                                   master.get_books('fet'),
                                                    master.get_books('etc'),
-                                                   master.get_books('poly')])
+                                                   master.get_books('xtz')])
     t1.start()
     t2.join()
     t1.join()

@@ -75,7 +75,7 @@ output {
 }
 
 .Select-value-label{
-    color: white;
+    color: white !important;
 }
 
 .Select-arrow-zone {
@@ -108,6 +108,11 @@ output {
     display: inline-block;
 }
 
+#get-slider-value {
+    padding-bottom: 0;
+    padding-left: 0;
+    padding-top: 0;
+}
 .stats_area {
     float: right;
     display: inline-block;
