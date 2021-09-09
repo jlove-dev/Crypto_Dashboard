@@ -320,7 +320,7 @@ if __name__ == "__main__":
     # Web server thread
     t2 = threading.Thread(target=run_server)
     t2.start()
-    time.sleep(2)
+    time.sleep(1)
 
     # Start threading for both the cryptofeed worker and web server
     # Cryptofeed thread takes the global carrier object as a parameter which is passed in as a callback
