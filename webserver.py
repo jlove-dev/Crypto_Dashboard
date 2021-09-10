@@ -37,8 +37,9 @@ def run_server():
         html.Div(
             className='split left',
             children=[
-                html.Div([html.H3('ETH-USD Live Depth Chart',
-                                  id='header')]),
+                html.Div(children=[html.H3('ETH-USD Live Depth Chart',
+                                           id='header')]),
+
                 html.Div(
                     id='dropdowns',
                     children=
@@ -110,7 +111,8 @@ def run_server():
                         id='trade_table',
                         columns=[{"name": i, "id": i} for i in base_df],
                         data=base_df.to_dict('records'),
-                        style_cell={'textAlign': 'center', 'background-color': '#525252', 'text-color': 'white', 'fontWeight': 'bold'},
+                        style_cell={'textAlign': 'center', 'background-color': '#525252', 'text-color': 'white',
+                                    'fontWeight': 'bold'},
                         style_table={'width': '95%'}
                     )
                 ]),
@@ -223,6 +225,21 @@ def build_graph(order_book, g_value, s_value):
             font_color='white'
         )
 
+        fig.add_layout_image(
+            dict(
+                source=order_book.get_logo(),
+                xref='paper',
+                yref='paper',
+                x=0.25,
+                y=1,
+                sizex=1,
+                sizey=1,
+                layer='below',
+                sizing='contain',
+                opacity=0.075
+            )
+        )
+
         new_df = pandas.DataFrame(order_book.trade_list)
         return fig, order_book.get_subtitle(), new_df.to_dict('records')
 
@@ -259,6 +276,21 @@ def build_graph(order_book, g_value, s_value):
             paper_bgcolor='#262626',
             font_color='white',
             autosize=True
+        )
+
+        fig.add_layout_image(
+            dict(
+                source=order_book.get_logo(),
+                xref='paper',
+                yref='paper',
+                x=0.25,
+                y=1,
+                sizex=1,
+                sizey=1,
+                layer='below',
+                sizing='contain',
+                opacity=0.075
+            )
         )
 
         new_df = pandas.DataFrame(order_book.trade_list)
@@ -301,6 +333,21 @@ def build_graph(order_book, g_value, s_value):
             plot_bgcolor='#262626',
             paper_bgcolor='#262626',
             font_color='white'
+        )
+
+        fig.add_layout_image(
+            dict(
+                source=order_book.get_logo(),
+                xref='paper',
+                yref='paper',
+                x=0.25,
+                y=1,
+                sizex=1,
+                sizey=1,
+                layer='below',
+                sizing='contain',
+                opacity=0.075
+            )
         )
 
         new_df = pandas.DataFrame(order_book.trade_list)

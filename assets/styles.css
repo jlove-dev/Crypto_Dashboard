@@ -3,6 +3,14 @@ h3 {
     font-family: Andale Mono, monospace;
 }
 
+#logo {
+    width: auto;
+    max-height: 5vh;
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 output {
     width: 25vw;
     float: right;
@@ -92,7 +100,8 @@ output {
 
 #header {
     float: left;
-    width: 50vw;
+    width: 45vw;
+    display: inline-block;
 }
 
 .stats {

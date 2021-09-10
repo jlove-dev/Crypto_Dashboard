@@ -46,6 +46,7 @@ class OrderBook(object):
         self.symbol_string = symbol + ' Price'
         self.size = size
         self.sub_title = sub_title
+        self.logo = '/assets/' + self.name + '.png'
 
         # Local object data attributes - not passed in
         self.book = None
@@ -180,6 +181,9 @@ class OrderBook(object):
 
     def get_candle_worker(self):
         return self.candle_worker
+
+    def get_logo(self):
+        return self.logo
 
 
 def get_btc_feed():
