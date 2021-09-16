@@ -4,6 +4,8 @@ This project is a WIP as a way to display useful information about cryptocurrenc
 
 It currently uses cryptofeed (https://github.com/bmoscon/cryptofeed) and Dash by Plotly (https://plotly.com/dash/) to display live Coinbase data.
 
+Please take a look at the linuxOptimizationBranch of this project. I've included my own repo (https://github.com/JoshLove-portfolio/Coinbase_L2_Socket_Lite) in order to make this dashboard run on limited hardware. For now, my focus will be on that however I'll continue to develop this windows branch in due time. 
+
 # Installation
 
 To begin, download this project as a zip or clone through your normal Git methods. In this project's current status, it's recommended to download PyCharm in order to run rather than command line. 
@@ -43,5 +45,5 @@ I have a lot of visions for this project. Some of the todos include:
 |webserver.py|Reduce size of currency table|complete|
 |webserver.py|Display cumulative statistics for session|complete|
 |cryptofeed_worker.py|Change class to not store L2 updates if the coin isn't selected - performance update|incomplete|
-|cryptofeed_worker.py|Potential long term change to remove cryptofeed dependency and make custom coinbase API requests|incomplete|
+|cryptofeed_worker.py|Potential long term change to remove cryptofeed dependency and make custom coinbase API requests|complete - in linuxOptimizationTest branch|
 |webserver.py|Rename main.py to webserver.py|complete|
