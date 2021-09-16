@@ -1,9 +1,18 @@
 {
-    "type": "subscribe",
-    "product_ids": [
-        "ETH-USD"
-    ],
-    "channels": [
-        "level2"
-    ]
+	"type": "subscribe",
+	"product_ids": [
+		"ETH-USD",
+		"BTC-USD",
+		"ADA-USD",
+		"SOL-USD",
+		"XTZ-USD",
+		"ALGO-USD",
+		"ATOM-USD",
+		"MATIC-USD",
+		"DOT-USD",
+		"AAVE-USD"
+	],
+	"channels": [
+		"level2"
+	]
 }
